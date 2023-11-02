@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"fmt"
-	"tkoh_oms/database"
-	"tkoh_oms/errors"
-	"tkoh_oms/models"
-	"tkoh_oms/models/loginAuth"
-	"tkoh_oms/utils"
+
+	"github.com/SoNim-LSCM/TKOH_OMS/database"
+	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"github.com/SoNim-LSCM/TKOH_OMS/models"
+	"github.com/SoNim-LSCM/TKOH_OMS/models/loginAuth"
+	"github.com/SoNim-LSCM/TKOH_OMS/utils"
 
 	"github.com/gofiber/fiber/v2"
 )

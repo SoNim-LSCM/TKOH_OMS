@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
-	"tkoh_oms/database"
-	"tkoh_oms/errors"
-	"tkoh_oms/models"
-	"tkoh_oms/models/mapHandling"
+
+	"github.com/SoNim-LSCM/TKOH_OMS/database"
+	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"github.com/SoNim-LSCM/TKOH_OMS/models"
+	"github.com/SoNim-LSCM/TKOH_OMS/models/mapHandling"
 
 	"github.com/gofiber/fiber/v2"
 )

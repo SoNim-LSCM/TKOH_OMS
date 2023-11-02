@@ -5,13 +5,13 @@ import (
 	"os"
 	"time"
 
-	"tkoh_oms/config"
-	"tkoh_oms/errors"
+	"github.com/SoNim-LSCM/TKOH_OMS/config"
+	"github.com/SoNim-LSCM/TKOH_OMS/errors"
 
-	// "tkoh_oms/mqtt"
-	"tkoh_oms/database"
-	"tkoh_oms/router"
-	"tkoh_oms/websocket"
+	// "github.com/SoNim-LSCM/TKOH_OMS/mqtt"
+	"github.com/SoNim-LSCM/TKOH_OMS/database"
+	"github.com/SoNim-LSCM/TKOH_OMS/router"
+	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"

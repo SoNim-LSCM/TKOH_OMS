@@ -7,8 +7,9 @@ import (
 	"os"
 	"strconv"
 	"time"
-	db_models "tkoh_oms/database/models"
-	"tkoh_oms/errors"
+
+	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
+	"github.com/SoNim-LSCM/TKOH_OMS/errors"
 
 	"io/ioutil"
 

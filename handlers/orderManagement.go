@@ -3,9 +3,10 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"tkoh_oms/errors"
-	"tkoh_oms/models"
-	"tkoh_oms/models/orderManagement"
+
+	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"github.com/SoNim-LSCM/TKOH_OMS/models"
+	"github.com/SoNim-LSCM/TKOH_OMS/models/orderManagement"
 
 	"github.com/gofiber/fiber/v2"
 )

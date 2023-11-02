@@ -1,8 +1,8 @@
 package main
 
 import (
-	"tkoh_oms/app"
-	_ "tkoh_oms/docs"
+	"github.com/SoNim-LSCM/TKOH_OMS/app"
+	_ "github.com/SoNim-LSCM/TKOH_OMS/docs"
 )
 
 // @title			TKOH OMS

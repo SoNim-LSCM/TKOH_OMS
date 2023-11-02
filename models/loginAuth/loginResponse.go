@@ -1,6 +1,6 @@
 package loginAuth
 
-import "tkoh_oms/models"
+import "github.com/SoNim-LSCM/TKOH_OMS/models"
 
 type LoginResponse struct {
 	Header models.ResponseHeader `json:"header"`

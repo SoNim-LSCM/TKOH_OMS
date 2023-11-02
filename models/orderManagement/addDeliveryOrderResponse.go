@@ -1,6 +1,6 @@
 package orderManagement
 
-import "tkoh_oms/models"
+import "github.com/SoNim-LSCM/TKOH_OMS/models"
 
 type AddDeliveryOrderResponse struct {
 	Header models.ResponseHeader `json:"header"`

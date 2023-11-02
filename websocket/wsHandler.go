@@ -6,8 +6,9 @@ import (
 	"encoding/json"
 	"log"
 	"os"
-	"tkoh_oms/errors"
-	"tkoh_oms/models/loginAuth"
+
+	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"github.com/SoNim-LSCM/TKOH_OMS/models/loginAuth"
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"

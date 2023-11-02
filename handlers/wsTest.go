@@ -2,12 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
-	// "tkoh_oms/models"
+	// "github.com/SoNim-LSCM/TKOH_OMS/models"
 
-	"tkoh_oms/errors"
-	"tkoh_oms/models/systemStatus"
-	"tkoh_oms/models/wsTest"
-	"tkoh_oms/websocket"
+	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"github.com/SoNim-LSCM/TKOH_OMS/models/systemStatus"
+	"github.com/SoNim-LSCM/TKOH_OMS/models/wsTest"
+	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
 
 	"github.com/gofiber/fiber/v2"
 )

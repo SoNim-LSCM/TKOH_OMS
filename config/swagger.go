@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	fiberSwagger "github.com/swaggo/fiber-swagger"
 
-	_ "tkoh_oms/docs"
+	_ "github.com/SoNim-LSCM/TKOH_OMS/docs"
 )
 
 func AddSwaggerRoutes(app *fiber.App) {
