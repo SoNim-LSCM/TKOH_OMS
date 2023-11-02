@@ -1,4 +1,4 @@
-module tkoh_oms
+module github.com/SoNim-LSCM/TKOH_OMS
 
 go 1.21
 
