@@ -1,0 +1,530 @@
+basePath: /oms/
+definitions:
+  handlers.AddDeliveryOrderDTO:
+    properties:
+      endLocationId:
+        type: integer
+      endLocationName:
+        type: string
+      expectingDeliveryTime:
+        type: string
+      expectingStartTime:
+        type: string
+      numberOfAmrRequire:
+        type: integer
+      orderType:
+        type: string
+      startLocationId:
+        type: integer
+      startLocationName:
+        type: string
+    type: object
+  handlers.CancelDeliveryOrderDTO:
+    properties:
+      scheduleId:
+        type: integer
+    type: object
+  handlers.LoginAdminDTO:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  handlers.LoginStaffDTO:
+    properties:
+      dutyLocationId:
+        type: integer
+      username:
+        type: string
+    type: object
+  handlers.UpdateDeliveryOrderDTO:
+    properties:
+      endLocationId:
+        type: integer
+      endLocationName:
+        type: string
+      expectingDeliveryTime:
+        type: string
+      expectingStartTime:
+        type: string
+      numberOfAmrRequire:
+        type: integer
+      scheduleId:
+        type: integer
+      startLocationId:
+        type: integer
+      startLocationName:
+        type: string
+    type: object
+  loginAuth.LoginResponse:
+    properties:
+      body:
+        $ref: '#/definitions/loginAuth.LoginResponseBody'
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
+  loginAuth.LoginResponseBody:
+    properties:
+      authToken:
+        type: string
+      dutyLocationId:
+        type: integer
+      dutyLocationName:
+        type: string
+      loginDateTime:
+        type: string
+      tokenExpiryDateTime:
+        type: string
+      userId:
+        type: integer
+      userType:
+        type: string
+      username:
+        type: string
+    type: object
+  loginAuth.LogoutResponse:
+    properties:
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
+  mapHandling.GetDutyRoomsResponse:
+    properties:
+      body:
+        $ref: '#/definitions/mapHandling.LocationListBody'
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
+  mapHandling.GetFloorPlanResponse:
+    properties:
+      body:
+        $ref: '#/definitions/mapHandling.MapListBody'
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
+  mapHandling.LocationListBody:
+    properties:
+      locationList:
+        items:
+          properties:
+            locationId:
+              type: integer
+            locationName:
+              type: string
+          type: object
+        type: array
+    type: object
+  mapHandling.MapListBody:
+    properties:
+      mapList:
+        items:
+          properties:
+            floorId:
+              type: integer
+            floorImage:
+              type: string
+            floorName:
+              type: string
+          type: object
+        type: array
+    type: object
+  models.FailResponse:
+    properties:
+      header:
+        $ref: '#/definitions/models.FailResponseHeader'
+    type: object
+  models.FailResponseHeader:
+    properties:
+      failedReason:
+        type: string
+      responseCode:
+        type: integer
+      responseMessage:
+        type: string
+    type: object
+  models.ResponseHeader:
+    properties:
+      responseCode:
+        type: integer
+      responseMessage:
+        type: string
+    type: object
+  orderManagement.AddDeliveryOrderResponse:
+    properties:
+      body:
+        $ref: '#/definitions/orderManagement.OrderListBody'
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
+  orderManagement.CancelDeliveryOrderResponse:
+    properties:
+      body:
+        $ref: '#/definitions/orderManagement.OrderListBody'
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
+  orderManagement.OrderListBody:
+    properties:
+      orderList:
+        items:
+          properties:
+            endLocationId:
+              type: integer
+            endLocationName:
+              type: string
+            endTime:
+              type: string
+            expectingDeliveryTime:
+              type: string
+            expectingStartTime:
+              type: string
+            orderCreatedBy:
+              type: integer
+            orderCreatedType:
+              type: string
+            orderId:
+              type: integer
+            orderStatus:
+              type: string
+            orderType:
+              type: string
+            processingStatus:
+              type: string
+            scheduleId:
+              type: integer
+            startLocationId:
+              type: integer
+            startLocationName:
+              type: string
+            startTime:
+              type: string
+          type: object
+        type: array
+    type: object
+  orderManagement.TriggerHandlingOrderResponse:
+    properties:
+      body:
+        $ref: '#/definitions/orderManagement.OrderListBody'
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
+  orderManagement.UpdateDeliveryOrderResponse:
+    properties:
+      body:
+        $ref: '#/definitions/orderManagement.OrderListBody'
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
+host: ams.lscm.hk
+info:
+  contact:
+    name: So Nim Wai
+  description: TKOH OMS Backend Server
+  license:
+    name: LSCM
+  title: TKOH OMS
+  version: "0.1"
+paths:
+  /addDeliveryOrder:
+    post:
+      consumes:
+      - application/json
+      description: Create adhoc delivery order.
+      parameters:
+      - description: Add Delivery Order Parameters
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.AddDeliveryOrderDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.AddDeliveryOrderResponse'
+      summary: Add Delivery Order.
+      tags:
+      - Order Management
+  /cancelDeliveryOrder:
+    post:
+      consumes:
+      - application/json
+      description: Update Non Started Delivery Order .
+      parameters:
+      - description: Cancel Delivery Parameters
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CancelDeliveryOrderDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.CancelDeliveryOrderResponse'
+      summary: Cancel Delivery Order.
+      tags:
+      - Order Management
+  /getDeliveryOrder:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the list of delivery order by order status .
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.OrderListBody'
+      summary: Get Delivery Order.
+      tags:
+      - Order Management
+  /getDutyRooms:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the list of location.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mapHandling.GetDutyRoomsResponse'
+      summary: Get Duty Rooms.
+      tags:
+      - Map Handling
+  /getFloorPlan:
+    get:
+      consumes:
+      - '*/*'
+      description: Get UI Floor Plan.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/mapHandling.GetFloorPlanResponse'
+      summary: Get Floor Plan.
+      tags:
+      - Map Handling
+  /health:
+    get:
+      consumes:
+      - '*/*'
+      description: get the status of server.
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+      summary: Show the status of server.
+      tags:
+      - Health
+  /loginAdmin:
+    post:
+      consumes:
+      - application/json
+      description: Login to OMS.
+      parameters:
+      - description: Login Parameters
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.LoginAdminDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/loginAuth.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      summary: Login to OMS.
+      tags:
+      - Login Auth
+  /loginStaff:
+    post:
+      consumes:
+      - application/json
+      description: Login to OMS.
+      parameters:
+      - description: Login Parameters
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.LoginStaffDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/loginAuth.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      summary: Login to OMS.
+      tags:
+      - Login Auth
+  /logout:
+    get:
+      consumes:
+      - application/json
+      description: Logout from OMS.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/loginAuth.LogoutResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
+      summary: Logout from OMS.
+      tags:
+      - Login Auth
+  /renewToken:
+    get:
+      consumes:
+      - '*/*'
+      description: Using Valid Token to renew token before expired
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/loginAuth.LogoutResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      summary: Websocket Connection.
+      tags:
+      - Login Auth
+  /testAW2:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the response of AW2 (Server notify the user which location
+        selected).
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+      summary: Test AW2 websocket response.
+      tags:
+      - Test
+  /testHW1:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the response of MW1 (Server report robot status and location
+        (every 1s) ).
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+      summary: Test MW1 websocket response.
+      tags:
+      - Test
+  /testOW1:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the response of OW2 (Server notify any of created order status
+        changed).
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+      summary: Test OW2 websocket response.
+      tags:
+      - Test
+  /testSW1:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the response of SW1 (Server report robot status and location
+        (every 1s) ).
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+      summary: Test SW1 websocket response.
+      tags:
+      - Test
+  /triggerHandlingOrder:
+    get:
+      consumes:
+      - '*/*'
+      description: Notify system users are ready to handle the current order.
+      parameters:
+      - description: Order IDs
+        in: query
+        name: orderIds
+        type: integer
+      - description: Schedule IDs
+        in: query
+        name: scheduleId
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.TriggerHandlingOrderResponse'
+      summary: Trigger Delivery Order.
+      tags:
+      - Order Management
+  /updateDeliveryOrder:
+    get:
+      consumes:
+      - application/json
+      description: Update Non Started Delivery Order .
+      parameters:
+      - description: Update Delivery Order Parameters
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UpdateDeliveryOrderDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.UpdateDeliveryOrderResponse'
+      summary: Update Delivery Order.
+      tags:
+      - Order Management
+securityDefinitions:
+  Bearer:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
