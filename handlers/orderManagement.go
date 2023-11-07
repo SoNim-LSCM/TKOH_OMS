@@ -3,149 +3,56 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/SoNim-LSCM/TKOH_OMS/models"
+	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/orderManagement"
+	"github.com/SoNim-LSCM/TKOH_OMS/service"
+	"github.com/SoNim-LSCM/TKOH_OMS/utils"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/gofiber/fiber/v2"
 )
-
-const DeliveryOrderRequest string = `[
-	{
-		"scheduleId": 1,
-		"orderId": 1,
-		"orderType": "PICK_AND_DELIVERY",
-		"orderCreatedType": "SCHEDULED",
-		"orderCreatedBy": 1,
-		"orderStatus": "PROCESSING",
-		"startTime": "202310120800",
-		"endTime": "202310121000",
-		"startLocationId": 1,
-		"startLocationName": "5/F DSC",
-		"expectingStartTime": "202310120830",
-		"endLocationId": 2,
-		"endLocationName": "LG/F Clean Zone",
-		"expectingDeliveryTime": "202310121000",
-		"processingStatus": "QUEUE_AT_START_BAY"
-	},
-	{
-		"scheduleId": 1,
-		"orderId": 2,
-		"orderType": "DELIVERY_ONLY",
-		"orderCreatedType": "SCHEDULED",
-		"orderCreatedBy": 1,
-		"orderStatus": "PROCESSING",
-		"startTime": "202310120800",
-		"endTime": "202310121000",
-		"startLocationId": 1,
-		"startLocationName": "5/F DSC",
-		"expectingStartTime": "202310120830",
-		"endLocationId": 3,
-		"endLocationName": "LG/F Dirty Zone",
-		"expectingDeliveryTime": "202310121000",
-		"processingStatus": "QUEUE_AT_START_BAY"
-	},
-	{
-		"scheduleId": 1,
-		"orderId": 3,
-		"orderType": "PICK_AND_DELIVERY",
-		"orderCreatedType": "SCHEDULED",
-		"orderCreatedBy": 1,
-		"orderStatus": "PROCESSING",
-		"startTime": "202310120800",
-		"endTime": "202310121000",
-		"startLocationId": 2,
-		"startLocationName": "LG/F Clean Zone",
-		"expectingStartTime": "202310120830",
-		"endLocationId": 1,
-		"endLocationName": "5/F DSC",
-		"expectingDeliveryTime": "202310121000",
-		"processingStatus": "QUEUE_AT_START_BAY"
-	},
-	{
-		"scheduleId": 1,
-		"orderId": 4,
-		"orderType": "DELIVERY_ONLY",
-		"orderCreatedType": "SCHEDULED",
-		"orderCreatedBy": 1,
-		"orderStatus": "PROCESSING",
-		"startTime": "202310120800",
-		"endTime": "202310121000",
-		"startLocationId": 3,
-		"startLocationName": "LG/F Dirty Zone",
-		"expectingStartTime": "202310120830",
-		"endLocationId": 1,
-		"endLocationName": "5/F DSC",
-		"expectingDeliveryTime": "202310121000",
-		"processingStatus": "QUEUE_AT_START_BAY"
-	}
-]`
 
 // @Summary		Get Delivery Order.
 // @Description	Get the list of delivery order by order status .
 // @Tags			Order Management
 // @Accept			*/*
+// @Param			orderStatus	query	[]string	true	"Order Status"
 //
-//	@Produce		json
-//	@Success		200	{object} orderManagement.OrderListBody
+// @Produce		json
+// @Success		200	{object} orderManagement.OrderListBody
+// @Failure     400 {object} models.FailResponse
 //
 // @Router			/getDeliveryOrder [get]
+// @Security Bearer
 func HandleGetDeliveryOrder(c *fiber.Ctx) error {
+	// verify token
+	_, _, err := utils.CtxToClaim(c)
+	// claim, _, err := utils.CtxToClaim(c)
+	if errorHandler.CheckError(err, "Invalid token: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Invalid token: " + err.Error()))
+	}
 	// get the todo from the request body
-	status := c.Query("status")
-	fmt.Println(status)
+	statusString := c.Query("orderStatus")
+	statusArray := strings.Split(statusString, ",")
+
+	orders, err := service.FindOrdersWithStatus(statusArray)
+	if errorHandler.CheckError(err, "Failed to search") {
+		return c.Status(400).JSON(models.GetFailResponse("Failed to search: " + err.Error()))
+	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
-	var orderList orderManagement.OrderList
-	err := json.Unmarshal([]byte(DeliveryOrderRequest), &orderList)
-	errors.CheckError(err, "translate string to json in orderManagement")
+	orderList, err := service.OrderListToOrderResponse(orders)
+	if errorHandler.CheckError(err, "Translate from db_models.Orders to orderManagement.OrderList failed") {
+		return c.Status(400).JSON(models.GetFailResponse("Translate from db_models.Orders to orderManagement.OrderList failed"))
+	}
 	body := orderManagement.OrderListBody{OrderList: orderList}
 	response := orderManagement.GetDeliveryOrderResponse{Header: header, Body: body}
 	// return the API Response
 	return c.Status(200).JSON(response)
-}
-
-const AddDeliveryOrderRequest string = `[
-	{
-		"scheduleId": 1,
-		"orderId": 1,
-		"orderType": "PICK_AND_DELIVERY",
-		"orderCreatedType": "ADHOC",
-		"orderCreatedBy": 1,
-		"orderStatus": "CREATED",
-		"startLocationId": 1,
-		"startLocationName": "5/F DSC",
-		"expectingStartTime": "202310120830",
-		"endLocationId": 2,
-		"endLocationName": "LG/F Clean Zone",
-		"expectingDeliveryTime": "202310121000"
-	},
-	{
-		"scheduleId": 1,
-		"orderId": 2,
-		"orderType": "PICK_AND_DELIVERY",
-		"orderCreatedType": "ADHOC",
-		"orderCreatedBy": 1,
-		"orderStatus": "CREATED",
-		"startLocationId": 1,
-		"startLocationName": "5/F DSC",
-		"expectingStartTime": "202310120830",
-		"endLocationId": 2,
-		"endLocationName": "LG/F Clean Zone",
-		"expectingDeliveryTime": "202310121000"
-	}
-]`
-
-type AddDeliveryOrderDTO struct {
-	OrderType             string `json:"orderType"`
-	NumberOfAmrRequire    int    `json:"numberOfAmrRequire"`
-	StartLocationID       int    `json:"startLocationId"`
-	StartLocationName     string `json:"startLocationName"`
-	ExpectingStartTime    string `json:"expectingStartTime"`
-	EndLocationID         int    `json:"endLocationId"`
-	EndLocationName       string `json:"endLocationName"`
-	ExpectingDeliveryTime string `json:"expectingDeliveryTime"`
 }
 
 // @Summary		Add Delivery Order.
@@ -153,25 +60,33 @@ type AddDeliveryOrderDTO struct {
 // @Tags			Order Management
 // @Accept			json
 //
-// @Param todo body AddDeliveryOrderDTO true "Add Delivery Order Parameters"
+// @Param todo body dto.AddDeliveryOrderDTO true "Add Delivery Order Parameters"
 //
-//	@Produce		json
-//	@Success		200	{object} orderManagement.AddDeliveryOrderResponse
+// @Produce		json
+// @Success		200	{object} orderManagement.AddDeliveryOrderResponse
+// @Failure     400 {object} models.FailResponse
 //
 // @Router			/addDeliveryOrder [post]
+// @Security Bearer
 func HandleAddDeliveryOrder(c *fiber.Ctx) error {
-	// get the todo from the request body
-	request := new(AddDeliveryOrderDTO)
-
-	// validate the request body
-	err := c.BodyParser(request)
-	if err != nil {
-		return c.Status(400).JSON(models.GetFailResponse("Bad Input"))
+	// verify token
+	claim, _, err := utils.CtxToClaim(c)
+	if errorHandler.CheckError(err, "Invalid token: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Invalid token: " + err.Error()))
 	}
-
+	// get the todo from the request body
+	var request dto.AddDeliveryOrderDTO
 	var orderList orderManagement.OrderList
-	err = json.Unmarshal([]byte(AddDeliveryOrderRequest), &orderList)
-	errors.CheckError(err, "translate string to json in orderManagement")
+	// validate the request body
+	if err := c.BodyParser(&request); errorHandler.CheckError(err, "Insufficient input paramters: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Insufficient input paramters: " + err.Error()))
+	}
+	err = c.BodyParser(&request)
+
+	orderList, err = service.AddOrders(request, claim.UserId)
+	if errorHandler.CheckError(err, "Add Orders Fail: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Add Orders Fail: " + err.Error()))
+	}
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	body := orderManagement.OrderListBody{OrderList: orderList}
 	response := orderManagement.AddDeliveryOrderResponse{Header: header, Body: body}
@@ -205,11 +120,12 @@ const TriggerHandlingOrder string = `[
 // @Tags			Order Management
 // @Accept			*/*
 //
-//	@Param			orderIds	query		int	false	"Order IDs"
-//	@Param	scheduleId	query		int	false	"Schedule IDs"
+// @Param			orderIds	query		int	false	"Order IDs"
+// @Param	scheduleId	query		int	false	"Schedule IDs"
 //
-//	@Produce		json
-//	@Success		200	{object} orderManagement.TriggerHandlingOrderResponse
+// @Produce		json
+// @Success		200	{object} orderManagement.TriggerHandlingOrderResponse
+// @Failure     400 {object} models.FailResponse
 //
 // @Router			/triggerHandlingOrder [get]
 func HandleTriggerHandlingOrder(c *fiber.Ctx) error {
@@ -222,7 +138,7 @@ func HandleTriggerHandlingOrder(c *fiber.Ctx) error {
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	var orderList orderManagement.OrderList
 	err := json.Unmarshal([]byte(TriggerHandlingOrder), &orderList)
-	errors.CheckError(err, "translate string to json in orderManagement")
+	errorHandler.CheckError(err, "translate string to json in orderManagement")
 	body := orderManagement.OrderListBody{OrderList: orderList}
 	response := orderManagement.TriggerHandlingOrderResponse{Header: header, Body: body}
 	// return the API Response
@@ -275,12 +191,13 @@ type UpdateDeliveryOrderDTO struct {
 // @Description	Update Non Started Delivery Order .
 // @Tags			Order Management
 //
-//	@Accept			json
+// @Accept			json
 //
 // @Param todo body UpdateDeliveryOrderDTO true "Update Delivery Order Parameters"
 //
-//	@Produce		json
-//	@Success		200	{object} orderManagement.UpdateDeliveryOrderResponse
+// @Produce		json
+// @Success		200	{object} orderManagement.UpdateDeliveryOrderResponse
+// @Failure     400 {object} models.FailResponse
 //
 // @Router			/updateDeliveryOrder [get]
 func HandleUpdateDeliveryOrder(c *fiber.Ctx) error {
@@ -289,14 +206,14 @@ func HandleUpdateDeliveryOrder(c *fiber.Ctx) error {
 
 	// validate the request body
 	err := c.BodyParser(request)
-	if err != nil {
-		return c.Status(400).JSON(fiber.Map{"bad input": err.Error()})
+	if errorHandler.CheckError(err, "Insufficient input paramters") {
+		return c.Status(400).JSON(fiber.Map{"Insufficient input paramters": err.Error()})
 	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	var orderList orderManagement.OrderList
 	err = json.Unmarshal([]byte(UpdateDeliveryOrder), &orderList)
-	errors.CheckError(err, "translate string to json in orderManagement")
+	errorHandler.CheckError(err, "translate string to json in orderManagement")
 	body := orderManagement.OrderListBody{OrderList: orderList}
 	response := orderManagement.UpdateDeliveryOrderResponse{Header: header, Body: body}
 	// return the API Response
@@ -328,12 +245,13 @@ type CancelDeliveryOrderDTO struct {
 // @Description	Update Non Started Delivery Order .
 // @Tags			Order Management
 //
-//	@Accept			json
+// @Accept			json
 //
 // @Param todo body CancelDeliveryOrderDTO true "Cancel Delivery Parameters"
 //
-//	@Produce		json
-//	@Success		200	{object} orderManagement.CancelDeliveryOrderResponse
+// @Produce		json
+// @Success		200	{object} orderManagement.CancelDeliveryOrderResponse
+// @Failure     400 {object} models.FailResponse
 //
 // @Router			/cancelDeliveryOrder [post]
 func HandleCancelDeliveryOrder(c *fiber.Ctx) error {
@@ -342,16 +260,81 @@ func HandleCancelDeliveryOrder(c *fiber.Ctx) error {
 
 	// validate the request body
 	err := c.BodyParser(request)
-	if err != nil {
-		return c.Status(400).JSON(fiber.Map{"bad input": err.Error()})
+	if errorHandler.CheckError(err, "Insufficient input paramters") {
+		return c.Status(400).JSON(fiber.Map{"Insufficient input paramters": err.Error()})
 	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	var orderList orderManagement.OrderList
 	err = json.Unmarshal([]byte(CancelDeliveryOrder), &orderList)
-	errors.CheckError(err, "translate string to json in orderManagement")
+	errorHandler.CheckError(err, "translate string to json in orderManagement")
 	body := orderManagement.OrderListBody{OrderList: orderList}
 	response := orderManagement.CancelDeliveryOrderResponse{Header: header, Body: body}
+
+	// return the API Response
+	return c.Status(200).JSON(response)
+}
+
+// @Summary		Report Job Status.
+// @Description	Receive the delivery job updated status.
+// @Tags			Order Management
+//
+// @Accept			json
+//
+// @Param todo body dto.ReportJobStatusDTO true "Return Job Status Parameters"
+//
+// @Produce		json
+// @Success		200	{object} models.ResponseHeader
+// @Failure     400 {object} models.FailResponse
+//
+// @Router			/reportJobStatus [post]
+func HandleReportJobStatus(c *fiber.Ctx) error {
+	// get the todo from the request body
+	request := new(dto.ReportJobStatusDTO)
+
+	// validate the request body
+	err := c.BodyParser(request)
+	if errorHandler.CheckError(err, "Insufficient input parameters") {
+		return c.Status(400).JSON(fiber.Map{"Insufficient input parameters": err.Error()})
+	}
+
+	response := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "Success"}
+
+	// return the API Response
+	return c.Status(200).JSON(response)
+}
+
+// @Summary		Report System Status.
+// @Description	Get current system status.
+// @Tags			Order Management
+//
+// @Accept		*/*
+//
+// @Produce		json
+// @Success		200	{object} orderManagement.ReportSystemStatusResponse
+// @Failure     400 {object} models.FailResponse
+//
+// @Router			/reportSystemStatus [post]
+func HandleReportSystemStatus(c *fiber.Ctx) error {
+
+	username, password, err := utils.CtxToAuth(c)
+
+	if errorHandler.CheckError(err, "Translate Ctx to Basic Auth String") {
+		return c.Status(400).JSON(models.GetFailResponse(err.Error()))
+	}
+
+	user, err := service.FindUser(username, "RFMS")
+
+	if errorHandler.CheckError(err, "Find user: "+username+" with type: RFMS in database") {
+		return c.Status(400).JSON(models.GetFailResponse(err.Error()))
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if errorHandler.CheckError(err, "Incorrect password") {
+		return c.Status(400).JSON(models.GetFailResponse("Incorrect password: " + err.Error()))
+	}
+
+	response := orderManagement.ReportSystemStatusResponse{SystemState: "STOPPED", SystemStatus: []string{"LIFT_ALARM"}}
 
 	// return the API Response
 	return c.Status(200).JSON(response)

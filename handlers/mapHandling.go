@@ -3,10 +3,10 @@ package handlers
 import (
 	"encoding/json"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/database"
-	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/SoNim-LSCM/TKOH_OMS/models"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/mapHandling"
+	"github.com/SoNim-LSCM/TKOH_OMS/service"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -31,13 +31,17 @@ const GET_FLOOR_PLAN_RESPONSE string = `[
 // @Accept			*/*
 // @Produce		json
 // @Success		200	{object} mapHandling.GetFloorPlanResponse
+// @Failure     400 {object} models.FailResponse
+//
 // @Router			/getFloorPlan [get]
 func HandleGetFloorPlan(c *fiber.Ctx) error {
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	var mapList mapHandling.MapList
 	err := json.Unmarshal([]byte(GET_FLOOR_PLAN_RESPONSE), &mapList)
-	errors.CheckError(err, "translate string to json in mapHandling")
+	if errorHandler.CheckError(err, "Translate string to json in mapHandling") {
+		return c.Status(400).JSON(models.GetFailResponse("translate string to json in mapHandling"))
+	}
 	body := mapHandling.MapListBody{MapList: mapList}
 	response := mapHandling.GetFloorPlanResponse{Header: header, Body: body}
 
@@ -51,18 +55,24 @@ func HandleGetFloorPlan(c *fiber.Ctx) error {
 // @Accept			*/*
 // @Produce		json
 // @Success		200	{object} mapHandling.GetDutyRoomsResponse
+// @Failure     400 {object} models.FailResponse
+//
 // @Router			/getDutyRooms [get]
 func HandleGetDutyRooms(c *fiber.Ctx) error {
 
 	var locationList mapHandling.LocationList
-	mainInterface, err := database.FindAllDutyRooms()
-	if err != nil {
+	mainInterface, err := service.FindAllDutyRooms()
+	if errorHandler.CheckError(err, "Duty Rooms Not Found") {
 		return c.Status(400).JSON(models.GetFailResponse("Duty Rooms Not Found"))
 	}
 	jsonString, err := json.Marshal(mainInterface)
-	errors.CheckError(err, "translate struct to json string in mapHandling")
+	if errorHandler.CheckError(err, "Translate struct to json string in mapHandling") {
+		return c.Status(400).JSON(models.GetFailResponse("Translate struct to json string in mapHandling"))
+	}
 	err = json.Unmarshal(jsonString, &locationList)
-	errors.CheckError(err, "translate string to json in mapHandling")
+	if errorHandler.CheckError(err, "Translate json to struct in mapHandling") {
+		return c.Status(400).JSON(models.GetFailResponse("Translate string to json in mapHandling"))
+	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	body := mapHandling.LocationListBody{LocationList: locationList}

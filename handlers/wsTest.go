@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	// "github.com/SoNim-LSCM/TKOH_OMS/models"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/systemStatus"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/wsTest"
 	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
@@ -31,7 +31,7 @@ func HandleTestAW2(c *fiber.Ctx) error {
 	// mqtt.PublishMqtt("direct/publish", []byte("packet scheduled message"))
 	var response wsTest.ReportDutyLocationUpdateResponse
 	err := json.Unmarshal([]byte(AW2_RESPONSE), &response)
-	errors.CheckError(err, "translate string to json in wsTest")
+	errorHandler.CheckError(err, "translate string to json in wsTest")
 	websocket.SendMessage(response)
 	return c.SendString("OK")
 }
@@ -55,7 +55,7 @@ const OW1_RESPONSE string = `{
 func HandleTestOW1(c *fiber.Ctx) error {
 	var response wsTest.ReportOrderStatusUpdateResponse
 	err := json.Unmarshal([]byte(OW1_RESPONSE), &response)
-	errors.CheckError(err, "translate string to json in wsTest")
+	errorHandler.CheckError(err, "translate string to json in wsTest")
 	websocket.SendMessage(response)
 	return c.SendString("OK")
 }
@@ -86,7 +86,7 @@ const MW1_RESPONSE string = `{
 func HandleTestMW1(c *fiber.Ctx) error {
 	var response wsTest.ReportRobotStatusLocationResponse
 	err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
-	errors.CheckError(err, "translate string to json in wsTest")
+	errorHandler.CheckError(err, "translate string to json in wsTest")
 	websocket.SendMessage(response)
 	return c.SendString("OK")
 }
@@ -107,7 +107,7 @@ const SW1_RESPONSE string = `{
 func HandleTestSW1(c *fiber.Ctx) error {
 	var response systemStatus.SystemStatusResponse
 	err := json.Unmarshal([]byte(SW1_RESPONSE), &response)
-	errors.CheckError(err, "translate string to json in wsTest")
+	errorHandler.CheckError(err, "translate string to json in wsTest")
 	websocket.SendMessage(response)
 	return c.SendString("OK")
 }

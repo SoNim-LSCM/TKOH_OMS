@@ -22,6 +22,11 @@ const docTemplate = `{
     "paths": {
         "/addDeliveryOrder": {
             "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "Create adhoc delivery order.",
                 "consumes": [
                     "application/json"
@@ -40,7 +45,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.AddDeliveryOrderDTO"
+                            "$ref": "#/definitions/dto.AddDeliveryOrderDTO"
                         }
                     }
                 ],
@@ -49,6 +54,12 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/orderManagement.AddDeliveryOrderResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
                         }
                     }
                 }
@@ -84,12 +95,23 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/orderManagement.CancelDeliveryOrderResponse"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
                     }
                 }
             }
         },
         "/getDeliveryOrder": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "Get the list of delivery order by order status .",
                 "consumes": [
                     "*/*"
@@ -101,11 +123,30 @@ const docTemplate = `{
                     "Order Management"
                 ],
                 "summary": "Get Delivery Order.",
+                "parameters": [
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv",
+                        "description": "Order Status",
+                        "name": "orderStatus",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/orderManagement.OrderListBody"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
                         }
                     }
                 }
@@ -130,6 +171,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/mapHandling.GetDutyRoomsResponse"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
                     }
                 }
             }
@@ -152,6 +199,12 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/mapHandling.GetFloorPlanResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
                         }
                     }
                 }
@@ -197,7 +250,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.LoginAdminDTO"
+                            "$ref": "#/definitions/dto.LoginAdminDTO"
                         }
                     }
                 ],
@@ -237,7 +290,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.LoginStaffDTO"
+                            "$ref": "#/definitions/dto.LoginStaffDTO"
                         }
                     }
                 ],
@@ -293,6 +346,11 @@ const docTemplate = `{
         },
         "/renewToken": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "Using Valid Token to renew token before expired",
                 "consumes": [
                     "*/*"
@@ -303,12 +361,81 @@ const docTemplate = `{
                 "tags": [
                     "Login Auth"
                 ],
-                "summary": "Websocket Connection.",
+                "summary": "Renew JWT Token.",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/loginAuth.LogoutResponse"
+                            "$ref": "#/definitions/loginAuth.LoginResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/reportJobStatus": {
+            "post": {
+                "description": "Receive the delivery job updated status.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order Management"
+                ],
+                "summary": "Report Job Status.",
+                "parameters": [
+                    {
+                        "description": "Return Job Status Parameters",
+                        "name": "todo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.ReportJobStatusDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseHeader"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/reportSystemStatus": {
+            "post": {
+                "description": "Get current system status.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order Management"
+                ],
+                "summary": "Report System Status.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/orderManagement.ReportSystemStatusResponse"
                         }
                     },
                     "400": {
@@ -433,6 +560,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/orderManagement.TriggerHandlingOrderResponse"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
                     }
                 }
             }
@@ -467,13 +600,19 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/orderManagement.UpdateDeliveryOrderResponse"
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
                     }
                 }
             }
         }
     },
     "definitions": {
-        "handlers.AddDeliveryOrderDTO": {
+        "dto.AddDeliveryOrderDTO": {
             "type": "object",
             "properties": {
                 "endLocationId": {
@@ -502,15 +641,7 @@ const docTemplate = `{
                 }
             }
         },
-        "handlers.CancelDeliveryOrderDTO": {
-            "type": "object",
-            "properties": {
-                "scheduleId": {
-                    "type": "integer"
-                }
-            }
-        },
-        "handlers.LoginAdminDTO": {
+        "dto.LoginAdminDTO": {
             "type": "object",
             "properties": {
                 "password": {
@@ -521,7 +652,7 @@ const docTemplate = `{
                 }
             }
         },
-        "handlers.LoginStaffDTO": {
+        "dto.LoginStaffDTO": {
             "type": "object",
             "properties": {
                 "dutyLocationId": {
@@ -529,6 +660,46 @@ const docTemplate = `{
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "dto.ReportJobStatusDTO": {
+            "type": "object",
+            "properties": {
+                "est": {
+                    "type": "string"
+                },
+                "eta": {
+                    "type": "string"
+                },
+                "jobId": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "messageTime": {
+                    "type": "string"
+                },
+                "processingStatus": {
+                    "type": "string"
+                },
+                "robotId": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "zone": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.CancelDeliveryOrderDTO": {
+            "type": "object",
+            "properties": {
+                "scheduleId": {
+                    "type": "integer"
                 }
             }
         },
@@ -735,6 +906,9 @@ const docTemplate = `{
                     "items": {
                         "type": "object",
                         "properties": {
+                            "actualArrivalTime": {
+                                "type": "string"
+                            },
                             "endLocationId": {
                                 "type": "integer"
                             },
@@ -744,10 +918,16 @@ const docTemplate = `{
                             "endTime": {
                                 "type": "string"
                             },
+                            "expectingArrivalTime": {
+                                "type": "string"
+                            },
                             "expectingDeliveryTime": {
                                 "type": "string"
                             },
                             "expectingStartTime": {
+                                "type": "string"
+                            },
+                            "failedReason": {
                                 "type": "string"
                             },
                             "orderCreatedBy": {
@@ -781,6 +961,20 @@ const docTemplate = `{
                                 "type": "string"
                             }
                         }
+                    }
+                }
+            }
+        },
+        "orderManagement.ReportSystemStatusResponse": {
+            "type": "object",
+            "properties": {
+                "systemState": {
+                    "type": "string"
+                },
+                "systemStatus": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
                     }
                 }
             }
@@ -821,7 +1015,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "0.1",
-	Host:             "ams.lscm.hk",
+	Host:             "20.239.95.146",
 	BasePath:         "/oms/",
 	Schemes:          []string{},
 	Title:            "TKOH OMS",

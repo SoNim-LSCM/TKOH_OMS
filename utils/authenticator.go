@@ -1,8 +1,8 @@
 package utils
 
 import (
+	"encoding/base64"
 	"errors"
-	"fmt"
 	"strings"
 	"time"
 
@@ -12,12 +12,13 @@ import (
 
 const SECRET_KEY = "some_secret_key_val_123123"
 
-func GenerateJWTStaff(username string, dutyLocationId int) (string, int64, error) {
+func GenerateJwtStaff(userId int, username string, dutyLocationId int) (string, int64, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 	expiryTime := time.Now().Add(time.Minute * 30).Unix()
 
 	claims["authorized"] = true
+	claims["userId"] = userId
 	claims["username"] = username
 	claims["userType"] = "STAFF"
 	claims["dutyLocationId"] = dutyLocationId
@@ -33,12 +34,13 @@ func GenerateJWTStaff(username string, dutyLocationId int) (string, int64, error
 	return tokenString, expiryTime, nil
 }
 
-func GenerateJWTAdmin(username string, password string) (string, int64, error) {
+func GenerateJwtAdmin(userId int, username string, password string) (string, int64, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 	expiryTime := time.Now().Add(time.Minute * 30).Unix()
 
 	claims["authorized"] = true
+	claims["userId"] = userId
 	claims["username"] = username
 	claims["userType"] = "ADMIN"
 	claims["password"] = password
@@ -56,18 +58,23 @@ func GenerateJWTAdmin(username string, password string) (string, int64, error) {
 
 type Claims struct {
 	Username       string `json:"username"`
+	UserId         int    `json:"userId"`
 	DutyLocationId int    `json:"dutyLocationId"`
 	Password       string `json:"password"`
 	UserType       string `json:"userType"`
 	jwt.StandardClaims
 }
 
-func ParseToken(c *fiber.Ctx) (*Claims, error) {
+func CtxToClaim(c *fiber.Ctx) (*Claims, string, error) {
+	if c.GetReqHeaders()["Authorization"] == nil {
+		return nil, "", errors.New("missing token")
+	}
 	bearerHeader := c.GetReqHeaders()["Authorization"][0]
 	if bearerHeader == "" {
-		return nil, errors.New("missing token")
+		return nil, "", errors.New("missing token")
 	}
 	bearerToken := strings.Split(bearerHeader, " ")[1]
+
 	tokenClaims, err := jwt.ParseWithClaims(bearerToken, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(SECRET_KEY), nil
 	})
@@ -75,14 +82,49 @@ func ParseToken(c *fiber.Ctx) (*Claims, error) {
 	if tokenClaims != nil {
 		if claims, ok := tokenClaims.Claims.(*Claims); ok && tokenClaims.Valid {
 			timeNow := time.Now().Unix()
-			fmt.Println(claims.ExpiresAt)
-			fmt.Println(timeNow)
-			if claims.ExpiresAt < timeNow {
-				return claims, nil
+			if claims.ExpiresAt > timeNow {
+				return claims, bearerToken, nil
 			}
-			return nil, errors.New("token expired")
+			return nil, bearerToken, errors.New("token expired")
 		}
 	}
 
-	return nil, err
+	return nil, bearerToken, err
+}
+
+func ValidateJwtToken(token string) (bool, error) {
+
+	if token == "" {
+		return false, nil
+	}
+
+	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SECRET_KEY), nil
+	})
+
+	if tokenClaims != nil {
+		if claims, ok := tokenClaims.Claims.(*Claims); ok && tokenClaims.Valid {
+			timeNow := time.Now().Unix()
+			if claims.ExpiresAt > timeNow {
+				return true, nil
+			}
+			return false, nil
+		}
+	}
+
+	return false, err
+}
+
+func CtxToAuth(c *fiber.Ctx) (string, string, error) {
+	authHeader := c.GetReqHeaders()["Authorization"][0]
+	if authHeader == "" {
+		return "", "", errors.New("missing token")
+	}
+	authToken := strings.Split(authHeader, " ")[1]
+	decodedString, err := base64.StdEncoding.DecodeString(authToken)
+	if err != nil {
+		return "", "", errors.New("Decode token failed")
+	}
+	auth := strings.Split(string(decodedString), ":")
+	return auth[0], auth[1], nil
 }

@@ -9,11 +9,14 @@ type OrderList []struct {
 	OrderStatus           string `json:"orderStatus"`
 	StartTime             string `json:"startTime"`
 	EndTime               string `json:"endTime"`
+	ActualArrivalTime     string `json:"actualArrivalTime"`
 	StartLocationID       int    `json:"startLocationId"`
 	StartLocationName     string `json:"startLocationName"`
 	ExpectingStartTime    string `json:"expectingStartTime"`
 	EndLocationID         int    `json:"endLocationId"`
 	EndLocationName       string `json:"endLocationName"`
+	ExpectArrivalTime     string `json:"expectingArrivalTime"`
 	ExpectingDeliveryTime string `json:"expectingDeliveryTime"`
 	ProcessingStatus      string `json:"processingStatus"`
+	FailedReason          string `json:"failedReason"`
 }

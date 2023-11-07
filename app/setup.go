@@ -6,10 +6,11 @@ import (
 	"time"
 
 	"github.com/SoNim-LSCM/TKOH_OMS/config"
-	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"github.com/SoNim-LSCM/TKOH_OMS/database"
+	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 
 	// "github.com/SoNim-LSCM/TKOH_OMS/mqtt"
-	"github.com/SoNim-LSCM/TKOH_OMS/database"
+
 	"github.com/SoNim-LSCM/TKOH_OMS/router"
 	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
 
@@ -20,16 +21,15 @@ import (
 
 func SetupAndRunApp() {
 
-	// port := os.Getenv("API_PORT")
-
 	// load env
 	err := config.LoadENV()
-	errors.CheckError(err, "load env")
+	errorHandler.CheckError(err, "load env")
 
 	// set output logs
 	now := time.Now()
-	f, err := os.OpenFile("logs/TKOH-OMS-LOGS-"+now.Format("2006-01-02"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	errors.CheckFatalError(err)
+	logPath := os.Getenv("LOG_PATH")
+	f, err := os.OpenFile(logPath+"/TKOH-OMS-LOGS-"+now.Format("2006-01-02"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	errorHandler.CheckFatalError(err)
 	defer f.Close()
 
 	log.SetOutput(f)
@@ -37,11 +37,11 @@ func SetupAndRunApp() {
 
 	// start database
 	go database.StartMySql()
-	// errors.CheckError(err, "start MySql")
+	errorHandler.CheckError(err, "start MySql")
 
 	// start mqtt server
 	// go mqtt.MqttSetup()
-	// errors.CheckError(err, "start MQTT")
+	// errorHandler.CheckError(err, "start MQTT")
 
 	// create app
 	app := fiber.New()

@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/errors"
+	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/loginAuth"
 
 	"github.com/gofiber/contrib/websocket"
@@ -25,7 +25,17 @@ var wsObject *websocket.Conn
 
 func SetupWebsocket() {
 	app := fiber.New()
-	defer app.Shutdown()
+	// defer app.Shutdown()
+
+	app.Use("/ws", func(c *fiber.Ctx) error {
+		// IsWebSocketUpgrade returns true if the client
+		// requested upgrade to the WebSocket protocol.
+		if websocket.IsWebSocketUpgrade(c) {
+			c.Locals("allowed", true)
+			return c.Next()
+		}
+		return fiber.ErrUpgradeRequired
+	})
 
 	app.Get("/oms/", websocket.New(func(c *websocket.Conn) {
 
@@ -55,8 +65,9 @@ func SetupWebsocket() {
 					log.Printf("Login Username: %s , AuthToken: %s\n", request.Username, request.AuthToken)
 					var response loginAuth.SubscribeTokenResponse
 					err := json.Unmarshal([]byte(SubscribeTokenResponse), &response)
-					errors.CheckError(err, "translate string to json in wsHandler")
-					SendMessage(response)
+					errorHandler.CheckError(err, "translate string to json in wsHandler")
+					err = SendMessage(response)
+					errorHandler.CheckError(err, "Error in translating message to websocket message")
 					loggedIn = true
 				}
 			}
@@ -68,9 +79,5 @@ func SetupWebsocket() {
 }
 
 func SendMessage(msg interface{}) error {
-	err := wsObject.WriteJSON(msg)
-	if err != nil {
-		log.Println("read:", err)
-	}
-	return err
+	return wsObject.WriteJSON(msg)
 }

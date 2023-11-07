@@ -5,8 +5,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/errors"
-
+	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	mqtt "github.com/mochi-mqtt/server/v2"
 	"github.com/mochi-mqtt/server/v2/hooks/auth"
 	"github.com/mochi-mqtt/server/v2/listeners"
@@ -36,14 +35,14 @@ func MqttSetup() {
 	// Create a TCP listener on a standard port.
 	tcp := listeners.NewTCP("t1", ":1883", nil)
 	err := server.AddListener(tcp)
-	errors.CheckFatalError(err)
+	errorHandler.CheckFatalError(err)
 
 	err = server.AddHook(new(ExampleHook), map[string]any{})
-	errors.CheckFatalError(err)
+	errorHandler.CheckFatalError(err)
 
 	go func() {
 		err := server.Serve()
-		errors.CheckFatalError(err)
+		errorHandler.CheckFatalError(err)
 	}()
 
 	// Demonstration of using an inline client to directly subscribe to a topic and receive a message when
@@ -64,7 +63,7 @@ func MqttSetup() {
 }
 
 func PublishMqtt(topic string, msg []byte) {
-	errors.CheckError(server.Publish(topic, msg, false, 0), "mqtt publishing")
+	errorHandler.CheckError(server.Publish(topic, msg, false, 0), "mqtt publishing")
 }
 
 type ExampleHook struct {

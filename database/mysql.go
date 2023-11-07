@@ -1,20 +1,18 @@
 package database
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"fmt"
 	"log"
 	"net"
 	"os"
 	"strconv"
-	"time"
-
-	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
-	"github.com/SoNim-LSCM/TKOH_OMS/errors"
 
 	"io/ioutil"
 
+	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/go-sql-driver/mysql"
-	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/crypto/ssh"
 	sql "gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -92,7 +90,7 @@ func (m *MySQL) New() (db *gorm.DB, err error) {
 	return
 }
 
-func StartMySql() {
+func StartMySqlSSH() {
 
 	var (
 		dial *ssh.Client
@@ -100,7 +98,7 @@ func StartMySql() {
 	)
 
 	sshPort, err := strconv.Atoi(os.Getenv("SSH_PORT"))
-	errors.CheckError(err, "translate string to int in mysql")
+	errorHandler.CheckError(err, "translate string to int in mysql")
 	client := SSH{
 		Host:     os.Getenv("SSH_HOST"),
 		User:     os.Getenv("SSH_USERNAME"),
@@ -110,7 +108,7 @@ func StartMySql() {
 		Type: "PASSWORD", // PASSWORD or KEY
 	}
 	dbPort, err := strconv.Atoi(os.Getenv("MYSQL_DB_PORT"))
-	errors.CheckError(err, "translate string to int in mysql")
+	errorHandler.CheckError(err, "translate string to int in mysql")
 	my := MySQL{
 		Host:     os.Getenv("MYSQL_DB_HOST"),
 		User:     os.Getenv("MYSQL_DB_USERNAME"),
@@ -143,53 +141,59 @@ func StartMySql() {
 	}
 
 	DB = db
-
-	// val := make(map[string]interface{})
-	// if err := DB.Table("users").Where("username = ?", "lscm").Find(&val).Error; err != nil {
-	// 	log.Printf("mysql query error: %s", err.Error())
-	// 	return
-	// }
-	// fmt.Println(val)
 }
 
-func FindUser(username string, password string, userType string) ([]db_models.Users, error) {
-	CheckDatabaseConnection()
-	var val []db_models.Users
-	err := DB.Table("users").Where("username = ?", username).Where("user_type = ?", userType).Find(&val).Error
-	fmt.Println(val[0].Password)
+func StartMySql() {
+	host := os.Getenv("MYSQL_DB_HOST")
+	user := os.Getenv("MYSQL_DB_USERNAME")
+	password := os.Getenv("MYSQL_DB_PASSWORD")
+	port := os.Getenv("MYSQL_DB_PORT")
+	database := os.Getenv("MYSQL_DB_NAME")
+	dsn := user + ":" + password + "@tcp(" + host + ":" + port + ")/" + database + "?charset=utf8mb4&parseTime=True&loc=Local&tls=true"
+
+	db, err := gorm.Open(sql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return nil, err
+		log.Printf("mysql connect error: %s", err.Error())
+		return
 	}
-	err = bcrypt.CompareHashAndPassword([]byte(val[0].Password), []byte(password))
+
+	DB = db
+
+}
+
+// path to cert-files hard coded
+// Most of this is copy pasted from the internet
+// and used without much reflection
+func createTLSConf() tls.Config {
+
+	rootCertPool := x509.NewCertPool()
+	pem, err := ioutil.ReadFile("tbmsuvmdev01_key.pem")
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
-	// fmt.Println(val)
-	return val, err
-}
+	if ok := rootCertPool.AppendCertsFromPEM(pem); !ok {
+		log.Fatal("Failed to append PEM!")
+	}
+	clientCert := make([]tls.Certificate, 0, 1)
 
-func UpdateUser(user db_models.Users, token string, tokenExpire int64) {
-	CheckDatabaseConnection()
-	timeNow := time.Now().Format("2006-01-02 15:04:05")
-	timeExpire := time.Unix(tokenExpire, 0).Format("2006-01-02 15:04:05")
-	// map[string]interface{}{"token_expiry_datetime": timeExpire, "lastLogin_datetime": timeNow, "token": token}
-	DB.Table("users").Where("user_id = ?", user.UserId).Updates(map[string]interface{}{"token_expiry_datetime": timeExpire, "last_login_datetime": timeNow, "token": token})
+	certs, err := tls.LoadX509KeyPair("cert/client-cert.pem", "cert/client-key.pem")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// fmt.Println(val)
-}
+	clientCert = append(clientCert, certs)
 
-func FindAllDutyRooms() ([]db_models.Locations, error) {
-	CheckDatabaseConnection()
-	var val []db_models.Locations
-	err := DB.Find(&val).Error
-	// fmt.Println(val)
-	return val, err
+	return tls.Config{
+		RootCAs:            rootCertPool,
+		Certificates:       clientCert,
+		InsecureSkipVerify: true, // needed for self signed certs
+	}
 }
 
 func CheckDatabaseConnection() {
 	sqlDB, err1 := DB.DB()
 	err2 := sqlDB.Ping()
 	if err1 != nil || err2 != nil {
-		StartMySql()
+		StartMySqlSSH()
 	}
 }

@@ -1,6 +1,6 @@
 basePath: /oms/
 definitions:
-  handlers.AddDeliveryOrderDTO:
+  dto.AddDeliveryOrderDTO:
     properties:
       endLocationId:
         type: integer
@@ -19,24 +19,45 @@ definitions:
       startLocationName:
         type: string
     type: object
-  handlers.CancelDeliveryOrderDTO:
-    properties:
-      scheduleId:
-        type: integer
-    type: object
-  handlers.LoginAdminDTO:
+  dto.LoginAdminDTO:
     properties:
       password:
         type: string
       username:
         type: string
     type: object
-  handlers.LoginStaffDTO:
+  dto.LoginStaffDTO:
     properties:
       dutyLocationId:
         type: integer
       username:
         type: string
+    type: object
+  dto.ReportJobStatusDTO:
+    properties:
+      est:
+        type: string
+      eta:
+        type: string
+      jobId:
+        type: integer
+      location:
+        type: string
+      messageTime:
+        type: string
+      processingStatus:
+        type: string
+      robotId:
+        type: string
+      status:
+        type: string
+      zone:
+        type: string
+    type: object
+  handlers.CancelDeliveryOrderDTO:
+    properties:
+      scheduleId:
+        type: integer
     type: object
   handlers.UpdateDeliveryOrderDTO:
     properties:
@@ -168,15 +189,21 @@ definitions:
       orderList:
         items:
           properties:
+            actualArrivalTime:
+              type: string
             endLocationId:
               type: integer
             endLocationName:
               type: string
             endTime:
               type: string
+            expectingArrivalTime:
+              type: string
             expectingDeliveryTime:
               type: string
             expectingStartTime:
+              type: string
+            failedReason:
               type: string
             orderCreatedBy:
               type: integer
@@ -201,6 +228,15 @@ definitions:
           type: object
         type: array
     type: object
+  orderManagement.ReportSystemStatusResponse:
+    properties:
+      systemState:
+        type: string
+      systemStatus:
+        items:
+          type: string
+        type: array
+    type: object
   orderManagement.TriggerHandlingOrderResponse:
     properties:
       body:
@@ -215,7 +251,7 @@ definitions:
       header:
         $ref: '#/definitions/models.ResponseHeader'
     type: object
-host: ams.lscm.hk
+host: 20.239.95.146
 info:
   contact:
     name: So Nim Wai
@@ -236,7 +272,7 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/handlers.AddDeliveryOrderDTO'
+          $ref: '#/definitions/dto.AddDeliveryOrderDTO'
       produces:
       - application/json
       responses:
@@ -244,6 +280,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/orderManagement.AddDeliveryOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
       summary: Add Delivery Order.
       tags:
       - Order Management
@@ -266,6 +308,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/orderManagement.CancelDeliveryOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
       summary: Cancel Delivery Order.
       tags:
       - Order Management
@@ -274,6 +320,15 @@ paths:
       consumes:
       - '*/*'
       description: Get the list of delivery order by order status .
+      parameters:
+      - collectionFormat: csv
+        description: Order Status
+        in: query
+        items:
+          type: string
+        name: orderStatus
+        required: true
+        type: array
       produces:
       - application/json
       responses:
@@ -281,6 +336,12 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/orderManagement.OrderListBody'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
       summary: Get Delivery Order.
       tags:
       - Order Management
@@ -296,6 +357,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/mapHandling.GetDutyRoomsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
       summary: Get Duty Rooms.
       tags:
       - Map Handling
@@ -311,6 +376,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/mapHandling.GetFloorPlanResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
       summary: Get Floor Plan.
       tags:
       - Map Handling
@@ -338,7 +407,7 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/handlers.LoginAdminDTO'
+          $ref: '#/definitions/dto.LoginAdminDTO'
       produces:
       - application/json
       responses:
@@ -364,7 +433,7 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/handlers.LoginStaffDTO'
+          $ref: '#/definitions/dto.LoginStaffDTO'
       produces:
       - application/json
       responses:
@@ -411,14 +480,61 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/loginAuth.LogoutResponse'
+            $ref: '#/definitions/loginAuth.LoginResponse'
         "400":
           description: Bad Request
           schema:
             $ref: '#/definitions/models.FailResponse'
-      summary: Websocket Connection.
+      security:
+      - Bearer: []
+      summary: Renew JWT Token.
       tags:
       - Login Auth
+  /reportJobStatus:
+    post:
+      consumes:
+      - application/json
+      description: Receive the delivery job updated status.
+      parameters:
+      - description: Return Job Status Parameters
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ReportJobStatusDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseHeader'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      summary: Report Job Status.
+      tags:
+      - Order Management
+  /reportSystemStatus:
+    post:
+      consumes:
+      - '*/*'
+      description: Get current system status.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.ReportSystemStatusResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      summary: Report System Status.
+      tags:
+      - Order Management
   /testAW2:
     get:
       consumes:
@@ -496,6 +612,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/orderManagement.TriggerHandlingOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
       summary: Trigger Delivery Order.
       tags:
       - Order Management
@@ -518,6 +638,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/orderManagement.UpdateDeliveryOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
       summary: Update Delivery Order.
       tags:
       - Order Management

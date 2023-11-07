@@ -10,7 +10,7 @@ import (
 // @description	TKOH OMS Backend Server
 // @contact.name	So Nim Wai
 // @license.name	LSCM
-// @host			ams.lscm.hk
+// @host			20.239.95.146
 // @BasePath		/oms/
 // @securityDefinitions.apikey Bearer
 // @in header
