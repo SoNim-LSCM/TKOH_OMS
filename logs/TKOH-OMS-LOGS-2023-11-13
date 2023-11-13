@@ -1,0 +1,101 @@
+2023/11/13 10:13:46 SYSTEM RESTARTED
+2023/11/13 10:14:45 SYSTEM RESTARTED
+2023/11/13 10:15:06 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/13 10:20:03 SYSTEM RESTARTED
+2023/11/13 10:20:28 SYSTEM RESTARTED
+2023/11/13 10:20:49 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/13 10:21:07 SYSTEM RESTARTED
+2023/11/13 10:21:26 mysql connect error: dial tcp 20.24.109.185:3306: connectex: An established connection was aborted by the software in your host machine.
+2023/11/13 10:22:32 SYSTEM RESTARTED
+2023/11/13 10:22:53 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/13 10:26:18 SYSTEM RESTARTED
+2023/11/13 10:47:13 SYSTEM RESTARTED
+2023/11/13 10:48:00 SYSTEM RESTARTED
+2023/11/13 10:48:27 HandleLoginStaff with username: staff3 dutyLocationId: 1
+2023/11/13 10:48:27 mysql query: FindOrders: &{%!s(int=0) staff3  STAFF       %!s(int=0)}
+2023/11/13 10:48:27 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/13 10:48:27 HandleLoginStaff login successful for staff user: staff3
+2023/11/13 10:49:20 mysql query: FindOrders: schedule_id = ?
+2023/11/13 10:49:20 mysql query: FindOrders: schedule_id = ?
+2023/11/13 10:49:21 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 10:49:21 mysql query: OrderListToOrderResponse
+2023/11/13 10:49:21 []
+2023/11/13 10:51:54 SYSTEM RESTARTED
+2023/11/13 10:52:04 mysql query: FindOrders: schedule_id = ?
+2023/11/13 10:52:04 mysql query: FindOrders: schedule_id = ?
+2023/11/13 10:52:04 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 10:52:05 mysql query: OrderListToOrderResponse
+2023/11/13 10:52:05 []
+2023/11/13 10:59:10 SYSTEM RESTARTED
+2023/11/13 10:59:22 mysql query: FindOrders: schedule_id = ?
+2023/11/13 10:59:22 mysql query: FindOrders: schedule_id = ?
+2023/11/13 10:59:22 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 10:59:22 mysql query: OrderListToOrderResponse
+2023/11/13 10:59:22 []
+2023/11/13 11:00:52 SYSTEM RESTARTED
+2023/11/13 11:01:04 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:01:04 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:01:04 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 11:01:04 mysql query: OrderListToOrderResponse
+2023/11/13 11:01:04 []
+2023/11/13 11:07:52 SYSTEM RESTARTED
+2023/11/13 11:08:07 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:08:07 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:08:07 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 11:08:07 mysql query: OrderListToOrderResponse
+2023/11/13 11:08:07 []
+2023/11/13 11:09:04 SYSTEM RESTARTED
+2023/11/13 11:11:35 mysql query: FindOrders: &{%!s(int=0) staff3  STAFF       %!s(int=0)}
+2023/11/13 11:11:35 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/13 11:11:35 Renew token successful for staff user: staff3
+2023/11/13 11:13:23 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:13:23 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 11:13:23 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:13:23 mysql query: FindOrders: order_id = ?
+2023/11/13 11:13:23 mysql query: OrderListToOrderResponse
+2023/11/13 11:13:23 [{21 43 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3 LG/F Dirty Zone 202310120830 1 5/F DS 000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/13 11:13:23 mysql query: FindOrders: order_id = ?
+2023/11/13 11:13:23 mysql query: OrderListToOrderResponse
+2023/11/13 11:13:23 [{21 44 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3 LG/F Dirty Zone 202310120830 1 5/F DS 000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/13 11:13:23 mysql query: OrderRequestToOrders
+2023/11/13 11:15:36 SYSTEM RESTARTED
+2023/11/13 11:19:03 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:19:03 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:19:03 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 11:19:03 mysql query: OrderListToOrderResponse
+2023/11/13 11:19:03 []
+2023/11/13 11:24:03 SYSTEM RESTARTED
+2023/11/13 11:26:18 SYSTEM RESTARTED
+2023/11/13 11:26:50 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:26:50 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:26:51 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 11:26:51 mysql query: OrderListToOrderResponse
+2023/11/13 11:26:51 []
+2023/11/13 11:29:31 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:29:31 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 11:29:31 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:29:31 mysql query: FindOrders: order_id = ?
+2023/11/13 11:29:31 mysql query: OrderListToOrderResponse
+2023/11/13 11:29:31 [{21 43 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 1 5/F DS 202310120830 2 LG/F Clean Zone 000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/13 11:29:31 mysql query: FindOrders: order_id = ?
+2023/11/13 11:29:31 mysql query: OrderListToOrderResponse
+2023/11/13 11:29:31 [{21 44 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 1 5/F DS 202310120830 2 LG/F Clean Zone 000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/13 11:29:32 mysql query: FindOrders: order_id = ?
+2023/11/13 11:29:32 mysql query: OrderListToOrderResponse
+2023/11/13 11:29:32 [{21 70  ADHOC 6 CREATED 000101010000  000101010000 1 5/F DS 202310120830 2 LG/F Clean Zone 000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/13 11:30:21 SYSTEM RESTARTED
+2023/11/13 11:31:08 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:31:08 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:31:08 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/13 11:31:08 mysql query: OrderListToOrderResponse
+2023/11/13 11:31:08 []
+2023/11/13 11:32:43 SYSTEM RESTARTED
+2023/11/13 11:33:01 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:33:01 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:33:02 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:33:43 SYSTEM RESTARTED
+2023/11/13 11:33:56 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:33:57 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:33:57 mysql query: FindOrders: schedule_id = ?
+2023/11/13 11:33:57 mysql query: OrderListToOrderResponse
+2023/11/13 11:33:57 [{21 43 PICK_AND_DELIVERY ADHOC 6 CANCELED 000101010000  000101010000 1 5/F DS 202310120830 2 LG/F Clean Zone 000101010000 202310121000 PLANNING_TO_START_LOCATION } {21 44 PICK_AND_DELIVERY ADHOC 6 CANCELED 000101010000  000101010000 1 5/F DS 202310120830 2 LG/F Clean Zone 000101010000 202310121000 PLANNING_TO_START_LOCATION } {21 70  ADHOC 6 CANCELED 000101010000  000101010000 1 5/F DS 202310120830 2 LG/F Clean Zone 000101010000 202310121000 PLANNING_TO_START_LOCATION }]

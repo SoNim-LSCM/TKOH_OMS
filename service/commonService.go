@@ -1,9 +1,41 @@
 package service
 
 import (
+	"log"
 	"strings"
 	"time"
+
+	"github.com/SoNim-LSCM/TKOH_OMS/database"
+	"gorm.io/gorm/clause"
 )
+
+func FindRecords(records interface{}, table string, filterFields interface{}, filterValues ...interface{}) error {
+	database.CheckDatabaseConnection()
+	log.Printf("mysql query: FindOrders: %s\n", filterFields)
+	if err := database.DB.Table(table).Where(filterFields, filterValues...).Find(records).Error; err != nil {
+		return err
+	}
+	// if len(args) == 0 {
+	// 	if err := database.DB.Table(table).Where(filter).Find(&records).Error; err != nil {
+	// 		return err
+	// 	}
+	// } else {
+	// 	if err := database.DB.Table(table).Where(filter, args...).Find(&records).Error; err != nil {
+	// 		return err
+	// 	}
+	// }
+	return nil
+}
+
+func UpdateRecords(updatedRecordList interface{}, table string, updateMap map[string]interface{}, filterFields interface{}, filterValues ...interface{}) error {
+	database.CheckDatabaseConnection()
+	database.DB.Clauses(clause.Locking{Strength: "UPDATE"}).Table(table).Where(filterFields, filterValues...).Updates(updateMap)
+	err := FindRecords(updatedRecordList, table, filterFields, filterValues...)
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 func StringToResponseTime(timeString string) (string, error) {
 	var outputString string

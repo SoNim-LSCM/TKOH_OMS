@@ -6,9 +6,9 @@ definitions:
         type: integer
       endLocationName:
         type: string
-      expectingDeliveryTime:
+      expectedDeliveryTime:
         type: string
-      expectingStartTime:
+      expectedStartTime:
         type: string
       numberOfAmrRequire:
         type: integer
@@ -54,20 +54,15 @@ definitions:
       zone:
         type: string
     type: object
-  handlers.CancelDeliveryOrderDTO:
-    properties:
-      scheduleId:
-        type: integer
-    type: object
-  handlers.UpdateDeliveryOrderDTO:
+  dto.UpdateDeliveryOrderDTO:
     properties:
       endLocationId:
         type: integer
       endLocationName:
         type: string
-      expectingDeliveryTime:
+      expectedDeliveryTime:
         type: string
-      expectingStartTime:
+      expectedStartTime:
         type: string
       numberOfAmrRequire:
         type: integer
@@ -77,6 +72,11 @@ definitions:
         type: integer
       startLocationName:
         type: string
+    type: object
+  handlers.CancelDeliveryOrderDTO:
+    properties:
+      scheduleId:
+        type: integer
     type: object
   loginAuth.LoginResponse:
     properties:
@@ -197,11 +197,11 @@ definitions:
               type: string
             endTime:
               type: string
-            expectingArrivalTime:
+            expectedArrivalTime:
               type: string
-            expectingDeliveryTime:
+            expectedDeliveryTime:
               type: string
-            expectingStartTime:
+            expectedStartTime:
               type: string
             failedReason:
               type: string
@@ -269,7 +269,7 @@ paths:
       parameters:
       - description: Add Delivery Order Parameters
         in: body
-        name: todo
+        name: parameters
         required: true
         schema:
           $ref: '#/definitions/dto.AddDeliveryOrderDTO'
@@ -616,11 +616,13 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
       summary: Trigger Delivery Order.
       tags:
       - Order Management
   /updateDeliveryOrder:
-    get:
+    post:
       consumes:
       - application/json
       description: Update Non Started Delivery Order .
@@ -630,7 +632,7 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/handlers.UpdateDeliveryOrderDTO'
+          $ref: '#/definitions/dto.UpdateDeliveryOrderDTO'
       produces:
       - application/json
       responses:
@@ -642,6 +644,8 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
       summary: Update Delivery Order.
       tags:
       - Order Management

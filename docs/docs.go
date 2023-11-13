@@ -41,7 +41,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Add Delivery Order Parameters",
-                        "name": "todo",
+                        "name": "parameters",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -529,6 +529,11 @@ const docTemplate = `{
         },
         "/triggerHandlingOrder": {
             "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "Notify system users are ready to handle the current order.",
                 "consumes": [
                     "*/*"
@@ -571,7 +576,12 @@ const docTemplate = `{
             }
         },
         "/updateDeliveryOrder": {
-            "get": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "Update Non Started Delivery Order .",
                 "consumes": [
                     "application/json"
@@ -590,7 +600,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.UpdateDeliveryOrderDTO"
+                            "$ref": "#/definitions/dto.UpdateDeliveryOrderDTO"
                         }
                     }
                 ],
@@ -621,10 +631,10 @@ const docTemplate = `{
                 "endLocationName": {
                     "type": "string"
                 },
-                "expectingDeliveryTime": {
+                "expectedDeliveryTime": {
                     "type": "string"
                 },
-                "expectingStartTime": {
+                "expectedStartTime": {
                     "type": "string"
                 },
                 "numberOfAmrRequire": {
@@ -695,15 +705,7 @@ const docTemplate = `{
                 }
             }
         },
-        "handlers.CancelDeliveryOrderDTO": {
-            "type": "object",
-            "properties": {
-                "scheduleId": {
-                    "type": "integer"
-                }
-            }
-        },
-        "handlers.UpdateDeliveryOrderDTO": {
+        "dto.UpdateDeliveryOrderDTO": {
             "type": "object",
             "properties": {
                 "endLocationId": {
@@ -712,10 +714,10 @@ const docTemplate = `{
                 "endLocationName": {
                     "type": "string"
                 },
-                "expectingDeliveryTime": {
+                "expectedDeliveryTime": {
                     "type": "string"
                 },
-                "expectingStartTime": {
+                "expectedStartTime": {
                     "type": "string"
                 },
                 "numberOfAmrRequire": {
@@ -729,6 +731,14 @@ const docTemplate = `{
                 },
                 "startLocationName": {
                     "type": "string"
+                }
+            }
+        },
+        "handlers.CancelDeliveryOrderDTO": {
+            "type": "object",
+            "properties": {
+                "scheduleId": {
+                    "type": "integer"
                 }
             }
         },
@@ -918,13 +928,13 @@ const docTemplate = `{
                             "endTime": {
                                 "type": "string"
                             },
-                            "expectingArrivalTime": {
+                            "expectedArrivalTime": {
                                 "type": "string"
                             },
-                            "expectingDeliveryTime": {
+                            "expectedDeliveryTime": {
                                 "type": "string"
                             },
-                            "expectingStartTime": {
+                            "expectedStartTime": {
                                 "type": "string"
                             },
                             "failedReason": {

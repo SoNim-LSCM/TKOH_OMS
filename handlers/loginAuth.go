@@ -4,6 +4,7 @@ import (
 	"log"
 	"strings"
 
+	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
 	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/SoNim-LSCM/TKOH_OMS/models"
 	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
@@ -38,9 +39,13 @@ func HandleLoginStaff(c *fiber.Ctx) error {
 
 	log.Printf("HandleLoginStaff with username: %s dutyLocationId: %d\n", request.Username, request.DutyLocationId)
 
-	user, err := service.FindUser(request.Username, "STAFF")
-	if errorHandler.CheckError(err, "HandleLoginStaff failed to search") {
-		return c.Status(400).JSON(models.GetFailResponse("Failed to search: " + err.Error()))
+	user := db_models.Users{}
+	if errorHandler.CheckError(service.FindRecords(&user, "users", &db_models.Users{Username: request.Username, UserType: "STAFF"}), "HandleLoginStaff failed to search") {
+		return c.Status(400).JSON(models.GetFailResponse("Failed to search for record"))
+	}
+
+	if user.UserId == 0 {
+		return c.Status(400).JSON(models.GetFailResponse("Order not found"))
 	}
 
 	if request.DutyLocationId != user.DutyLocationId {
@@ -63,14 +68,20 @@ func HandleLoginStaff(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.GetFailResponse("generate token fail: " + err.Error()))
 	}
 
-	updatedUser, err := service.UpdateUserToken(user.Username, user.UserType, token, expiryTime, service.LOGIN)
+	// updatedUser := []db_models.Users{}
+	// timeNow := utils.GetTimeNowString()
+	// updateFields := []string{"token_expiry_datetime", "last_login_datetime", "token", "duty_location_id"}
+	// updateMap := utils.CreateMap(updateFields, utils.TimeInt64ToString(expiryTime), timeNow, token, request.DutyLocationId)
+	updatedUser, err := service.UpdateUser(user.Username, user.UserType, []string{"token_expiry_datetime", "last_login_datetime", "token", "duty_location_id"}, utils.TimeInt64ToString(expiryTime), utils.GetTimeNowString(), token, request.DutyLocationId)
+	// err = service.UpdateRecords(&updatedUser, "users", updateMap, "username = ? AND user_type = ?", user.Username, user.UserType)
+
 	if errorHandler.CheckError(err, "Update user fail: ") {
 		return c.Status(400).JSON(models.GetFailResponse("Update user fail " + err.Error()))
 	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 
-	body, err := service.UsersToLoginResponse(updatedUser)
+	body, err := service.UsersToLoginResponse(updatedUser[0])
 	if errorHandler.CheckError(err, "Translate from users to login response failed: ") {
 		return c.Status(400).JSON(models.GetFailResponse("Translate from users to login response failed " + err.Error()))
 	}
@@ -106,9 +117,9 @@ func HandleLoginAdmin(c *fiber.Ctx) error {
 
 	log.Printf("HandleLoginAdmin with username: %s password: %s\n", request.Username, request.Password)
 
-	user, err := service.FindUser(request.Username, "ADMIN")
-	if errorHandler.CheckError(err, "HandleLoginAdmin failed to search") {
-		return c.Status(400).JSON(models.GetFailResponse("failed to search: " + err.Error()))
+	user := db_models.Users{}
+	if errorHandler.CheckError(service.FindRecords(&user, "users", &db_models.Users{Username: request.Username, UserType: "ADMIN"}), "HandleLoginAdmin failed to search") {
+		return c.Status(400).JSON(models.GetFailResponse("Failed to search for record"))
 	}
 
 	if isValid, err := utils.ValidateJwtToken(user.Token); err != nil || isValid {
@@ -132,14 +143,14 @@ func HandleLoginAdmin(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.GetFailResponse("generate token fail: " + err.Error()))
 	}
 
-	updatedUser, err := service.UpdateUserToken(user.Username, user.UserType, token, expiryTime, service.LOGIN)
+	updatedUser, err := service.UpdateUser(user.Username, user.UserType, []string{"token_expiry_datetime", "last_login_datetime", "token"}, utils.TimeInt64ToString(expiryTime), utils.GetTimeNowString(), token)
 	if errorHandler.CheckError(err, "Update user fail: ") {
 		return c.Status(400).JSON(models.GetFailResponse("Update user fail " + err.Error()))
 	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 
-	body, err := service.UsersToLoginResponse(updatedUser)
+	body, err := service.UsersToLoginResponse(updatedUser[0])
 	if errorHandler.CheckError(err, "Translate from users to login response failed: ") {
 		return c.Status(400).JSON(models.GetFailResponse("Translate from users to login response failed " + err.Error()))
 	}
@@ -169,8 +180,9 @@ func HandleLogout(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.GetFailResponse("Invalid token: " + err.Error()))
 	}
 	log.Printf("mysql query: HandleLogout: %s, %s\n", claim.Username, claim.UserType)
-	if user, err := service.FindUser(claim.Username, claim.UserType); errorHandler.CheckError(err, "Find user: ") {
-		return c.Status(400).JSON(models.GetFailResponse("Find user: " + err.Error()))
+	user := db_models.Users{}
+	if errorHandler.CheckError(service.FindRecords(&user, "users", &db_models.Users{Username: claim.Username, UserType: claim.UserType}), "Find user: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Failed to search for record"))
 	} else if user.Token == "" {
 		log.Printf("Attempt to logout logged out account with username: %s user type: %s\n", claim.Username, claim.UserType)
 		return c.Status(400).JSON(models.GetFailResponse("Account logged out already"))
@@ -179,7 +191,10 @@ func HandleLogout(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.GetFailResponse("Incorrect token"))
 	}
 
-	service.UpdateUserToken(claim.Username, claim.UserType, "", 0, service.LOGOUT)
+	_, err = service.UpdateUser(user.Username, user.UserType, []string{"last_logout_datetime", "token"}, utils.GetTimeNowString(), "")
+	if errorHandler.CheckError(err, "Fail update database") {
+		return c.Status(400).JSON(models.GetFailResponse("Fail update database: " + err.Error()))
+	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	response := loginAuth.LogoutResponse{Header: header}
@@ -209,9 +224,9 @@ func HandleRenewToken(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.GetFailResponse("Invalid token: " + err.Error()))
 	}
 
-	user, err := service.FindUser(claim.Username, claim.UserType)
-	if errorHandler.CheckError(err, "Find user: ") {
-		return c.Status(400).JSON(models.GetFailResponse("Find user: " + err.Error()))
+	user := db_models.Users{}
+	if errorHandler.CheckError(service.FindRecords(&user, "users", &db_models.Users{Username: claim.Username, UserType: claim.UserType}), "Find user: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Failed to search for record"))
 	} else if user.Token == "" {
 		log.Printf("Attempt to logout logged out account with username: %s user type: %s\n", claim.Username, claim.UserType)
 		return c.Status(400).JSON(models.GetFailResponse("Account logged out already"))
@@ -238,14 +253,14 @@ func HandleRenewToken(c *fiber.Ctx) error {
 			return c.Status(400).JSON(models.GetFailResponse("Generate token fail: " + err.Error()))
 		}
 
-		updatedUser, err := service.UpdateUserToken(claim.Username, claim.UserType, staffToken, staffExpiryTime, service.RENEW)
+		updatedUser, err := service.UpdateUser(claim.Username, claim.UserType, []string{"token_expiry_datetime", "token"}, utils.TimeInt64ToString(staffExpiryTime), staffToken)
 		if errorHandler.CheckError(err, "Update user fail: ") {
 			return c.Status(400).JSON(models.GetFailResponse("Update user fail " + err.Error()))
 		}
 
 		header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 
-		body, err := service.UsersToLoginResponse(updatedUser)
+		body, err := service.UsersToLoginResponse(updatedUser[0])
 		if errorHandler.CheckError(err, "Translate from users to login response failed: ") {
 			return c.Status(400).JSON(models.GetFailResponse("Translate from users to login response failed " + err.Error()))
 		}
@@ -258,18 +273,18 @@ func HandleRenewToken(c *fiber.Ctx) error {
 		return c.Status(200).JSON(response)
 
 	case "ADMIN":
-		staffToken, staffExpiryTime, err := utils.GenerateJwtAdmin(claim.UserId, claim.Username, claim.Password)
+		adminToken, adminExpiryTime, err := utils.GenerateJwtAdmin(claim.UserId, claim.Username, claim.Password)
 		if errorHandler.CheckError(err, "Generate token fail") {
 			return c.Status(400).JSON(models.GetFailResponse("Generate token fail: " + err.Error()))
 		}
 
-		updatedUser, err := service.UpdateUserToken(claim.Username, claim.UserType, staffToken, staffExpiryTime, service.RENEW)
+		updatedUser, err := service.UpdateUser(claim.Username, claim.UserType, []string{"token_expiry_datetime", "token"}, utils.TimeInt64ToString(adminExpiryTime), adminToken)
 		if errorHandler.CheckError(err, "Update user fail: ") {
 			return c.Status(400).JSON(models.GetFailResponse("Update user fail " + err.Error()))
 		}
 		header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 
-		body, err := service.UsersToLoginResponse(updatedUser)
+		body, err := service.UsersToLoginResponse(updatedUser[0])
 		if errorHandler.CheckError(err, "Translate from users to login response failed: ") {
 			return c.Status(400).JSON(models.GetFailResponse("Translate from users to login response failed " + err.Error()))
 		}

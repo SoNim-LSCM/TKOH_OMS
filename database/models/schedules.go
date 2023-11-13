@@ -4,4 +4,6 @@ type Schedules struct {
 	ScheduleID         int    `json:"scheduleId"`
 	ScheduleStatus     string `json:"scheduleStatus"`
 	ScheduleCraeteTime string `json:"scheduleCreateTime" gorm:"type:date;column:schedule_create_time"`
+	OrderType          string `json:"orderType"`
+	NumberOfAmrRequire int    `json:"numberOfAmrRequire"`
 }

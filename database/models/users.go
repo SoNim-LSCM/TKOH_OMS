@@ -2,9 +2,9 @@ package db_models
 
 type Users struct {
 	UserId              int    `json:"user_id"`
-	Username            string `json:"username"`
-	Password            string `json:"password"`
-	UserType            string `json:"user_type"`
+	Username            string `json:"username" gorm:"type:string;column:username"`
+	Password            string `json:"password" gorm:"type:string;column:password"`
+	UserType            string `json:"user_type" gorm:"type:string;column:user_type"`
 	Token               string `json:"token"`
 	TokenExpiryDateTime string `json:"token_expiry_datetime" gorm:"type:date;column:token_expiry_datetime"`
 	LastLoginDateTime   string `json:"last_login_datetime" gorm:"type:date;column:last_login_datetime"`
