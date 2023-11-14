@@ -23,6 +23,7 @@ func SetupRoutes(app *fiber.App) {
 	// Order Management
 	oms.Get("/getDeliveryOrder", handlers.HandleGetDeliveryOrder)
 	oms.Post("/addDeliveryOrder", handlers.HandleAddDeliveryOrder)
+	oms.Post("/addRoutine", handlers.HandleAddRoutine)
 	oms.Get("/triggerHandlingOrder", handlers.HandleTriggerHandlingOrder)
 	oms.Post("/updateDeliveryOrder", handlers.HandleUpdateDeliveryOrder)
 	oms.Post("/cancelDeliveryOrder", handlers.HandleCancelDeliveryOrder)

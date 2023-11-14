@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
+
 	// "github.com/SoNim-LSCM/TKOH_OMS/models"
 
 	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
@@ -37,26 +39,34 @@ func HandleTestAW2(c *fiber.Ctx) error {
 }
 
 const OW1_RESPONSE string = `{
-    "messageCode": "ORDER_ARRIVED",
+    "messageCode": "ORDER_STATUS",
     "scheduleId": 1,
     "orderId": 1,
     "robotId":["AMR1"],
+    "payloadId": "CART1",
     "orderStatus": "PROCESSING",
     "processingStatus": "ARRIVED_START_LOCATION"
 }`
 
-// @Summary		Test OW2 websocket response.
-// @Description	Get the response of OW2 (Server notify any of created order status changed).
+// @Summary		Test OW1 websocket response.
+// @Description	Get the response of OW1 (Server notify any of created order status changed).
 // @Tags			Test
 // @Accept			*/*
+// @Param			processingStatus	query	string	true	"Processing Status"
 // @Produce		plain
 // @Success		200	"OK"
 // @Router			/testOW1 [get]
 func HandleTestOW1(c *fiber.Ctx) error {
+	// get the processingStatus from the request body
+	processingStatus := c.Query("processingStatus")
 	var response wsTest.ReportOrderStatusUpdateResponse
 	err := json.Unmarshal([]byte(OW1_RESPONSE), &response)
+	fmt.Println(response)
+	response.ProcessingStatus = processingStatus
 	errorHandler.CheckError(err, "translate string to json in wsTest")
-	websocket.SendMessage(response)
+	if err := websocket.SendMessage(response); err != nil {
+		return c.SendString(err.Error())
+	}
 	return c.SendString("OK")
 }
 

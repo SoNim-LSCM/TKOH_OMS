@@ -70,8 +70,12 @@ func CtxToClaim(c *fiber.Ctx) (*Claims, string, error) {
 	if c.GetReqHeaders()["Authorization"] == nil {
 		return nil, "", errors.New("missing token")
 	}
+	if c.GetReqHeaders()["Authorization"][0] == "" {
+		return nil, "", errors.New("missing token")
+	}
 	bearerHeader := c.GetReqHeaders()["Authorization"][0]
-	if bearerHeader == "" {
+
+	if len(strings.Split(bearerHeader, " ")) != 2 {
 		return nil, "", errors.New("missing token")
 	}
 	bearerToken := strings.Split(bearerHeader, " ")[1]
@@ -135,6 +139,7 @@ func CreateMap(updateFields []string, updateValues ...interface{}) map[string]in
 	for i := 0; i < len(updateFields); i++ {
 		myMap[updateFields[i]] = updateValues[i]
 	}
+	myMap["last_update_time"] = GetTimeNowString()
 	return myMap
 }
 

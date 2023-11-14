@@ -65,8 +65,58 @@ const docTemplate = `{
                 }
             }
         },
+        "/addRoutine": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Create Routine delivery order.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order Management"
+                ],
+                "summary": "Add Routine.",
+                "parameters": [
+                    {
+                        "description": "Add Routine Parameters",
+                        "name": "parameters",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.AddRoutineDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/orderManagement.AddRoutineResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/cancelDeliveryOrder": {
             "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
                 "description": "Update Non Started Delivery Order .",
                 "consumes": [
                     "application/json"
@@ -85,7 +135,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handlers.CancelDeliveryOrderDTO"
+                            "$ref": "#/definitions/dto.CancelDeliveryOrderDTO"
                         }
                     }
                 ],
@@ -489,7 +539,7 @@ const docTemplate = `{
         },
         "/testOW1": {
             "get": {
-                "description": "Get the response of OW2 (Server notify any of created order status changed).",
+                "description": "Get the response of OW1 (Server notify any of created order status changed).",
                 "consumes": [
                     "*/*"
                 ],
@@ -499,7 +549,16 @@ const docTemplate = `{
                 "tags": [
                     "Test"
                 ],
-                "summary": "Test OW2 websocket response.",
+                "summary": "Test OW1 websocket response.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Processing Status",
+                        "name": "processingStatus",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -651,6 +710,66 @@ const docTemplate = `{
                 }
             }
         },
+        "dto.AddRoutineDTO": {
+            "type": "object",
+            "properties": {
+                "destinationLocationId": {
+                    "type": "integer"
+                },
+                "destinationLocationName": {
+                    "type": "string"
+                },
+                "expectedDeliveryTime": {
+                    "type": "string"
+                },
+                "expectedStartTime": {
+                    "type": "string"
+                },
+                "numberOfAmrRequire": {
+                    "type": "integer"
+                },
+                "orderType": {
+                    "type": "string"
+                },
+                "routinePattern": {
+                    "type": "object",
+                    "properties": {
+                        "day": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "month": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "week": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                "startLocationId": {
+                    "type": "integer"
+                },
+                "startLocationName": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CancelDeliveryOrderDTO": {
+            "type": "object",
+            "properties": {
+                "scheduleId": {
+                    "type": "integer"
+                }
+            }
+        },
         "dto.LoginAdminDTO": {
             "type": "object",
             "properties": {
@@ -734,14 +853,6 @@ const docTemplate = `{
                 }
             }
         },
-        "handlers.CancelDeliveryOrderDTO": {
-            "type": "object",
-            "properties": {
-                "scheduleId": {
-                    "type": "integer"
-                }
-            }
-        },
         "loginAuth.LoginResponse": {
             "type": "object",
             "properties": {
@@ -765,10 +876,10 @@ const docTemplate = `{
                 "dutyLocationName": {
                     "type": "string"
                 },
-                "loginDateTime": {
+                "loginTime": {
                     "type": "string"
                 },
-                "tokenExpiryDateTime": {
+                "tokenExpiryTime": {
                     "type": "string"
                 },
                 "userId": {
@@ -897,6 +1008,17 @@ const docTemplate = `{
                 }
             }
         },
+        "orderManagement.AddRoutineResponse": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "$ref": "#/definitions/orderManagement.RoutineOrderListBody"
+                },
+                "header": {
+                    "$ref": "#/definitions/models.ResponseHeader"
+                }
+            }
+        },
         "orderManagement.CancelDeliveryOrderResponse": {
             "type": "object",
             "properties": {
@@ -985,6 +1107,81 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "type": "string"
+                    }
+                }
+            }
+        },
+        "orderManagement.RoutineOrderListBody": {
+            "type": "object",
+            "properties": {
+                "routine": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "destinationLocationId": {
+                                "type": "integer"
+                            },
+                            "destinationLocationName": {
+                                "type": "string"
+                            },
+                            "expectedDeliveryTime": {
+                                "type": "string"
+                            },
+                            "expectedStartTime": {
+                                "type": "string"
+                            },
+                            "isActive": {
+                                "type": "boolean"
+                            },
+                            "nextDeliveryDate": {
+                                "type": "string"
+                            },
+                            "numberOfAmrRequire": {
+                                "type": "integer"
+                            },
+                            "orderType": {
+                                "type": "string"
+                            },
+                            "routineCreatedBy": {
+                                "type": "integer"
+                            },
+                            "routineId": {
+                                "type": "integer"
+                            },
+                            "routinePattern": {
+                                "$ref": "#/definitions/orderManagement.RoutinePattern"
+                            },
+                            "startLocationId": {
+                                "type": "integer"
+                            },
+                            "startLocationName": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "orderManagement.RoutinePattern": {
+            "type": "object",
+            "properties": {
+                "day": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "month": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "week": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
                     }
                 }
             }

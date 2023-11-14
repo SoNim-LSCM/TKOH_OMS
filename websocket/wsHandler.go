@@ -4,6 +4,7 @@ package websocket
 
 import (
 	"encoding/json"
+	"errors"
 	"log"
 	"os"
 
@@ -79,5 +80,8 @@ func SetupWebsocket() {
 }
 
 func SendMessage(msg interface{}) error {
+	if wsObject == nil {
+		return errors.New("No client connected to websocket")
+	}
 	return wsObject.WriteJSON(msg)
 }

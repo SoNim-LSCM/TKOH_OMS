@@ -19,6 +19,45 @@ definitions:
       startLocationName:
         type: string
     type: object
+  dto.AddRoutineDTO:
+    properties:
+      destinationLocationId:
+        type: integer
+      destinationLocationName:
+        type: string
+      expectedDeliveryTime:
+        type: string
+      expectedStartTime:
+        type: string
+      numberOfAmrRequire:
+        type: integer
+      orderType:
+        type: string
+      routinePattern:
+        properties:
+          day:
+            items:
+              type: integer
+            type: array
+          month:
+            items:
+              type: integer
+            type: array
+          week:
+            items:
+              type: integer
+            type: array
+        type: object
+      startLocationId:
+        type: integer
+      startLocationName:
+        type: string
+    type: object
+  dto.CancelDeliveryOrderDTO:
+    properties:
+      scheduleId:
+        type: integer
+    type: object
   dto.LoginAdminDTO:
     properties:
       password:
@@ -73,11 +112,6 @@ definitions:
       startLocationName:
         type: string
     type: object
-  handlers.CancelDeliveryOrderDTO:
-    properties:
-      scheduleId:
-        type: integer
-    type: object
   loginAuth.LoginResponse:
     properties:
       body:
@@ -93,9 +127,9 @@ definitions:
         type: integer
       dutyLocationName:
         type: string
-      loginDateTime:
+      loginTime:
         type: string
-      tokenExpiryDateTime:
+      tokenExpiryTime:
         type: string
       userId:
         type: integer
@@ -177,6 +211,13 @@ definitions:
       header:
         $ref: '#/definitions/models.ResponseHeader'
     type: object
+  orderManagement.AddRoutineResponse:
+    properties:
+      body:
+        $ref: '#/definitions/orderManagement.RoutineOrderListBody'
+      header:
+        $ref: '#/definitions/models.ResponseHeader'
+    type: object
   orderManagement.CancelDeliveryOrderResponse:
     properties:
       body:
@@ -237,6 +278,55 @@ definitions:
           type: string
         type: array
     type: object
+  orderManagement.RoutineOrderListBody:
+    properties:
+      routine:
+        items:
+          properties:
+            destinationLocationId:
+              type: integer
+            destinationLocationName:
+              type: string
+            expectedDeliveryTime:
+              type: string
+            expectedStartTime:
+              type: string
+            isActive:
+              type: boolean
+            nextDeliveryDate:
+              type: string
+            numberOfAmrRequire:
+              type: integer
+            orderType:
+              type: string
+            routineCreatedBy:
+              type: integer
+            routineId:
+              type: integer
+            routinePattern:
+              $ref: '#/definitions/orderManagement.RoutinePattern'
+            startLocationId:
+              type: integer
+            startLocationName:
+              type: string
+          type: object
+        type: array
+    type: object
+  orderManagement.RoutinePattern:
+    properties:
+      day:
+        items:
+          type: integer
+        type: array
+      month:
+        items:
+          type: integer
+        type: array
+      week:
+        items:
+          type: integer
+        type: array
+    type: object
   orderManagement.TriggerHandlingOrderResponse:
     properties:
       body:
@@ -289,6 +379,34 @@ paths:
       summary: Add Delivery Order.
       tags:
       - Order Management
+  /addRoutine:
+    post:
+      consumes:
+      - application/json
+      description: Create Routine delivery order.
+      parameters:
+      - description: Add Routine Parameters
+        in: body
+        name: parameters
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AddRoutineDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.AddRoutineResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
+      summary: Add Routine.
+      tags:
+      - Order Management
   /cancelDeliveryOrder:
     post:
       consumes:
@@ -300,7 +418,7 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/handlers.CancelDeliveryOrderDTO'
+          $ref: '#/definitions/dto.CancelDeliveryOrderDTO'
       produces:
       - application/json
       responses:
@@ -312,6 +430,8 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
       summary: Cancel Delivery Order.
       tags:
       - Order Management
@@ -567,14 +687,20 @@ paths:
     get:
       consumes:
       - '*/*'
-      description: Get the response of OW2 (Server notify any of created order status
+      description: Get the response of OW1 (Server notify any of created order status
         changed).
+      parameters:
+      - description: Processing Status
+        in: query
+        name: processingStatus
+        required: true
+        type: string
       produces:
       - text/plain
       responses:
         "200":
           description: OK
-      summary: Test OW2 websocket response.
+      summary: Test OW1 websocket response.
       tags:
       - Test
   /testSW1:

@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"strings"
 
-	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
 	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/SoNim-LSCM/TKOH_OMS/models"
 	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
@@ -43,9 +42,9 @@ func HandleGetDeliveryOrder(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.GetFailResponse("Invalid/missing input: " + err.Error()))
 	}
 
-	orders := []db_models.Orders{}
+	orders, err := service.FindOrders("order_status IN ?", statusArray)
 	// err := service.FindRecords(&user, "orders", "order_status", statusArray, &orders)
-	if errorHandler.CheckError(service.FindRecords(&orders, "orders", "order_status IN ?", statusArray), "Failed to search") {
+	if errorHandler.CheckError(err, "Failed to search") {
 		return c.Status(400).JSON(models.GetFailResponse("Failed to search: " + err.Error()))
 	}
 
@@ -98,6 +97,45 @@ func HandleAddDeliveryOrder(c *fiber.Ctx) error {
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	body := orderManagement.OrderListBody{OrderList: orderList}
 	response := orderManagement.AddDeliveryOrderResponse{Header: header, Body: body}
+
+	// return the API Response
+	return c.Status(200).JSON(response)
+}
+
+// @Summary		Add Routine.
+// @Description	Create Routine delivery order.
+// @Tags			Order Management
+// @Accept			json
+//
+// @Param parameters body dto.AddRoutineDTO true "Add Routine Parameters"
+//
+// @Produce		json
+// @Success		200	{object} orderManagement.AddRoutineResponse
+// @Failure     400 {object} models.FailResponse
+//
+// @Router			/addRoutine [post]
+// @Security Bearer
+func HandleAddRoutine(c *fiber.Ctx) error {
+	// verify token
+	claim, _, err := utils.CtxToClaim(c)
+	if errorHandler.CheckError(err, "Invalid token: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Invalid token: " + err.Error()))
+	}
+	// get the parameters from the request body
+	var request dto.AddRoutineDTO
+	var routineOrderList orderManagement.RoutineOrderList
+	// validate the request body
+	if err := c.BodyParser(&request); errorHandler.CheckError(err, "Invalid/missing input: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Invalid/missing input: " + err.Error()))
+	}
+
+	routineOrderList, err = service.AddRoutines(request, claim.UserId)
+	if errorHandler.CheckError(err, "Add Routine Fail: ") {
+		return c.Status(400).JSON(models.GetFailResponse("Add Routine Fail: " + err.Error()))
+	}
+	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
+	body := orderManagement.RoutineOrderListBody{RoutineOrderList: routineOrderList}
+	response := orderManagement.AddRoutineResponse{Header: header, Body: body}
 
 	// return the API Response
 	return c.Status(200).JSON(response)
@@ -178,7 +216,7 @@ func HandleTriggerHandlingOrder(c *fiber.Ctx) error {
 // @Security Bearer
 func HandleUpdateDeliveryOrder(c *fiber.Ctx) error {
 	// verify token
-	_, _, err := utils.CtxToClaim(c)
+	claim, _, err := utils.CtxToClaim(c)
 	if errorHandler.CheckError(err, "Invalid token: ") {
 		return c.Status(400).JSON(models.GetFailResponse("Invalid token: " + err.Error()))
 	}
@@ -191,7 +229,7 @@ func HandleUpdateDeliveryOrder(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.GetFailResponse("Insufficient input paramters: " + err.Error()))
 	}
 
-	orderList, err := service.UpdateOrders(request)
+	orderList, err := service.UpdateOrders(claim.UserId, request)
 	if err != nil {
 		return c.Status(400).JSON(models.GetFailResponse("Update orders failed" + err.Error()))
 	}
@@ -305,14 +343,20 @@ func HandleReportSystemStatus(c *fiber.Ctx) error {
 		return c.Status(400).JSON(models.GetFailResponse(err.Error()))
 	}
 
-	user := db_models.Users{}
-	err = service.FindRecords(&user, "users", "username", []string{username})
+	users, err := service.FindUsers("username", []string{username})
+	// err := service.FindRecords(&user, "orders", "order_status", statusArray, &orders)
+	if errorHandler.CheckError(err, "Failed to search") {
+		return c.Status(400).JSON(models.GetFailResponse("Failed to search: " + err.Error()))
+	}
 
+	if len(users) == 0 {
+		return c.Status(400).JSON(models.GetFailResponse("User not found"))
+	}
 	if errorHandler.CheckError(err, "Find user: "+username+" with type: RFMS in database") {
 		return c.Status(400).JSON(models.GetFailResponse(err.Error()))
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	err = bcrypt.CompareHashAndPassword([]byte(users[0].Password), []byte(password))
 	if errorHandler.CheckError(err, "Incorrect password") {
 		return c.Status(400).JSON(models.GetFailResponse("Incorrect password: " + err.Error()))
 	}

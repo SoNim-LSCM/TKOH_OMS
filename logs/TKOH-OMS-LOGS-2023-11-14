@@ -1,0 +1,2700 @@
+2023/11/14 09:41:56 SYSTEM RESTARTED
+2023/11/14 09:43:58 SYSTEM RESTARTED
+2023/11/14 09:44:19 SYSTEM RESTARTED
+2023/11/14 09:44:40 SYSTEM RESTARTED
+2023/11/14 09:45:28 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 09:45:28 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 09:45:28 mysql query: FindOrders: map[duty_location_id:%!s(int=1) last_login_time:2023-11-14 09:45:28 last_update_time:2023-11-14 09:45:28 token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJkdXR5TG9jYXRpb25JZCI6MSwiZXhwIjoxNjk5OTI4MTI4LCJ1c2VySWQiOjgsInVzZXJUeXBlIjoiU1RBRkYiLCJ1c2VybmFtZSI6InN0YWZmNCJ9.nNWPJCyfpBFpzTz6rHeg-szJ3AfPXK_7nZnjCARtVUs token_expiry_time:2023-11-14 10:15:28]
+2023/11/14 09:45:28 Failure when Update user fail: : Failed to create log
+2023/11/14 09:48:45 SYSTEM RESTARTED
+2023/11/14 09:49:01 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 09:49:01 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 09:49:02 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 09:49:02 mysql query: AddRecords
+2023/11/14 09:49:02 Failure when Update user fail: : Failed to create log
+2023/11/14 09:51:00 SYSTEM RESTARTED
+2023/11/14 09:51:05 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 09:51:05 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 09:51:05 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 09:51:05 mysql query: AddRecords
+2023/11/14 09:51:05 Failure when Update user fail: : Failed to create log
+2023/11/14 09:52:38 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 09:52:38 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 09:52:38 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 09:52:38 mysql query: AddRecords
+2023/11/14 09:52:38 Failure when Update user fail: : Failed to create log
+2023/11/14 09:55:12 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 09:55:12 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 09:55:12 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 09:55:12 mysql query: AddRecords
+2023/11/14 09:55:12 Failure when Update user fail: : Failed to create log
+2023/11/14 09:55:55 SYSTEM RESTARTED
+2023/11/14 09:56:06 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 09:56:06 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 09:56:06 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 09:56:06 mysql query: AddRecords
+2023/11/14 09:56:06 Failure when Update user fail: : Failed to create log
+2023/11/14 09:56:34 SYSTEM RESTARTED
+2023/11/14 09:56:42 SYSTEM RESTARTED
+2023/11/14 09:57:17 SYSTEM RESTARTED
+2023/11/14 09:57:18 SYSTEM RESTARTED
+2023/11/14 09:57:44 SYSTEM RESTARTED
+2023/11/14 09:58:04 SYSTEM RESTARTED
+2023/11/14 09:58:08 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 09:58:08 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 09:58:08 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 09:58:08 mysql query: AddRecords
+2023/11/14 09:58:08 Failure when Update user fail: : Failed to create log
+2023/11/14 09:59:35 SYSTEM RESTARTED
+2023/11/14 09:59:41 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 09:59:41 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 09:59:41 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 09:59:41 HandleLoginStaff login successful for staff user: staff4
+2023/11/14 10:00:56 SYSTEM RESTARTED
+2023/11/14 10:01:25 SYSTEM RESTARTED
+2023/11/14 10:01:27 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:01:27 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:01:27 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:01:27 mysql query: AddRecords
+2023/11/14 10:01:27 Failure when Update user fail: : Failed to create log
+2023/11/14 10:05:28 SYSTEM RESTARTED
+2023/11/14 10:05:31 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:05:31 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:05:31 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:05:31 mysql query: AddRecords
+2023/11/14 10:05:31 Failure when Update user fail: : Failed to create log
+2023/11/14 10:06:43 SYSTEM RESTARTED
+2023/11/14 10:06:53 SYSTEM RESTARTED
+2023/11/14 10:07:02 SYSTEM RESTARTED
+2023/11/14 10:07:13 SYSTEM RESTARTED
+2023/11/14 10:07:30 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:07:30 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:07:30 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:07:30 mysql query: AddRecords
+2023/11/14 10:07:30 Failure when Update user fail: : Failed to create log
+2023/11/14 10:13:18 SYSTEM RESTARTED
+2023/11/14 10:14:33 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:14:33 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:14:33 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:14:33 mysql query: AddRecords
+2023/11/14 10:14:33 Failure when Update user fail: : Failed to create log
+2023/11/14 10:16:39 SYSTEM RESTARTED
+2023/11/14 10:17:47 SYSTEM RESTARTED
+2023/11/14 10:19:14 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:19:14 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:19:14 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:19:14 mysql query: AddRecords
+2023/11/14 10:19:14 Failure when Update user fail: : Failed to create log
+2023/11/14 10:20:29 SYSTEM RESTARTED
+2023/11/14 10:20:48 SYSTEM RESTARTED
+2023/11/14 10:20:54 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:20:54 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:20:54 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:20:54 mysql query: AddRecords
+2023/11/14 10:20:54 Failure when Update user fail: : Failed to create log
+2023/11/14 10:25:39 SYSTEM RESTARTED
+2023/11/14 10:25:41 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:25:41 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:25:41 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:25:41 mysql query: AddRecords
+2023/11/14 10:25:41 Failure when Update user fail: : Failed to create log
+2023/11/14 10:26:49 SYSTEM RESTARTED
+2023/11/14 10:26:51 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:26:51 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:26:51 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:26:51 mysql query: AddRecords
+2023/11/14 10:26:51 Failure when Update user fail: : Failed to create log
+2023/11/14 10:27:42 SYSTEM RESTARTED
+2023/11/14 10:27:44 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:27:44 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:27:44 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:27:44 HandleLoginStaff login successful for staff user: staff4
+2023/11/14 10:29:06 mysql query: FindOrders: schedule_id = ?
+2023/11/14 10:29:06 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/14 10:29:06 mysql query: FindOrders: schedule_id = ?
+2023/11/14 10:29:06 mysql query: FindOrders: map[end_location_id:%!s(int=3) expected_delivey_time:2023-10-12 10:00:00 expected_start_time:2023-10-12 08:30:00 last_update_time:2023-11-14 10:29:06 schedule_id:%!s(int=1) start_location_id:%!s(int=2)]
+2023/11/14 10:29:06 mysql query: AddRecords
+2023/11/14 10:39:33 SYSTEM RESTARTED
+2023/11/14 10:39:39 mysql query: FindOrders: schedule_id = ?
+2023/11/14 10:39:39 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/14 10:39:39 mysql query: FindOrders: map[last_update_time:2023-11-14 10:39:39 number_of_amr_require:%!s(int=2)]
+2023/11/14 10:39:39 mysql query: AddRecords
+2023/11/14 10:45:19 SYSTEM RESTARTED
+2023/11/14 10:45:30 SYSTEM RESTARTED
+2023/11/14 10:45:45 mysql query: HandleLogout start
+2023/11/14 10:45:45 mysql query: HandleLogout: staff4, STAFF
+2023/11/14 10:45:45 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:45:45 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:45:45 mysql query: AddRecords
+2023/11/14 10:45:45 Failure when Fail update database: Failed to create log
+2023/11/14 10:47:05 mysql query: AddOrder
+2023/11/14 10:47:05 mysql query: OrderRequestToOrders
+2023/11/14 10:47:05 mysql query: AddRecords
+2023/11/14 10:47:05 Failure when Add Orders Fail: : unsupported data
+2023/11/14 10:47:56 mysql query: AddOrder
+2023/11/14 10:47:56 mysql query: OrderRequestToOrders
+2023/11/14 10:47:56 mysql query: AddRecords
+2023/11/14 10:47:56 Failure when Add Orders Fail: : unsupported data
+2023/11/14 10:48:21 SYSTEM RESTARTED
+2023/11/14 10:48:23 mysql query: AddOrder
+2023/11/14 10:48:23 mysql query: OrderRequestToOrders
+2023/11/14 10:48:23 mysql query: AddRecords
+2023/11/14 10:48:23 mysql query: AddRecords
+2023/11/14 10:48:23 mysql query: OrderListToOrderResponse
+2023/11/14 10:48:23 [{8 14 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 3 LG/F Dirty Zone 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {8 15 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 3 LG/F Dirty Zone 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 10:48:38 mysql query: HandleLogout start
+2023/11/14 10:48:38 mysql query: HandleLogout: staff4, STAFF
+2023/11/14 10:48:38 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:48:38 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:48:38 mysql query: AddRecords
+2023/11/14 10:48:38 Failure when Fail update database: Failed to create log
+2023/11/14 10:49:31 SYSTEM RESTARTED
+2023/11/14 10:49:36 mysql query: HandleLogout start
+2023/11/14 10:49:36 mysql query: HandleLogout: staff4, STAFF
+2023/11/14 10:49:36 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:49:36 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:49:36 mysql query: AddRecords
+2023/11/14 10:49:36 Failure when Fail update database: Failed to create log
+2023/11/14 10:54:38 SYSTEM RESTARTED
+2023/11/14 10:54:42 mysql query: HandleLogout start
+2023/11/14 10:54:42 mysql query: HandleLogout: staff4, STAFF
+2023/11/14 10:54:42 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:54:42 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:54:42 mysql query: AddRecords
+2023/11/14 10:54:42 Failure when Fail update database: Failed to create log
+2023/11/14 10:55:19 SYSTEM RESTARTED
+2023/11/14 10:55:20 mysql query: HandleLogout start
+2023/11/14 10:55:20 mysql query: HandleLogout: staff4, STAFF
+2023/11/14 10:55:20 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:55:20 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:55:20 mysql query: AddRecords
+2023/11/14 10:55:20 Failure when Fail update database: Failed to create log
+2023/11/14 10:56:33 SYSTEM RESTARTED
+2023/11/14 10:56:35 mysql query: HandleLogout start
+2023/11/14 10:56:35 mysql query: HandleLogout: staff4, STAFF
+2023/11/14 10:56:35 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:56:35 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:56:35 mysql query: AddRecords
+2023/11/14 10:56:35 Failure when Fail update database: Failed to create log
+2023/11/14 10:58:30 SYSTEM RESTARTED
+2023/11/14 10:58:31 mysql query: HandleLogout start
+2023/11/14 10:58:31 Failure when Invalid token: token is expired by 47s
+2023/11/14 10:58:39 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 10:58:39 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 10:58:39 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 10:58:39 mysql query: AddRecords
+2023/11/14 10:58:39 Failure when Update user fail: : Failed to create log
+2023/11/14 11:00:35 SYSTEM RESTARTED
+2023/11/14 11:00:38 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:00:38 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:00:38 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:00:38 mysql query: AddRecords
+2023/11/14 11:00:38 Failure when Update user fail: : Failed to create log
+2023/11/14 11:01:24 SYSTEM RESTARTED
+2023/11/14 11:01:24 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:01:24 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:01:24 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:01:24 mysql query: AddRecords
+2023/11/14 11:01:24 Failure when Update user fail: : Failed to create log
+2023/11/14 11:01:44 SYSTEM RESTARTED
+2023/11/14 11:01:45 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:01:45 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:01:45 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:01:45 mysql query: AddRecords
+2023/11/14 11:01:45 Failure when Update user fail: : Failed to create log
+2023/11/14 11:02:18 SYSTEM RESTARTED
+2023/11/14 11:02:19 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:02:19 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:02:19 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:02:19 mysql query: AddRecords
+2023/11/14 11:02:19 Failure when Update user fail: : Failed to create log
+2023/11/14 11:03:15 SYSTEM RESTARTED
+2023/11/14 11:03:17 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:03:17 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:03:17 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:03:17 mysql query: AddRecords
+2023/11/14 11:03:17 Failure when Update user fail: : Failed to create log
+2023/11/14 11:03:41 SYSTEM RESTARTED
+2023/11/14 11:03:42 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:03:42 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:03:42 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:03:42 mysql query: AddRecords
+2023/11/14 11:03:42 Failure when Update user fail: : Failed to create log
+2023/11/14 11:04:14 SYSTEM RESTARTED
+2023/11/14 11:04:15 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:04:15 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:04:15 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:04:15 mysql query: AddRecords
+2023/11/14 11:04:15 Failure when Update user fail: : Failed to create log
+2023/11/14 11:05:25 SYSTEM RESTARTED
+2023/11/14 11:07:15 SYSTEM RESTARTED
+2023/11/14 11:07:18 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:07:18 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:07:18 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:07:18 mysql query: AddRecords
+2023/11/14 11:07:19 Failure when Update user fail: : Failed to create log
+2023/11/14 11:07:33 SYSTEM RESTARTED
+2023/11/14 11:07:35 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:07:35 mysql query: FindOrders: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:07:35 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:07:35 mysql query: AddRecords
+2023/11/14 11:07:35 mysql query: FindOrders: username = ? AND user_type = ?
+2023/11/14 11:07:35 HandleLoginStaff login successful for staff user: staff4
+2023/11/14 11:08:46 SYSTEM RESTARTED
+2023/11/14 11:12:21 SYSTEM RESTARTED
+2023/11/14 11:13:07 Failure when Invalid token: : token is expired by 15m23s
+2023/11/14 11:13:20 mysql query: AddOrder
+2023/11/14 11:13:21 mysql query: OrderRequestToOrders
+2023/11/14 11:13:21 mysql query: AddRecords
+2023/11/14 11:13:21 mysql query: AddRecords
+2023/11/14 11:13:21 mysql query: OrderListToOrderResponse
+2023/11/14 11:13:21 [{9 16 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 3 LG/F Dirty Zone 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {9 17 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 3 LG/F Dirty Zone 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 11:13:33 mysql query: FindOrders: schedule_id = ?
+2023/11/14 11:13:33 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/14 11:13:33 mysql query: FindOrders: map[last_update_time:2023-11-14 11:13:33 number_of_amr_require:%!s(int=1)]
+2023/11/14 11:13:33 mysql query: AddRecords
+2023/11/14 11:15:26 SYSTEM RESTARTED
+2023/11/14 11:15:48 SYSTEM RESTARTED
+2023/11/14 11:15:50 mysql query: FindOrders: schedule_id = ?
+2023/11/14 11:15:50 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/14 11:15:50 mysql query: FindOrders: schedule_id = ?
+2023/11/14 11:15:50 mysql query: AddRecords
+2023/11/14 11:16:15 mysql query: FindOrders: schedule_id = ?
+2023/11/14 11:16:15 mysql query: FindOrders: schedule_id = ? AND order_status = ?
+2023/11/14 11:16:15 mysql query: FindOrders: schedule_id = ?
+2023/11/14 11:16:15 mysql query: AddRecords
+2023/11/14 11:16:15 mysql query: FindOrders: schedule_id = ?
+2023/11/14 11:16:15 mysql query: FindOrders: order_id = ?
+2023/11/14 11:16:15 mysql query: OrderListToOrderResponse
+2023/11/14 11:16:15 [{1 1 PICK_AND_DELIVERY ADHOC 6 CANCELED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 11:16:15 mysql query: FindOrders: order_id = ?
+2023/11/14 11:16:15 mysql query: AddRecords
+2023/11/14 11:16:15 mysql query: FindOrders: order_id = ?
+2023/11/14 11:16:15 mysql query: OrderListToOrderResponse
+2023/11/14 11:16:15 [{1 2 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 2 LG/F Clean Zone 202310120830 3 LG/F Dirty Zone 000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/14 11:27:34 SYSTEM RESTARTED
+2023/11/14 11:27:40 SYSTEM RESTARTED
+2023/11/14 11:27:54 SYSTEM RESTARTED
+2023/11/14 11:28:06 mysql query: AddOrder
+2023/11/14 11:28:06 mysql query: AddRecords
+2023/11/14 11:29:18 SYSTEM RESTARTED
+2023/11/14 11:29:24 mysql query: AddOrder
+2023/11/14 11:29:24 mysql query: AddRecords
+2023/11/14 11:30:26 SYSTEM RESTARTED
+2023/11/14 11:30:27 mysql query: AddOrder
+2023/11/14 11:30:27 mysql query: AddRecords
+2023/11/14 11:30:49 SYSTEM RESTARTED
+2023/11/14 11:30:52 mysql query: AddOrder
+2023/11/14 11:30:52 mysql query: AddRecords
+2023/11/14 11:33:49 SYSTEM RESTARTED
+2023/11/14 11:33:53 mysql query: AddOrder
+2023/11/14 11:33:53 mysql query: AddRecords
+2023/11/14 11:34:57 SYSTEM RESTARTED
+2023/11/14 11:34:58 mysql query: AddOrder
+2023/11/14 11:34:58 mysql query: AddRecords
+2023/11/14 11:37:48 SYSTEM RESTARTED
+2023/11/14 11:37:51 Failure when Invalid token: : token is expired by 16s
+2023/11/14 11:37:58 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 11:37:58 mysql query: FindRecords: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 11:37:58 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 11:37:58 mysql query: AddRecords
+2023/11/14 11:37:58 mysql query: UpdateRecords
+2023/11/14 11:37:58 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 11:37:58 HandleLoginStaff login successful for staff user: staff4
+2023/11/14 11:38:07 mysql query: AddOrder
+2023/11/14 11:38:07 mysql query: AddRecords
+2023/11/14 11:38:07 mysql query: OrderRequestToOrders
+2023/11/14 11:38:07 mysql query: AddRecords
+2023/11/14 11:38:07 mysql query: OrderListToOrderResponse
+2023/11/14 11:38:07 [{0 18 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {0 19 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 11:38:26 SYSTEM RESTARTED
+2023/11/14 11:39:28 SYSTEM RESTARTED
+2023/11/14 11:41:28 mysql query: FindRecords: order_status IN ?
+2023/11/14 11:41:28 mysql query: OrderListToOrderResponse
+2023/11/14 11:41:28 [{1 1 PICK_AND_DELIVERY ADHOC 6 CANCELED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 11:43:40 SYSTEM RESTARTED
+2023/11/14 11:44:36 SYSTEM RESTARTED
+2023/11/14 11:45:15 SYSTEM RESTARTED
+2023/11/14 11:47:23 SYSTEM RESTARTED
+2023/11/14 11:49:09 SYSTEM RESTARTED
+2023/11/14 11:50:47 SYSTEM RESTARTED
+2023/11/14 11:51:04 SYSTEM RESTARTED
+2023/11/14 11:51:13 SYSTEM RESTARTED
+2023/11/14 11:53:30 SYSTEM RESTARTED
+2023/11/14 11:54:58 SYSTEM RESTARTED
+2023/11/14 11:55:18 SYSTEM RESTARTED
+2023/11/14 11:55:45 SYSTEM RESTARTED
+2023/11/14 12:07:06 mysql query: AddOrder
+2023/11/14 12:07:06 mysql query: AddRecords
+2023/11/14 12:07:06 mysql query: OrderRequestToOrders
+2023/11/14 12:07:06 mysql query: AddRecords
+2023/11/14 12:07:06 mysql query: OrderListToOrderResponse
+2023/11/14 12:07:06 [{0 20 QUEUEING_AT_START_BAY ADHOC 8 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {0 21 QUEUEING_AT_START_BAY ADHOC 8 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 13:21:56 SYSTEM RESTARTED
+2023/11/14 13:26:53 SYSTEM RESTARTED
+2023/11/14 13:28:21 SYSTEM RESTARTED
+2023/11/14 13:28:31 SYSTEM RESTARTED
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:30:51 request: websocket: close 1000 (normal)
+2023/11/14 13:30:51 write: websocket: bad write message type
+2023/11/14 13:31:10 Login Username: user1 , AuthToken: TOKEN
+2023/11/14 13:31:41 Login Username: user5 , AuthToken: TOKEN
+2023/11/14 13:46:47 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 13:46:47 mysql query: FindRecords: &{%!s(int=0) staff4  STAFF       %!s(int=0)}
+2023/11/14 13:46:47 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 13:46:47 mysql query: AddRecords
+2023/11/14 13:46:47 mysql query: UpdateRecords
+2023/11/14 13:46:47 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 13:46:47 HandleLoginStaff login successful for staff user: staff4
+2023/11/14 13:47:03 mysql query: FindRecords: order_status IN ?
+2023/11/14 13:47:03 mysql query: OrderListToOrderResponse
+2023/11/14 13:47:03 [{1 1 PICK_AND_DELIVERY ADHOC 6 CANCELED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 13:48:26 SYSTEM RESTARTED
+2023/11/14 13:48:59 SYSTEM RESTARTED
+2023/11/14 13:50:24 SYSTEM RESTARTED
+2023/11/14 13:51:40 SYSTEM RESTARTED
+2023/11/14 13:52:04 SYSTEM RESTARTED
+2023/11/14 13:55:18 SYSTEM RESTARTED
+2023/11/14 13:55:46 SYSTEM RESTARTED
+2023/11/14 13:56:46 SYSTEM RESTARTED
+2023/11/14 13:57:09 SYSTEM RESTARTED
+2023/11/14 14:30:38 SYSTEM RESTARTED
+2023/11/14 14:32:19 SYSTEM RESTARTED
+2023/11/14 15:04:55 SYSTEM RESTARTED
+2023/11/14 15:07:19 SYSTEM RESTARTED
+2023/11/14 15:09:45 SYSTEM RESTARTED
+2023/11/14 15:24:44 SYSTEM RESTARTED
+2023/11/14 15:24:55 SYSTEM RESTARTED
+2023/11/14 15:25:02 SYSTEM RESTARTED
+2023/11/14 15:25:26 SYSTEM RESTARTED
+2023/11/14 15:25:27 SYSTEM RESTARTED
+2023/11/14 15:25:27 FINISH SYSTEM CONFIG
+2023/11/14 15:26:01 SYSTEM RESTARTED
+2023/11/14 16:37:42 SYSTEM RESTARTED
+2023/11/14 16:38:25 SYSTEM RESTARTED
+2023/11/14 16:40:43 HandleLoginStaff with username: staff4 dutyLocationId: 1
+2023/11/14 16:40:43 mysql query: FindRecords: &{%!s(int=0) staff4  STAFF      %!s(int=0) }
+2023/11/14 16:40:43 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 16:40:43 mysql query: AddRecords
+2023/11/14 16:40:43 mysql query: UpdateRecords
+2023/11/14 16:40:43 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 16:40:43 HandleLoginStaff login successful for staff user: staff4
+2023/11/14 16:42:11 SYSTEM RESTARTED
+2023/11/14 16:42:41 SYSTEM RESTARTED
+2023/11/14 16:42:43 mysql query: AddRoutineOrder
+2023/11/14 16:42:43 mysql query: OrderRequestToOrders
+2023/11/14 16:42:43 Failure when Add Routine Fail: : json: cannot unmarshal object into Go value of type []db_models.Routines
+2023/11/14 16:47:00 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 16:47:00 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 16:47:00 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 16:47:00 mysql query: AddRecords
+2023/11/14 16:47:00 mysql query: UpdateRecords
+2023/11/14 16:47:00 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 16:47:00 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 16:47:12 mysql query: AddRoutineOrder
+2023/11/14 16:47:12 mysql query: OrderRequestToOrders
+2023/11/14 16:47:12 Failure when Add Routine Fail: : json: cannot unmarshal object into Go value of type []db_models.Routines
+2023/11/14 16:49:45 SYSTEM RESTARTED
+2023/11/14 16:50:55 mysql query: AddRoutineOrder
+2023/11/14 16:50:55 mysql query: OrderRequestToOrders
+2023/11/14 16:50:55 Failure when Add Routine Fail: : json: cannot unmarshal object into Go value of type []db_models.Routines
+2023/11/14 16:52:59 SYSTEM RESTARTED
+2023/11/14 16:53:00 mysql query: AddRoutineOrder
+2023/11/14 16:53:00 mysql query: OrderRequestToOrders
+2023/11/14 16:53:00 Failure when Add Routine Fail: : json: cannot unmarshal object into Go struct field Routines.routinePattern of type string
+2023/11/14 16:54:21 SYSTEM RESTARTED
+2023/11/14 16:54:35 mysql query: AddRoutineOrder
+2023/11/14 16:54:35 mysql query: OrderRequestToOrders
+2023/11/14 16:54:35 Failure when Add Routine Fail: : json: cannot unmarshal object into Go struct field Routines.routinePattern of type string
+2023/11/14 16:55:03 SYSTEM RESTARTED
+2023/11/14 16:56:00 mysql query: AddRoutineOrder
+2023/11/14 16:56:00 mysql query: OrderRequestToOrders
+2023/11/14 16:56:00 Failure when Add Routine Fail: : json: cannot unmarshal object into Go struct field Routines.routinePattern of type string
+2023/11/14 16:57:34 SYSTEM RESTARTED
+2023/11/14 16:57:37 mysql query: AddRoutineOrder
+2023/11/14 16:57:37 mysql query: OrderRequestToOrders
+2023/11/14 16:57:37 Failure when Add Routine Fail: : json: cannot unmarshal object into Go struct field Routines.routinePattern of type string
+2023/11/14 17:01:39 SYSTEM RESTARTED
+2023/11/14 17:01:49 mysql query: AddRoutineOrder
+2023/11/14 17:01:49 mysql query: OrderRequestToOrders
+2023/11/14 17:01:49 mysql query: AddRecords
+2023/11/14 17:01:49 Failure when Add Routine Fail: : Error 1054 (42S22): Unknown column 'start_location_name' in 'field list'
+2023/11/14 17:02:34 SYSTEM RESTARTED
+2023/11/14 17:02:36 mysql query: AddRoutineOrder
+2023/11/14 17:02:36 mysql query: OrderRequestToOrders
+2023/11/14 17:02:36 mysql query: AddRecords
+2023/11/14 17:02:36 Failure when Add Routine Fail: : Error 1054 (42S22): Unknown column 'expected_start_time' in 'field list'
+2023/11/14 17:03:52 SYSTEM RESTARTED
+2023/11/14 17:04:01 mysql query: AddRoutineOrder
+2023/11/14 17:04:01 mysql query: OrderRequestToOrders
+2023/11/14 17:04:01 mysql query: AddRecords
+2023/11/14 17:04:01 Failure when Add Routine Fail: : Error 1054 (42S22): Unknown column 'destination_location_id' in 'field list'
+2023/11/14 17:05:11 SYSTEM RESTARTED
+2023/11/14 17:05:47 SYSTEM RESTARTED
+2023/11/14 17:06:12 SYSTEM RESTARTED
+2023/11/14 17:06:23 SYSTEM RESTARTED
+2023/11/14 17:06:38 SYSTEM RESTARTED
+2023/11/14 17:06:47 mysql query: AddRoutineOrder
+2023/11/14 17:06:47 mysql query: OrderRequestToOrders
+2023/11/14 17:06:47 mysql query: AddRecords
+2023/11/14 17:06:47 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '' for column 'expected_delivey_time' at row 1
+2023/11/14 17:07:38 SYSTEM RESTARTED
+2023/11/14 17:07:40 mysql query: AddRoutineOrder
+2023/11/14 17:07:40 mysql query: OrderRequestToOrders
+2023/11/14 17:07:40 mysql query: AddRecords
+2023/11/14 17:07:40 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '' for column 'expected_delivey_time' at row 1
+2023/11/14 17:10:02 SYSTEM RESTARTED
+2023/11/14 17:10:05 mysql query: AddRoutineOrder
+2023/11/14 17:10:05 mysql query: OrderRequestToOrders
+2023/11/14 17:10:05 mysql query: AddRecords
+2023/11/14 17:10:05 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '1000' for column 'expected_delivey_time' at row 1
+2023/11/14 17:11:02 SYSTEM RESTARTED
+2023/11/14 17:11:04 mysql query: AddRoutineOrder
+2023/11/14 17:11:04 mysql query: OrderRequestToOrders
+2023/11/14 17:11:04 mysql query: AddRecords
+2023/11/14 17:11:04 Failure when Add Routine Fail: : Error 1406 (22001): Data too long for column 'routine_pattern' at row 1
+2023/11/14 17:12:23 mysql query: AddRoutineOrder
+2023/11/14 17:12:23 mysql query: OrderRequestToOrders
+2023/11/14 17:12:23 mysql query: AddRecords
+2023/11/14 17:12:23 mysql query: OrderListToOrderResponse
+2023/11/14 17:12:23 [{22 PICK_AND_DELIVERY {[] [] []} 2023-11-14 17:12:23 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 17:19:01 SYSTEM RESTARTED
+2023/11/14 17:19:07 Failure when Invalid token: : token is expired by 2m7s
+2023/11/14 17:19:12 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 17:19:12 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 17:19:12 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 17:19:12 mysql query: AddRecords
+2023/11/14 17:19:12 mysql query: UpdateRecords
+2023/11/14 17:19:12 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 17:19:12 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 17:19:21 mysql query: AddRoutineOrder
+2023/11/14 17:19:21 mysql query: OrderRequestToOrders
+2023/11/14 17:19:21 mysql query: AddRecords
+2023/11/14 17:19:21 mysql query: OrderListToOrderResponse
+2023/11/14 17:19:21 [{23 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 17:19:21 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 17:19:33 mysql query: AddRoutineOrder
+2023/11/14 17:19:33 mysql query: OrderRequestToOrders
+2023/11/14 17:19:33 mysql query: AddRecords
+2023/11/14 17:19:33 mysql query: OrderListToOrderResponse
+2023/11/14 17:19:33 [{24 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 17:19:33 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 17:55:25 SYSTEM RESTARTED
+2023/11/14 17:56:01 SYSTEM RESTARTED
+2023/11/14 17:56:09 Failure when Invalid token: : token is expired by 6m57s
+2023/11/14 17:56:15 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 17:56:15 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 17:56:15 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 17:56:15 mysql query: AddRecords
+2023/11/14 17:56:16 mysql query: UpdateRecords
+2023/11/14 17:56:16 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 17:56:16 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 17:56:33 mysql query: AddRoutineOrder
+2023/11/14 17:56:33 mysql query: OrderRequestToOrders
+2023/11/14 17:56:33 mysql query: AddRecords
+2023/11/14 17:56:33 mysql query: OrderListToOrderResponse
+2023/11/14 17:56:33 [{25 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 17:56:33 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 17:57:14 SYSTEM RESTARTED
+2023/11/14 17:57:16 mysql query: AddRoutineOrder
+2023/11/14 17:57:16 mysql query: OrderRequestToOrders
+2023/11/14 17:57:16 mysql query: AddRecords
+2023/11/14 17:57:16 mysql query: OrderListToOrderResponse
+2023/11/14 17:57:16 [{26 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 17:57:16 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 17:58:10 SYSTEM RESTARTED
+2023/11/14 17:58:25 SYSTEM RESTARTED
+2023/11/14 17:58:29 mysql query: AddRoutineOrder
+2023/11/14 17:58:29 mysql query: OrderRequestToOrders
+2023/11/14 17:58:29 mysql query: AddRecords
+2023/11/14 17:58:29 mysql query: OrderListToOrderResponse
+2023/11/14 17:58:29 [{27 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 17:58:29 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 18:03:30 SYSTEM RESTARTED
+2023/11/14 18:04:02 mysql query: AddRoutineOrder
+2023/11/14 18:04:02 mysql query: OrderRequestToOrders
+2023/11/14 18:04:02 mysql query: AddRecords
+2023/11/14 18:04:02 mysql query: OrderListToOrderResponse
+2023/11/14 18:04:02 [{28 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 18:04:02 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 18:07:25 SYSTEM RESTARTED
+2023/11/14 18:08:14 SYSTEM RESTARTED
+2023/11/14 18:08:48 SYSTEM RESTARTED
+2023/11/14 18:08:57 mysql query: AddRoutineOrder
+2023/11/14 18:08:57 mysql query: OrderRequestToOrders
+2023/11/14 18:08:57 mysql query: AddRecords
+2023/11/14 18:08:57 mysql query: OrderListToOrderResponse
+2023/11/14 18:08:57 [{29 PICK_AND_DELIVERY {[12] [3] [1 2 3 4 5]} 2023-11-14 18:08:57 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 18:09:31 SYSTEM RESTARTED
+2023/11/14 18:09:32 mysql query: AddRoutineOrder
+2023/11/14 18:09:32 mysql query: OrderRequestToOrders
+2023/11/14 18:09:32 mysql query: AddRecords
+2023/11/14 18:09:32 mysql query: OrderListToOrderResponse
+2023/11/14 18:09:32 [{30 PICK_AND_DELIVERY {[12] [3] [1 2 3 4 5]} 2023-11-14 18:09:32 false 0 2 1   2  1970-01-01 08:00:00}]
+2023/11/14 18:12:23 SYSTEM RESTARTED
+2023/11/14 18:21:15 SYSTEM RESTARTED
+2023/11/14 18:21:22 mysql query: AddRoutineOrder
+2023/11/14 18:21:22 mysql query: OrderRequestToOrders
+2023/11/14 18:21:22 mysql query: AddRecords
+2023/11/14 18:21:22 Failure when Add Routine Fail: : Error 1054 (42S22): Unknown column 'start_location_name' in 'field list'
+2023/11/14 18:29:57 SYSTEM RESTARTED
+2023/11/14 18:29:59 Failure when Invalid token: : token is expired by 3m44s
+2023/11/14 18:30:05 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 18:30:05 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 18:30:05 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 18:30:05 mysql query: AddRecords
+2023/11/14 18:30:05 mysql query: UpdateRecords
+2023/11/14 18:30:05 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 18:30:05 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 18:30:12 mysql query: AddRoutineOrder
+2023/11/14 18:30:12 mysql query: OrderRequestToOrders
+2023/11/14 18:30:12 mysql query: AddRecords
+2023/11/14 18:30:12 mysql query: OrderListToOrderResponse
+2023/11/14 18:30:12 [{31 PICK_AND_DELIVERY {[12] [3] [1 2 3 4 5]} 2023-11-14 18:30:12 false 0 2 1 5/F DSC  2 LG/F Clean Zone 1970-01-01 08:00:00}]
+2023/11/14 18:36:59 SYSTEM RESTARTED
+2023/11/14 18:45:19 SYSTEM RESTARTED
+2023/11/14 18:47:03 SYSTEM RESTARTED
+2023/11/14 18:51:01 SYSTEM RESTARTED
+2023/11/14 18:51:39 mysql query: AddOrder
+2023/11/14 18:51:40 mysql query: AddRecords
+2023/11/14 18:51:40 mysql query: OrderRequestToOrders
+2023/11/14 18:51:40 mysql query: AddRecords
+2023/11/14 18:51:40 mysql query: OrderListToOrderResponse
+2023/11/14 18:51:40 [{18 22 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 0  000101010000 000101010000 PLANNING_TO_START_LOCATION } {18 23 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 0  000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 18:52:18 mysql query: AddOrder
+2023/11/14 18:52:18 mysql query: AddRecords
+2023/11/14 18:52:18 mysql query: OrderRequestToOrders
+2023/11/14 18:52:18 mysql query: AddRecords
+2023/11/14 18:52:18 mysql query: OrderListToOrderResponse
+2023/11/14 18:52:18 [{19 24 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {19 25 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 18:52:32 mysql query: AddOrder
+2023/11/14 18:52:32 mysql query: AddRecords
+2023/11/14 18:52:32 mysql query: OrderRequestToOrders
+2023/11/14 18:52:32 mysql query: AddRecords
+2023/11/14 18:52:32 mysql query: OrderListToOrderResponse
+2023/11/14 18:52:32 [{20 26 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {20 27 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 18:59:29 SYSTEM RESTARTED
+2023/11/14 18:59:59 SYSTEM RESTARTED
+2023/11/14 19:00:00 mysql query: AddRoutineOrder
+2023/11/14 19:00:00 mysql query: OrderRequestToOrders
+2023/11/14 19:00:00 mysql query: AddRecords
+2023/11/14 19:00:00 mysql query: OrderListToOrderResponse
+2023/11/14 19:00:00 [{22 PICK_AND_DELIVERY {[] [] []} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {23 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {24 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {25 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {26 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {27 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {28 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {29 PICK_AND_DELIVERY {[12] [3] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {30 PICK_AND_DELIVERY {[12] [3] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {31 PICK_AND_DELIVERY {[12] [3] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {32 PICK_AND_DELIVERY {[12] [3] [1 2 3 4 5]} 2023-11-14 19:00:00 false 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00}]
+2023/11/14 22:38:50 SYSTEM RESTARTED
+2023/11/14 22:38:58 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 22:41:53 SYSTEM RESTARTED
+2023/11/14 22:41:56 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 22:43:25 SYSTEM RESTARTED
+2023/11/14 22:43:29 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 22:43:56 SYSTEM RESTARTED
+2023/11/14 22:43:59 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 22:43:59 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 22:44:14 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 22:44:14 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 22:44:33 SYSTEM RESTARTED
+2023/11/14 22:44:45 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 22:44:45 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 22:46:35 SYSTEM RESTARTED
+2023/11/14 22:46:50 SYSTEM RESTARTED
+2023/11/14 22:46:53 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 22:46:53 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 22:46:54 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 22:46:54 mysql query: AddRecords
+2023/11/14 22:46:54 mysql query: UpdateRecords
+2023/11/14 22:46:54 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 22:46:54 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 22:47:21 Failure when Invalid token: token contains an invalid number of segments
+2023/11/14 22:48:11 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 22:48:22 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 22:48:22 mysql query: AddRecords
+2023/11/14 22:48:22 mysql query: UpdateRecords
+2023/11/14 22:48:22 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 22:48:22 Renew token successful for user: staff10
+2023/11/14 22:48:55 mysql query: HandleLogout start
+2023/11/14 22:48:55 mysql query: HandleLogout: staff10, STAFF
+2023/11/14 22:48:55 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 22:49:07 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 22:49:07 mysql query: AddRecords
+2023/11/14 22:49:07 mysql query: UpdateRecords
+2023/11/14 22:49:07 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 22:49:07 Logout successful for user: staff10
+2023/11/14 22:49:39 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 22:49:39 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 22:49:50 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 22:49:50 mysql query: AddRecords
+2023/11/14 22:49:50 mysql query: UpdateRecords
+2023/11/14 22:49:50 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 22:49:51 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 22:53:31 mysql query: FindRecords: order_status IN ?
+2023/11/14 22:53:31 mysql query: OrderListToOrderResponse
+2023/11/14 22:53:31 [{1 1 PICK_AND_DELIVERY ADHOC 6 CANCELED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 23:00:05 SYSTEM RESTARTED
+2023/11/14 23:02:03 SYSTEM RESTARTED
+2023/11/14 23:04:02 SYSTEM RESTARTED
+2023/11/14 23:04:05 Failure when Invalid token: : missing token
+2023/11/14 23:04:40 mysql query: FindRecords: order_status IN ?
+2023/11/14 23:04:40 mysql query: OrderListToOrderResponse
+2023/11/14 23:04:40 [{1 1 PICK_AND_DELIVERY ADHOC 6 CANCELED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 23:04:49 mysql query: FindRecords: order_status IN ?
+2023/11/14 23:04:49 mysql query: OrderListToOrderResponse
+2023/11/14 23:04:49 [{1 2 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 2  202310120830 3  000101010000 202310121000 PLANNING_TO_START_LOCATION } {2 3 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 QUEUEING_AT_START_BAY } {2 4 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 QUEUEING_AT_START_BAY } {3 5 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3  000101010000 1  000101010000 000101010000 QUEUEING_AT_START_BAY } {3 6 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3  000101010000 1  000101010000 000101010000 QUEUEING_AT_START_BAY } {4 7 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {4 8 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {5 9 string ADHOC 2 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 PLANNING_TO_START_LOCATION } {5 10 string ADHOC 2 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 PLANNING_TO_START_LOCATION } {5 11 string ADHOC 2 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 PLANNING_TO_START_LOCATION } {7 12 string ADHOC 2 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {7 13 string ADHOC 2 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {8 14 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 3  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {8 15 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 3  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {9 16 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 3  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {9 17 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 3  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {0 18 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {0 19 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {18 22 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 0  000101010000 000101010000 PLANNING_TO_START_LOCATION } {18 23 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 0  000101010000 000101010000 PLANNING_TO_START_LOCATION } {19 24 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {19 25 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {20 26 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {20 27 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/14 23:05:09 mysql query: HandleLogout start
+2023/11/14 23:05:09 mysql query: HandleLogout: staff10, STAFF
+2023/11/14 23:05:09 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 23:05:20 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:05:20 mysql query: AddRecords
+2023/11/14 23:05:20 mysql query: UpdateRecords
+2023/11/14 23:05:21 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:05:21 Logout successful for user: staff10
+2023/11/14 23:09:37 SYSTEM RESTARTED
+2023/11/14 23:10:24 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:10:35 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 23:10:35 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:10:35 mysql query: AddRecords
+2023/11/14 23:10:35 mysql query: UpdateRecords
+2023/11/14 23:10:35 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:10:35 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 23:11:53 SYSTEM RESTARTED
+2023/11/14 23:12:29 mysql query: HandleLogout start
+2023/11/14 23:12:29 mysql query: HandleLogout: staff10, STAFF
+2023/11/14 23:12:40 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 23:12:41 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:12:41 mysql query: AddRecords
+2023/11/14 23:12:41 mysql query: UpdateRecords
+2023/11/14 23:12:41 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:12:41 Logout successful for user: staff10
+2023/11/14 23:19:28 SYSTEM RESTARTED
+2023/11/14 23:19:30 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:19:37 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:19:38 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:19:40 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:19:40 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 23:19:40 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:19:40 mysql query: AddRecords
+2023/11/14 23:19:40 mysql query: UpdateRecords
+2023/11/14 23:19:40 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:19:40 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 23:19:53 mysql query: HandleLogout start
+2023/11/14 23:19:53 mysql query: HandleLogout: staff10, STAFF
+2023/11/14 23:19:53 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 23:19:53 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:19:53 mysql query: AddRecords
+2023/11/14 23:19:53 mysql query: UpdateRecords
+2023/11/14 23:19:53 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:19:53 Logout successful for user: staff10
+2023/11/14 23:20:32 SYSTEM RESTARTED
+2023/11/14 23:20:36 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:23:43 SYSTEM RESTARTED
+2023/11/14 23:24:05 SYSTEM RESTARTED
+2023/11/14 23:24:11 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:24:11 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 23:24:11 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:24:11 mysql query: AddRecords
+2023/11/14 23:24:11 mysql query: UpdateRecords
+2023/11/14 23:24:11 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:24:11 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 23:25:07 SYSTEM RESTARTED
+2023/11/14 23:25:31 mysql query: HandleLogout start
+2023/11/14 23:25:31 mysql query: HandleLogout: staff10, STAFF
+2023/11/14 23:25:31 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 23:25:31 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:25:31 mysql query: AddRecords
+2023/11/14 23:25:31 mysql query: UpdateRecords
+2023/11/14 23:25:31 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:25:31 Logout successful for user: staff10
+2023/11/14 23:25:36 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:25:36 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/14 23:25:36 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:25:36 mysql query: AddRecords
+2023/11/14 23:25:36 mysql query: UpdateRecords
+2023/11/14 23:25:36 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/14 23:25:36 HandleLoginStaff login successful for staff user: staff10
