@@ -1,0 +1,650 @@
+2023/11/16 10:32:06 SYSTEM RESTARTED
+2023/11/16 10:33:35 SYSTEM RESTARTED
+2023/11/16 10:34:34 SYSTEM RESTARTED
+2023/11/16 10:44:50 SYSTEM RESTARTED
+2023/11/16 10:44:51 Failure when Invalid/missing input: : Unprocessable Entity
+2023/11/16 10:44:58 Failure when Invalid/missing input: : Unprocessable Entity
+2023/11/16 10:50:14 SYSTEM RESTARTED
+2023/11/16 10:50:37 Failure when Invalid/missing input: : Unprocessable Entity
+2023/11/16 10:51:34 SYSTEM RESTARTED
+2023/11/16 10:52:21 SYSTEM RESTARTED
+2023/11/16 10:52:31 SYSTEM RESTARTED
+2023/11/16 10:52:44 SYSTEM RESTARTED
+2023/11/16 10:53:11 SYSTEM RESTARTED
+2023/11/16 10:53:15 SYSTEM RESTARTED
+2023/11/16 10:53:53 SYSTEM RESTARTED
+2023/11/16 10:53:59 SYSTEM RESTARTED
+2023/11/16 10:54:36 SYSTEM RESTARTED
+2023/11/16 10:54:40 SYSTEM RESTARTED
+2023/11/16 10:56:24 SYSTEM RESTARTED
+2023/11/16 10:56:31 SYSTEM RESTARTED
+2023/11/16 10:56:36 SYSTEM RESTARTED
+2023/11/16 13:07:33 SYSTEM RESTARTED
+2023/11/16 13:11:02 SYSTEM RESTARTED
+2023/11/16 13:12:51 SYSTEM RESTARTED
+2023/11/16 13:15:40 SYSTEM RESTARTED
+2023/11/16 13:18:04 SYSTEM RESTARTED
+2023/11/16 13:18:21 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 13:18:22 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 13:18:22 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 13:18:22 mysql query: AddRecords
+2023/11/16 13:18:22 mysql query: UpdateRecords
+2023/11/16 13:18:22 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 13:18:22 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 13:18:28 mysql query: AddRoutineOrder
+2023/11/16 13:18:28 mysql query: OrderRequestToOrders
+2023/11/16 13:18:28 mysql query: AddRecords
+2023/11/16 13:18:28 mysql query: OrderListToOrderResponse
+2023/11/16 13:18:28 [{33 PICK_AND_DELIVERY {[111] [] []} 2023-11-16 13:18:28 false 0 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:21:02 SYSTEM RESTARTED
+2023/11/16 13:21:18 SYSTEM RESTARTED
+2023/11/16 13:21:25 mysql query: AddRoutineOrder
+2023/11/16 13:21:25 mysql query: OrderRequestToOrders
+2023/11/16 13:21:25 mysql query: AddRecords
+2023/11/16 13:21:25 mysql query: OrderListToOrderResponse
+2023/11/16 13:21:25 [{34 PICK_AND_DELIVERY {[111] [] []} 2023-11-16 13:21:25 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:37:32 SYSTEM RESTARTED
+2023/11/16 13:37:38 mysql query: AddRoutineOrder
+2023/11/16 13:37:38 mysql query: OrderRequestToOrders
+2023/11/16 13:37:38 mysql query: AddRecords
+2023/11/16 13:37:38 mysql query: OrderListToOrderResponse
+2023/11/16 13:37:38 [{35 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:38:07 SYSTEM RESTARTED
+2023/11/16 13:38:09 mysql query: AddRoutineOrder
+2023/11/16 13:38:09 mysql query: OrderRequestToOrders
+2023/11/16 13:38:09 mysql query: AddRecords
+2023/11/16 13:38:09 mysql query: OrderListToOrderResponse
+2023/11/16 13:38:09 [{36 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:39:02 SYSTEM RESTARTED
+2023/11/16 13:39:05 mysql query: AddRoutineOrder
+2023/11/16 13:39:05 mysql query: OrderRequestToOrders
+2023/11/16 13:39:05 mysql query: AddRecords
+2023/11/16 13:39:05 mysql query: OrderListToOrderResponse
+2023/11/16 13:39:05 [{37 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:40:10 SYSTEM RESTARTED
+2023/11/16 13:40:11 mysql query: AddRoutineOrder
+2023/11/16 13:40:11 mysql query: OrderRequestToOrders
+2023/11/16 13:40:11 mysql query: AddRecords
+2023/11/16 13:40:11 mysql query: OrderListToOrderResponse
+2023/11/16 13:40:11 [{38 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:41:28 SYSTEM RESTARTED
+2023/11/16 13:42:30 SYSTEM RESTARTED
+2023/11/16 13:42:32 mysql query: AddRoutineOrder
+2023/11/16 13:42:32 mysql query: OrderRequestToOrders
+2023/11/16 13:42:32 mysql query: AddRecords
+2023/11/16 13:42:32 mysql query: OrderListToOrderResponse
+2023/11/16 13:42:32 [{39 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:45:26 SYSTEM RESTARTED
+2023/11/16 13:45:27 mysql query: AddRoutineOrder
+2023/11/16 13:45:27 mysql query: OrderRequestToOrders
+2023/11/16 13:45:27 mysql query: AddRecords
+2023/11/16 13:45:27 mysql query: OrderListToOrderResponse
+2023/11/16 13:45:27 [{40 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:47:02 SYSTEM RESTARTED
+2023/11/16 13:47:11 SYSTEM RESTARTED
+2023/11/16 13:47:13 mysql query: AddRoutineOrder
+2023/11/16 13:47:13 mysql query: OrderRequestToOrders
+2023/11/16 13:47:13 mysql query: AddRecords
+2023/11/16 13:47:13 mysql query: OrderListToOrderResponse
+2023/11/16 13:47:13 [{41 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:47:58 SYSTEM RESTARTED
+2023/11/16 13:48:02 mysql query: AddRoutineOrder
+2023/11/16 13:48:02 mysql query: OrderRequestToOrders
+2023/11/16 13:48:02 mysql query: AddRecords
+2023/11/16 13:48:02 mysql query: OrderListToOrderResponse
+2023/11/16 13:48:02 [{42 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:55:38 SYSTEM RESTARTED
+2023/11/16 13:55:51 Failure when Invalid token: : token is expired by 7m29s
+2023/11/16 13:55:57 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 13:55:57 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 13:55:57 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 13:55:57 mysql query: AddRecords
+2023/11/16 13:55:57 mysql query: UpdateRecords
+2023/11/16 13:55:57 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 13:55:57 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 13:56:05 mysql query: AddRoutineOrder
+2023/11/16 13:56:05 mysql query: OrderRequestToOrders
+2023/11/16 13:56:05 mysql query: AddRecords
+2023/11/16 13:56:05 mysql query: OrderListToOrderResponse
+2023/11/16 13:56:05 [{43 PICK_AND_DELIVERY {[] [] [1]}  false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 13:57:55 SYSTEM RESTARTED
+2023/11/16 13:57:57 mysql query: AddRoutineOrder
+2023/11/16 13:57:57 mysql query: OrderRequestToOrders
+2023/11/16 13:57:57 mysql query: AddRecords
+2023/11/16 13:57:57 mysql query: OrderListToOrderResponse
+2023/11/16 13:57:57 [{44 PICK_AND_DELIVERY {[] [] [1]} 4 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 14:01:08 SYSTEM RESTARTED
+2023/11/16 14:04:14 SYSTEM RESTARTED
+2023/11/16 14:04:22 mysql query: AddRoutineOrder
+2023/11/16 14:04:22 mysql query: OrderRequestToOrders
+2023/11/16 14:04:22 mysql query: AddRecords
+2023/11/16 14:04:22 mysql query: OrderListToOrderResponse
+2023/11/16 14:04:22 [{45 PICK_AND_DELIVERY {[] [] [1]} 20231120 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 14:44:54 SYSTEM RESTARTED
+2023/11/16 14:44:54 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 14:44:54 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 14:44:54 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 14:44:54 mysql query: AddRecords
+2023/11/16 14:44:54 mysql query: UpdateRecords
+2023/11/16 14:44:54 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 14:44:54 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 14:45:06 mysql query: AddRoutineOrder
+2023/11/16 14:45:06 mysql query: OrderRequestToOrders
+2023/11/16 14:45:06 mysql query: AddRecords
+2023/11/16 14:45:06 mysql query: OrderListToOrderResponse
+2023/11/16 14:45:06 [{46 PICK_AND_DELIVERY {[] [] [1]} 20231120 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 14:45:34 mysql query: AddRoutineOrder
+2023/11/16 14:45:34 mysql query: OrderRequestToOrders
+2023/11/16 14:45:34 mysql query: AddRecords
+2023/11/16 14:45:34 mysql query: OrderListToOrderResponse
+2023/11/16 14:45:34 [{47 PICK_AND_DELIVERY {[11 13 15 19] [11 12] []} 20231123 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 14:47:02 SYSTEM RESTARTED
+2023/11/16 14:47:07 mysql query: AddRoutineOrder
+2023/11/16 14:47:07 mysql query: OrderRequestToOrders
+2023/11/16 14:47:07 mysql query: AddRecords
+2023/11/16 14:47:07 mysql query: OrderListToOrderResponse
+2023/11/16 14:47:07 [{48 PICK_AND_DELIVERY {[11 13 15 19] [11 12] []} 20231123 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 14:48:25 SYSTEM RESTARTED
+2023/11/16 14:48:26 mysql query: AddRoutineOrder
+2023/11/16 14:48:26 mysql query: OrderRequestToOrders
+2023/11/16 14:48:26 mysql query: AddRecords
+2023/11/16 14:48:26 mysql query: OrderListToOrderResponse
+2023/11/16 14:48:26 [{49 PICK_AND_DELIVERY {[11 13 15 19] [11 12] []} 20231123 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 14:49:11 SYSTEM RESTARTED
+2023/11/16 14:49:12 mysql query: AddRoutineOrder
+2023/11/16 14:49:12 mysql query: OrderRequestToOrders
+2023/11/16 14:49:12 mysql query: AddRecords
+2023/11/16 14:49:12 mysql query: OrderListToOrderResponse
+2023/11/16 14:49:12 [{50 PICK_AND_DELIVERY {[11 13 15 19] [11 12] []} 20231123 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 14:50:08 SYSTEM RESTARTED
+2023/11/16 14:50:09 mysql query: AddRoutineOrder
+2023/11/16 14:50:09 mysql query: OrderRequestToOrders
+2023/11/16 14:50:09 mysql query: AddRecords
+2023/11/16 14:50:09 mysql query: OrderListToOrderResponse
+2023/11/16 14:50:09 [{51 PICK_AND_DELIVERY {[11 13 15 19] [11 12] []} 20231123 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 14:51:28 SYSTEM RESTARTED
+2023/11/16 14:51:31 mysql query: AddRoutineOrder
+2023/11/16 14:51:31 mysql query: OrderRequestToOrders
+2023/11/16 14:51:32 mysql query: AddRecords
+2023/11/16 14:51:32 mysql query: OrderListToOrderResponse
+2023/11/16 14:51:32 Failure when Add Routine Fail: : Invalid routine pattern
+2023/11/16 14:58:45 SYSTEM RESTARTED
+2023/11/16 14:59:57 SYSTEM RESTARTED
+2023/11/16 15:00:01 mysql query: AddRoutineOrder
+2023/11/16 15:00:01 mysql query: OrderRequestToOrders
+2023/11/16 15:00:01 mysql query: AddRecords
+2023/11/16 15:00:01 mysql query: OrderListToOrderResponse
+2023/11/16 15:00:01 Failure when Add Routine Fail: : Invalid routine pattern
+2023/11/16 15:01:07 SYSTEM RESTARTED
+2023/11/16 15:01:11 mysql query: AddRoutineOrder
+2023/11/16 15:01:11 mysql query: OrderRequestToOrders
+2023/11/16 15:01:11 mysql query: AddRecords
+2023/11/16 15:01:11 mysql query: OrderListToOrderResponse
+2023/11/16 15:01:11 Failure when Add Routine Fail: : Invalid routine pattern
+2023/11/16 15:02:42 SYSTEM RESTARTED
+2023/11/16 15:02:46 mysql query: AddRoutineOrder
+2023/11/16 15:02:46 mysql query: OrderRequestToOrders
+2023/11/16 15:02:46 mysql query: AddRecords
+2023/11/16 15:02:46 mysql query: OrderListToOrderResponse
+2023/11/16 15:02:46 Failure when Add Routine Fail: : Invalid routine pattern
+2023/11/16 15:04:21 SYSTEM RESTARTED
+2023/11/16 15:04:24 mysql query: AddRoutineOrder
+2023/11/16 15:04:24 mysql query: OrderRequestToOrders
+2023/11/16 15:04:24 mysql query: AddRecords
+2023/11/16 15:04:24 mysql query: OrderListToOrderResponse
+2023/11/16 15:04:24 Failure when Add Routine Fail: : Invalid routine pattern
+2023/11/16 15:09:20 SYSTEM RESTARTED
+2023/11/16 15:09:22 mysql query: AddRoutineOrder
+2023/11/16 15:09:22 mysql query: OrderRequestToOrders
+2023/11/16 15:09:22 mysql query: AddRecords
+2023/11/16 15:09:22 mysql query: OrderListToOrderResponse
+2023/11/16 15:09:22 [{57 PICK_AND_DELIVERY {[11 13 15 19] [11 12] []} 39931220 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:10:34 SYSTEM RESTARTED
+2023/11/16 15:10:37 mysql query: AddRoutineOrder
+2023/11/16 15:10:37 mysql query: OrderRequestToOrders
+2023/11/16 15:10:37 mysql query: AddRecords
+2023/11/16 15:10:37 mysql query: OrderListToOrderResponse
+2023/11/16 15:10:37 [{58 PICK_AND_DELIVERY {[11 13 15 19] [11 12] []} 39931220 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:11:39 SYSTEM RESTARTED
+2023/11/16 15:11:56 SYSTEM RESTARTED
+2023/11/16 15:11:57 mysql query: AddRoutineOrder
+2023/11/16 15:11:57 mysql query: OrderRequestToOrders
+2023/11/16 15:11:57 mysql query: AddRecords
+2023/11/16 15:11:57 mysql query: OrderListToOrderResponse
+2023/11/16 15:11:57 [{59 PICK_AND_DELIVERY {[11 13 15 19] [11 12] []} 20231220 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:12:25 SYSTEM RESTARTED
+2023/11/16 15:12:37 mysql query: AddRoutineOrder
+2023/11/16 15:12:37 mysql query: OrderRequestToOrders
+2023/11/16 15:12:37 mysql query: AddRecords
+2023/11/16 15:12:37 mysql query: OrderListToOrderResponse
+2023/11/16 15:12:37 [{60 PICK_AND_DELIVERY {[11 13 15 19] [1] []} 20250911 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:14:54 SYSTEM RESTARTED
+2023/11/16 15:15:00 Failure when Invalid token: : token is expired by 6s
+2023/11/16 15:15:09 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 15:15:09 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 15:15:09 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 15:15:09 mysql query: AddRecords
+2023/11/16 15:15:09 mysql query: UpdateRecords
+2023/11/16 15:15:09 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 15:15:09 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 15:15:15 mysql query: AddOrder
+2023/11/16 15:15:15 mysql query: AddRecords
+2023/11/16 15:15:15 mysql query: OrderRequestToOrders
+2023/11/16 15:15:15 mysql query: AddRecords
+2023/11/16 15:15:15 mysql query: OrderListToOrderResponse
+2023/11/16 15:15:15 [{43 54 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DSC 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {43 55 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DSC 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/16 15:15:26 Failure when Invalid token: : token is expired by 32s
+2023/11/16 15:15:29 mysql query: AddRoutineOrder
+2023/11/16 15:15:29 mysql query: OrderRequestToOrders
+2023/11/16 15:15:29 mysql query: AddRecords
+2023/11/16 15:15:29 mysql query: OrderListToOrderResponse
+2023/11/16 15:15:29 [{61 PICK_AND_DELIVERY {[11 13 15 19] [1] []} 20250811 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:15:56 SYSTEM RESTARTED
+2023/11/16 15:20:06 SYSTEM RESTARTED
+2023/11/16 15:20:08 mysql query: AddRoutineOrder
+2023/11/16 15:20:08 mysql query: OrderRequestToOrders
+2023/11/16 15:20:08 mysql query: AddRecords
+2023/11/16 15:20:08 mysql query: OrderListToOrderResponse
+2023/11/16 15:20:08 [{62 PICK_AND_DELIVERY {[11 13 15 19] [1] []} 20250911 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:20:59 SYSTEM RESTARTED
+2023/11/16 15:21:00 mysql query: AddRoutineOrder
+2023/11/16 15:21:00 mysql query: OrderRequestToOrders
+2023/11/16 15:21:00 mysql query: AddRecords
+2023/11/16 15:21:00 mysql query: OrderListToOrderResponse
+2023/11/16 15:21:00 [{63 PICK_AND_DELIVERY {[11 13 15 19] [1] []} 20231111 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:22:50 SYSTEM RESTARTED
+2023/11/16 15:22:53 mysql query: AddRoutineOrder
+2023/11/16 15:22:53 mysql query: OrderRequestToOrders
+2023/11/16 15:22:53 mysql query: AddRecords
+2023/11/16 15:22:53 mysql query: OrderListToOrderResponse
+2023/11/16 15:22:53 [{64 PICK_AND_DELIVERY {[11 13 15 19] [1] []} 20240111 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:23:05 mysql query: AddRoutineOrder
+2023/11/16 15:23:05 mysql query: OrderRequestToOrders
+2023/11/16 15:23:05 mysql query: AddRecords
+2023/11/16 15:23:05 mysql query: OrderListToOrderResponse
+2023/11/16 15:23:05 [{65 PICK_AND_DELIVERY {[11 13 15 19] [8] []} 20240811 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:23:17 mysql query: AddRoutineOrder
+2023/11/16 15:23:17 mysql query: OrderRequestToOrders
+2023/11/16 15:23:17 mysql query: AddRecords
+2023/11/16 15:23:17 mysql query: OrderListToOrderResponse
+2023/11/16 15:23:17 [{66 PICK_AND_DELIVERY {[11 13 15 19] [8 9 11 12] []} 20231119 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:23:47 mysql query: AddRoutineOrder
+2023/11/16 15:23:47 mysql query: OrderRequestToOrders
+2023/11/16 15:23:47 mysql query: AddRecords
+2023/11/16 15:23:47 mysql query: OrderListToOrderResponse
+2023/11/16 15:23:47 Failure when Add Routine Fail: : Invalid routine pattern
+2023/11/16 15:24:11 mysql query: AddRoutineOrder
+2023/11/16 15:24:11 mysql query: OrderRequestToOrders
+2023/11/16 15:24:11 mysql query: AddRecords
+2023/11/16 15:24:11 mysql query: OrderListToOrderResponse
+2023/11/16 15:24:11 [{68 PICK_AND_DELIVERY {[] [] [2 5 6]} 20231117 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:28:24 Failure when Invalid/missing input: : invalid character '}' looking for beginning of object key string
+2023/11/16 15:28:32 mysql query: AddRoutineOrder
+2023/11/16 15:28:32 mysql query: OrderRequestToOrders
+2023/11/16 15:28:32 mysql query: AddRecords
+2023/11/16 15:28:32 mysql query: OrderListToOrderResponse
+2023/11/16 15:28:32 Failure when Add Routine Fail: : Invalid routine pattern
+2023/11/16 15:43:42 SYSTEM RESTARTED
+2023/11/16 15:47:40 SYSTEM RESTARTED
+2023/11/16 15:50:05 SYSTEM RESTARTED
+2023/11/16 15:51:14 Failure when Invalid token: : token is expired by 6m5s
+2023/11/16 15:51:21 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 15:51:21 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 15:51:22 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 15:51:22 mysql query: AddRecords
+2023/11/16 15:51:22 mysql query: UpdateRecords
+2023/11/16 15:51:22 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 15:51:22 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 15:51:45 mysql query: AddRoutineOrder
+2023/11/16 15:51:45 mysql query: OrderRequestToOrders
+2023/11/16 15:51:45 mysql query: AddRecords
+2023/11/16 15:51:45 mysql query: OrderListToOrderResponse
+2023/11/16 15:51:45 [{70 PICK_AND_DELIVERY {[3] [] []} 20241103 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:52:47 mysql query: AddRoutineOrder
+2023/11/16 15:52:47 mysql query: OrderRequestToOrders
+2023/11/16 15:52:47 mysql query: AddRecords
+2023/11/16 15:52:47 mysql query: OrderListToOrderResponse
+2023/11/16 15:52:47 [{71 PICK_AND_DELIVERY {[3] [] []} 20241103 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:53:57 SYSTEM RESTARTED
+2023/11/16 15:54:06 SYSTEM RESTARTED
+2023/11/16 15:54:12 mysql query: AddRoutineOrder
+2023/11/16 15:54:12 mysql query: OrderRequestToOrders
+2023/11/16 15:54:12 mysql query: AddRecords
+2023/11/16 15:54:12 mysql query: OrderListToOrderResponse
+2023/11/16 15:54:12 [{72 PICK_AND_DELIVERY {[3] [] []} 20231203 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:54:24 mysql query: AddRoutineOrder
+2023/11/16 15:54:24 mysql query: OrderRequestToOrders
+2023/11/16 15:54:24 mysql query: AddRecords
+2023/11/16 15:54:24 mysql query: OrderListToOrderResponse
+2023/11/16 15:54:24 [{73 PICK_AND_DELIVERY {[] [] [2 5 6]} 20231117 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 15:57:25 SYSTEM RESTARTED
+2023/11/16 16:10:03 SYSTEM RESTARTED
+2023/11/16 16:10:11 SYSTEM RESTARTED
+2023/11/16 16:10:16 SYSTEM RESTARTED
+2023/11/16 16:10:35 mysql query: AddRoutineOrder
+2023/11/16 16:10:35 mysql query: OrderRequestToOrders
+2023/11/16 16:10:35 mysql query: AddRecords
+2023/11/16 16:10:35 mysql query: OrderListToOrderResponse
+2023/11/16 16:10:35 [{74 PICK_AND_DELIVERY {[] [] [2 5 6]} 20231117 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:10:48 mysql query: AddRoutineOrder
+2023/11/16 16:10:48 mysql query: OrderRequestToOrders
+2023/11/16 16:10:48 mysql query: AddRecords
+2023/11/16 16:10:48 mysql query: OrderListToOrderResponse
+2023/11/16 16:10:48 [{75 PICK_AND_DELIVERY {[] [1 2] [2 5 6]} 20231117 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:11:17 SYSTEM RESTARTED
+2023/11/16 16:11:19 mysql query: AddRoutineOrder
+2023/11/16 16:11:19 mysql query: OrderRequestToOrders
+2023/11/16 16:11:19 mysql query: AddRecords
+2023/11/16 16:11:19 mysql query: OrderListToOrderResponse
+2023/11/16 16:11:19 [{76 PICK_AND_DELIVERY {[] [1 2] [2 5 6]} 20240102 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:23:11 SYSTEM RESTARTED
+2023/11/16 16:25:55 Failure when Invalid token: : token is expired by 4m34s
+2023/11/16 16:26:02 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 16:26:02 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 16:26:02 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 16:26:02 mysql query: AddRecords
+2023/11/16 16:26:02 mysql query: UpdateRecords
+2023/11/16 16:26:02 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 16:26:02 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 16:26:11 mysql query: AddRoutineOrder
+2023/11/16 16:26:11 mysql query: OrderRequestToOrders
+2023/11/16 16:26:11 mysql query: AddRecords
+2023/11/16 16:26:11 mysql query: OrderListToOrderResponse
+2023/11/16 16:26:11 [{77 PICK_AND_DELIVERY {[] [] []} 20231116 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:27:46 mysql query: AddRoutineOrder
+2023/11/16 16:27:46 mysql query: OrderRequestToOrders
+2023/11/16 16:27:46 mysql query: AddRecords
+2023/11/16 16:27:46 mysql query: OrderListToOrderResponse
+2023/11/16 16:27:46 [{78 PICK_AND_DELIVERY {[] [1 2] []} 20231116 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:28:55 SYSTEM RESTARTED
+2023/11/16 16:29:47 mysql query: AddRoutineOrder
+2023/11/16 16:29:47 mysql query: OrderRequestToOrders
+2023/11/16 16:29:47 mysql query: AddRecords
+2023/11/16 16:29:47 mysql query: OrderListToOrderResponse
+2023/11/16 16:29:47 [{79 PICK_AND_DELIVERY {[] [1 2] []} 20240101 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:32:52 mysql query: AddRoutineOrder
+2023/11/16 16:32:52 mysql query: OrderRequestToOrders
+2023/11/16 16:32:52 mysql query: AddRecords
+2023/11/16 16:32:52 mysql query: OrderListToOrderResponse
+2023/11/16 16:32:52 [{1 PICK_AND_DELIVERY {[] [1 2] []} 20240101 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:32:59 mysql query: AddRoutineOrder
+2023/11/16 16:32:59 mysql query: OrderRequestToOrders
+2023/11/16 16:32:59 mysql query: AddRecords
+2023/11/16 16:32:59 mysql query: OrderListToOrderResponse
+2023/11/16 16:32:59 [{2 PICK_AND_DELIVERY {[] [1 2] [2 5 6]} 20240102 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:33:07 mysql query: AddRoutineOrder
+2023/11/16 16:33:07 mysql query: OrderRequestToOrders
+2023/11/16 16:33:07 mysql query: AddRecords
+2023/11/16 16:33:07 mysql query: OrderListToOrderResponse
+2023/11/16 16:33:07 [{3 PICK_AND_DELIVERY {[] [] [2 5 6]} 20231117 false 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 16:33:59 SYSTEM RESTARTED
+2023/11/16 16:41:35 SYSTEM RESTARTED
+2023/11/16 16:55:31 Failure when Invalid token: : token is expired by 1h10m22s
+2023/11/16 16:55:35 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 16:55:35 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 16:55:50 mysql query: AddOrder
+2023/11/16 16:55:50 mysql query: AddRecords
+2023/11/16 16:55:50 mysql query: OrderRequestToOrders
+2023/11/16 16:55:50 mysql query: AddRecords
+2023/11/16 16:55:50 mysql query: OrderListToOrderResponse
+2023/11/16 16:55:50 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DSC 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DSC 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/16 16:55:57 mysql query: AddOrder
+2023/11/16 16:55:57 mysql query: AddRecords
+2023/11/16 16:55:57 mysql query: OrderRequestToOrders
+2023/11/16 16:55:57 mysql query: AddRecords
+2023/11/16 16:55:57 mysql query: OrderListToOrderResponse
+2023/11/16 16:55:57 [{2 3 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 2 5/F DSC 000101010000 1 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {2 4 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 2 5/F DSC 000101010000 1 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/16 16:56:02 Failure when Invalid token: : token expired
+2023/11/16 16:56:10 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 16:56:10 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 16:56:10 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 16:56:10 mysql query: AddRecords
+2023/11/16 16:56:10 mysql query: UpdateRecords
+2023/11/16 16:56:10 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 16:56:10 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 16:56:20 mysql query: AddOrder
+2023/11/16 16:56:20 mysql query: AddRecords
+2023/11/16 16:56:20 mysql query: OrderRequestToOrders
+2023/11/16 16:56:20 mysql query: AddRecords
+2023/11/16 16:56:20 mysql query: OrderListToOrderResponse
+2023/11/16 16:56:20 [{3 5 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 3 5/F DSC 000101010000 1 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {3 6 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 3 5/F DSC 000101010000 1 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:37:19 SYSTEM RESTARTED
+2023/11/16 17:39:41 SYSTEM RESTARTED
+2023/11/16 17:41:52 SYSTEM RESTARTED
+2023/11/16 17:47:51 SYSTEM RESTARTED
+2023/11/16 17:48:17 Failure when Invalid token: : token is expired by 22m7s
+2023/11/16 17:48:23 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 17:48:23 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 17:48:23 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 17:48:23 mysql query: AddRecords
+2023/11/16 17:48:23 mysql query: UpdateRecords
+2023/11/16 17:48:23 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 17:48:24 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 17:48:31 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:48:31 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:48:31 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:48:31 mysql query: AddRecords
+2023/11/16 17:48:31 mysql query: UpdateRecords
+2023/11/16 17:48:31 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:48:31 mysql query: FindRecords: order_id = ?
+2023/11/16 17:48:31 mysql query: AddRecords
+2023/11/16 17:48:31 mysql query: UpdateRecords
+2023/11/16 17:48:31 mysql query: FindRecords: order_id = ?
+2023/11/16 17:48:31 mysql query: OrderListToOrderResponse
+2023/11/16 17:48:31 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:48:31 mysql query: FindRecords: order_id = ?
+2023/11/16 17:48:31 mysql query: AddRecords
+2023/11/16 17:48:31 mysql query: UpdateRecords
+2023/11/16 17:48:31 mysql query: FindRecords: order_id = ?
+2023/11/16 17:48:31 mysql query: OrderListToOrderResponse
+2023/11/16 17:48:31 [{1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:50:09 SYSTEM RESTARTED
+2023/11/16 17:50:10 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:50:10 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:50:10 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:50:11 mysql query: AddRecords
+2023/11/16 17:50:11 mysql query: UpdateRecords
+2023/11/16 17:50:11 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:50:11 mysql query: FindRecords: order_id = ?
+2023/11/16 17:50:11 mysql query: AddRecords
+2023/11/16 17:50:11 mysql query: UpdateRecords
+2023/11/16 17:50:11 mysql query: FindRecords: order_id = ?
+2023/11/16 17:50:11 mysql query: OrderListToOrderResponse
+2023/11/16 17:50:11 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:50:11 mysql query: FindRecords: order_id = ?
+2023/11/16 17:50:11 mysql query: AddRecords
+2023/11/16 17:50:11 mysql query: UpdateRecords
+2023/11/16 17:50:11 mysql query: FindRecords: order_id = ?
+2023/11/16 17:50:11 mysql query: OrderListToOrderResponse
+2023/11/16 17:50:11 [{1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:50:50 SYSTEM RESTARTED
+2023/11/16 17:50:54 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:50:54 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:50:54 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:50:54 mysql query: AddRecords
+2023/11/16 17:50:54 mysql query: UpdateRecords
+2023/11/16 17:50:54 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:50:54 mysql query: FindRecords: order_id = ?
+2023/11/16 17:50:54 mysql query: AddRecords
+2023/11/16 17:50:54 mysql query: UpdateRecords
+2023/11/16 17:50:54 mysql query: FindRecords: order_id = ?
+2023/11/16 17:50:54 mysql query: OrderListToOrderResponse
+2023/11/16 17:50:54 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:50:54 mysql query: FindRecords: order_id = ?
+2023/11/16 17:50:54 mysql query: AddRecords
+2023/11/16 17:50:54 mysql query: UpdateRecords
+2023/11/16 17:50:54 mysql query: FindRecords: order_id = ?
+2023/11/16 17:50:54 mysql query: OrderListToOrderResponse
+2023/11/16 17:50:54 [{1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:51:22 SYSTEM RESTARTED
+2023/11/16 17:51:24 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:51:24 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:51:24 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:51:24 mysql query: AddRecords
+2023/11/16 17:51:24 mysql query: UpdateRecords
+2023/11/16 17:51:24 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:51:25 mysql query: FindRecords: order_id = ?
+2023/11/16 17:51:25 mysql query: AddRecords
+2023/11/16 17:51:25 mysql query: UpdateRecords
+2023/11/16 17:51:25 mysql query: FindRecords: order_id = ?
+2023/11/16 17:51:25 mysql query: OrderListToOrderResponse
+2023/11/16 17:51:25 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:51:25 mysql query: FindRecords: order_id = ?
+2023/11/16 17:51:25 mysql query: AddRecords
+2023/11/16 17:51:25 mysql query: UpdateRecords
+2023/11/16 17:51:25 mysql query: FindRecords: order_id = ?
+2023/11/16 17:51:25 mysql query: OrderListToOrderResponse
+2023/11/16 17:51:25 [{1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:52:23 SYSTEM RESTARTED
+2023/11/16 17:52:26 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:52:26 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:52:26 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:52:26 mysql query: AddRecords
+2023/11/16 17:52:26 mysql query: UpdateRecords
+2023/11/16 17:52:26 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:52:26 mysql query: FindRecords: order_id = ?
+2023/11/16 17:52:26 mysql query: AddRecords
+2023/11/16 17:52:26 mysql query: UpdateRecords
+2023/11/16 17:52:26 mysql query: FindRecords: order_id = ?
+2023/11/16 17:52:26 mysql query: OrderListToOrderResponse
+2023/11/16 17:52:26 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:52:26 mysql query: FindRecords: order_id = ?
+2023/11/16 17:52:26 mysql query: AddRecords
+2023/11/16 17:52:26 mysql query: UpdateRecords
+2023/11/16 17:52:26 mysql query: FindRecords: order_id = ?
+2023/11/16 17:52:26 mysql query: OrderListToOrderResponse
+2023/11/16 17:52:26 [{1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_START_LOCATION }]
+2023/11/16 17:52:26 mysql query: UpdateRecords
+2023/11/16 17:52:26 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:52:26 mysql query: OrderListToOrderResponse
+2023/11/16 17:52:26 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_END_LOCATION } {1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_END_LOCATION }]
+2023/11/16 17:56:11 SYSTEM RESTARTED
+2023/11/16 17:56:51 SYSTEM RESTARTED
+2023/11/16 17:57:08 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:57:09 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:57:09 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:57:09 mysql query: AddRecords
+2023/11/16 17:57:09 mysql query: UpdateRecords
+2023/11/16 17:57:09 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:57:09 mysql query: FindRecords: order_id = ?
+2023/11/16 17:57:09 mysql query: AddRecords
+2023/11/16 17:57:09 mysql query: UpdateRecords
+2023/11/16 17:57:09 mysql query: FindRecords: order_id = ?
+2023/11/16 17:57:09 mysql query: OrderListToOrderResponse
+2023/11/16 17:57:09 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_END_LOCATION }]
+2023/11/16 17:57:09 mysql query: FindRecords: order_id = ?
+2023/11/16 17:57:09 mysql query: AddRecords
+2023/11/16 17:57:09 mysql query: UpdateRecords
+2023/11/16 17:57:09 mysql query: FindRecords: order_id = ?
+2023/11/16 17:57:09 mysql query: OrderListToOrderResponse
+2023/11/16 17:57:09 [{1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_END_LOCATION }]
+2023/11/16 17:57:09 mysql query: UpdateRecords
+2023/11/16 17:57:09 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:57:27 SYSTEM RESTARTED
+2023/11/16 17:57:29 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:57:29 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:57:29 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:57:29 mysql query: AddRecords
+2023/11/16 17:57:29 mysql query: UpdateRecords
+2023/11/16 17:57:29 mysql query: FindRecords: schedule_id = ?
+2023/11/16 17:57:29 mysql query: FindRecords: order_id = ?
+2023/11/16 17:57:29 mysql query: AddRecords
+2023/11/16 17:57:29 mysql query: UpdateRecords
+2023/11/16 17:57:29 mysql query: FindRecords: order_id = ?
+2023/11/16 17:57:29 mysql query: OrderListToOrderResponse
+2023/11/16 17:57:29 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_END_LOCATION }]
+2023/11/16 17:57:29 mysql query: FindRecords: order_id = ?
+2023/11/16 17:57:29 mysql query: AddRecords
+2023/11/16 17:57:29 mysql query: UpdateRecords
+2023/11/16 17:57:29 mysql query: FindRecords: order_id = ?
+2023/11/16 17:57:29 mysql query: OrderListToOrderResponse
+2023/11/16 17:57:29 [{1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  202310120830 2  000101010000 202310121000 PLANNING_TO_END_LOCATION }]
+2023/11/16 17:57:29 mysql query: UpdateRecords
+2023/11/16 17:57:29 mysql query: FindRecords: schedule_id = ? AND order_status = ?
+2023/11/16 17:57:29 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE schedule_id = ? AND order_status = ?
+2023/11/16 17:57:29 mysql query: OrderListToOrderResponse
+2023/11/16 17:57:29 [{1 1 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DSC 202310120830 2 LG/F Clean Zone 000101010000 202310121000 QUEUEING_AT_START_BAY } {1 2 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DSC 202310120830 2 LG/F Clean Zone 000101010000 202310121000 QUEUEING_AT_START_BAY }]
+2023/11/16 17:58:23 SYSTEM RESTARTED
+2023/11/16 17:59:33 SYSTEM RESTARTED
+2023/11/16 17:59:38 SYSTEM RESTARTED
+2023/11/16 18:05:15 SYSTEM RESTARTED
+2023/11/16 18:12:40 Failure when HandleLoginStaff Insufficient input paramters: json: cannot unmarshal string into Go struct field LoginStaffDTO.dutyLocationId of type int
+2023/11/16 18:12:55 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 18:12:56 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 18:13:47 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.routines LEFT JOIN tkoh_oms.locations C ON tkoh_oms.routines.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.routines.end_location_id = D.location_id WHERE is_active = ?
+2023/11/16 18:13:47 mysql query: OrderListToOrderResponse
+2023/11/16 18:13:47 [{1 PICK_AND_DELIVERY {[] [1 2] []} 20240101 true 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000} {2 PICK_AND_DELIVERY {[] [1 2] [2 5 6]} 20240102 true 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000} {3 PICK_AND_DELIVERY {[] [] [2 5 6]} 20231117 true 14 2 1 5/F DSC 0830 2 LG/F Clean Zone 1000}]
+2023/11/16 18:18:26 SYSTEM RESTARTED
+2023/11/16 18:38:33 SYSTEM RESTARTED
+2023/11/16 18:39:23 SYSTEM RESTARTED
+2023/11/16 18:43:46 SYSTEM RESTARTED
+2023/11/16 18:45:52 SYSTEM RESTARTED
+2023/11/16 18:47:17 SYSTEM RESTARTED
+2023/11/16 18:48:29 SYSTEM RESTARTED
+2023/11/16 18:48:36 SYSTEM RESTARTED
+2023/11/16 18:48:38 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/16 18:48:38 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/16 18:48:38 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 18:48:38 mysql query: AddRecords
+2023/11/16 18:48:38 mysql query: UpdateRecords
+2023/11/16 18:48:38 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/16 18:48:38 HandleLoginStaff login successful for staff user: staff10
+2023/11/16 18:48:47 mysql query: UpdateRecords
+2023/11/16 18:48:47 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:48:47 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:48:47 mysql query: AddRecords
+2023/11/16 18:50:39 mysql query: UpdateRecords
+2023/11/16 18:50:39 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:50:39 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:50:39 mysql query: AddRecords
+2023/11/16 18:50:39 mysql query: OrderListToOrderResponse
+2023/11/16 18:50:39 [{1 PICK_AND_DELIVERY {[] [1 2] []} 20240101 true 14 2 1  0830 2  1000}]
+2023/11/16 18:51:30 mysql query: UpdateRecords
+2023/11/16 18:51:30 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:51:30 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:51:30 mysql query: AddRecords
+2023/11/16 18:51:30 mysql query: OrderListToOrderResponse
+2023/11/16 18:51:30 [{1 PICK_AND_DELIVERY {[] [1 2] []} 20240101 true 14 2 1  0830 2  1000}]
+2023/11/16 18:54:11 SYSTEM RESTARTED
+2023/11/16 18:54:14 mysql query: UpdateRecords
+2023/11/16 18:54:14 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:54:14 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:54:14 mysql query: AddRecords
+2023/11/16 18:54:14 mysql query: OrderListToOrderResponse
+2023/11/16 18:54:14 [{1  {[] [] [1]} 20231120 true 14 2 3  0830 2  1000}]
+2023/11/16 18:54:41 mysql query: UpdateRecords
+2023/11/16 18:54:41 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:54:41 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:54:41 mysql query: AddRecords
+2023/11/16 18:54:41 mysql query: OrderListToOrderResponse
+2023/11/16 18:54:41 [{1  {[] [] [1]} 20231120 true 14 2 3  1830 1  1400}]
+2023/11/16 18:56:59 SYSTEM RESTARTED
+2023/11/16 18:57:02 mysql query: UpdateRecords
+2023/11/16 18:57:02 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:57:02 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:57:02 mysql query: AddRecords
+2023/11/16 18:57:02 mysql query: OrderListToOrderResponse
+2023/11/16 18:57:02 [{1  {[] [] [1]} 20231120 true 14 2 3  1830 1  1400}]
+2023/11/16 18:57:25 mysql query: UpdateRecords
+2023/11/16 18:57:25 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:57:25 mysql query: FindRecords: routine_id = ?
+2023/11/16 18:57:25 mysql query: AddRecords
+2023/11/16 18:57:25 mysql query: OrderListToOrderResponse
+2023/11/16 18:57:25 [{1 PICK_AND_DELIVERY {[] [] [1]} 20231120 true 14 2 3  1830 1  1400}]
+2023/11/16 18:59:19 SYSTEM RESTARTED
+2023/11/16 18:59:49 SYSTEM RESTARTED
+2023/11/16 19:00:14 SYSTEM RESTARTED
+2023/11/16 19:00:28 mysql query: UpdateRecords
+2023/11/16 19:00:28 mysql query: FindRecords: routine_id = ?
+2023/11/16 19:00:28 mysql query: FindRecords: routine_id = ?
+2023/11/16 19:00:28 mysql query: AddRecords
+2023/11/16 19:00:28 mysql query: OrderListToOrderResponse
+2023/11/16 19:00:28 [{1  {[] [] [1]} 20231120 true 14 2 3  1830 1  1400}]
+2023/11/16 19:01:17 SYSTEM RESTARTED
+2023/11/16 19:04:31 SYSTEM RESTARTED
+2023/11/16 19:05:00 mysql query: UpdateRecords
+2023/11/16 19:05:00 mysql query: FindRecords: routine_id = ?
+2023/11/16 19:05:00 mysql query: FindRecords: routine_id = ?
+2023/11/16 19:05:00 mysql query: AddRecords
+2023/11/16 19:05:00 mysql query: OrderListToOrderResponse
+2023/11/16 19:05:00 [{1  {[] [] [1]} 20231120 true 14 2 3  1830 1  1400}]

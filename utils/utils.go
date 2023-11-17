@@ -137,7 +137,10 @@ func CtxToAuth(c *fiber.Ctx) (string, string, error) {
 func CreateMap(updateFields []string, updateValues ...interface{}) map[string]interface{} {
 	var myMap = make(map[string]interface{})
 	for i := 0; i < len(updateFields); i++ {
+		// fmt.Printf("is nil? %s", updateValues[i] == nil)
+		// if !reflect.ValueOf(updateValues[i]).IsZero() {
 		myMap[updateFields[i]] = updateValues[i]
+		// }
 	}
 	myMap["last_update_time"] = GetTimeNowString()
 	return myMap
@@ -160,8 +163,16 @@ func GetTimeNowString() string {
 func TimeInt64ToString(timeInt int64) string {
 	return time.Unix(timeInt, 0).Format("2006-01-02 15:04:05")
 }
+
 func Max(a, b int) int {
 	if a > b {
+		return a
+	}
+	return b
+}
+
+func Min(a, b int) int {
+	if a < b {
 		return a
 	}
 	return b

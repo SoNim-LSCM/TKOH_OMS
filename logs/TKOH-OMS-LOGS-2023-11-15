@@ -1,0 +1,77 @@
+2023/11/15 00:07:52 SYSTEM RESTARTED
+2023/11/15 00:23:50 SYSTEM RESTARTED
+2023/11/15 00:28:22 SYSTEM RESTARTED
+2023/11/15 00:32:12 SYSTEM RESTARTED
+2023/11/15 10:21:18 SYSTEM RESTARTED
+2023/11/15 10:21:41 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 14:27:06 SYSTEM RESTARTED
+2023/11/15 14:34:47 SYSTEM RESTARTED
+2023/11/15 14:34:48 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/15 14:34:48 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/15 14:34:48 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/15 14:34:48 mysql query: AddRecords
+2023/11/15 14:34:48 mysql query: UpdateRecords
+2023/11/15 14:34:48 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/15 14:34:48 HandleLoginStaff login successful for staff user: staff10
+2023/11/15 14:35:06 mysql query: FindRecords:
+2023/11/15 14:36:22 SYSTEM RESTARTED
+2023/11/15 14:36:26 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders order_status IN ? AND (start_location_id = ? OR end_location_id = ?) LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id
+2023/11/15 14:37:22 SYSTEM RESTARTED
+2023/11/15 14:37:25 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders WHERE order_status IN ? AND (start_location_id = ? OR end_location_id = ?) LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id
+2023/11/15 14:38:04 SYSTEM RESTARTED
+2023/11/15 14:38:07 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders WHERE order_status IN ? AND (start_location_id = ? OR end_location_id = ?) LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id
+2023/11/15 14:41:47 SYSTEM RESTARTED
+2023/11/15 14:41:50 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders WHERE order_status IN ? AND (start_location_id = ? OR end_location_id = ?) LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id
+2023/11/15 14:41:50 Failure when Failed to search: Failed to search: Error 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location' at line 1
+2023/11/15 14:45:16 SYSTEM RESTARTED
+2023/11/15 14:45:18 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE order_status IN ? AND (start_location_id = ? OR end_location_id = ?)
+2023/11/15 14:45:18 mysql query: OrderListToOrderResponse
+2023/11/15 14:45:18 [{2 3 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 2 LG/F Clean Zone 000101010000 1 5/F DS 000101010000 000101010000 QUEUEING_AT_START_BAY } {2 4 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 2 LG/F Clean Zone 000101010000 1 5/F DS 000101010000 000101010000 QUEUEING_AT_START_BAY } {3 5 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3 LG/F Dirty Zone 000101010000 1 5/F DS 000101010000 000101010000 QUEUEING_AT_START_BAY } {3 6 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3 LG/F Dirty Zone 000101010000 1 5/F DS 000101010000 000101010000 QUEUEING_AT_START_BAY } {5 9 string ADHOC 2 CREATED 000101010000  000101010000 2 LG/F Clean Zone 000101010000 1 5/F DS 000101010000 000101010000 PLANNING_TO_START_LOCATION } {5 10 string ADHOC 2 CREATED 000101010000  000101010000 2 LG/F Clean Zone 000101010000 1 5/F DS 000101010000 000101010000 PLANNING_TO_START_LOCATION } {5 11 string ADHOC 2 CREATED 000101010000  000101010000 2 LG/F Clean Zone 000101010000 1 5/F DS 000101010000 000101010000 PLANNING_TO_START_LOCATION } {7 12 string ADHOC 2 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {7 13 string ADHOC 2 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {0 18 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {0 19 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {18 22 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DS 000101010000 0  000101010000 000101010000 PLANNING_TO_START_LOCATION } {18 23 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DS 000101010000 0  000101010000 000101010000 PLANNING_TO_START_LOCATION } {19 24 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {19 25 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {20 26 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {20 27 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {22 28 PICK_AND_DELIVERY ADHOC 11 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION } {22 29 PICK_AND_DELIVERY ADHOC 11 CREATED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/15 14:45:27 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE order_status IN ? AND (start_location_id = ? OR end_location_id = ?)
+2023/11/15 14:45:27 mysql query: OrderListToOrderResponse
+2023/11/15 14:45:27 [{1 1 PICK_AND_DELIVERY ADHOC 6 CANCELED 000101010000  000101010000 1 5/F DS 000101010000 2 LG/F Clean Zone 000101010000 000101010000 PLANNING_TO_START_LOCATION }]
+2023/11/15 14:45:46 SYSTEM RESTARTED
+2023/11/15 16:54:01 SYSTEM RESTARTED
+2023/11/15 16:54:22 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:06:38 SYSTEM RESTARTED
+2023/11/15 17:06:59 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:16:27 SYSTEM RESTARTED
+2023/11/15 17:16:48 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:18:39 SYSTEM RESTARTED
+2023/11/15 17:19:00 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:33:36 SYSTEM RESTARTED
+2023/11/15 17:33:58 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:35:59 SYSTEM RESTARTED
+2023/11/15 17:36:20 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:36:43 SYSTEM RESTARTED
+2023/11/15 17:37:04 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:37:10 SYSTEM RESTARTED
+2023/11/15 17:37:31 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:40:36 SYSTEM RESTARTED
+2023/11/15 17:40:57 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:42:28 SYSTEM RESTARTED
+2023/11/15 17:42:49 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:48:47 SYSTEM RESTARTED
+2023/11/15 17:49:11 SYSTEM RESTARTED
+2023/11/15 17:49:18 SYSTEM RESTARTED
+2023/11/15 17:50:42 SYSTEM RESTARTED
+2023/11/15 17:51:04 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:53:41 SYSTEM RESTARTED
+2023/11/15 17:54:02 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 17:55:39 SYSTEM RESTARTED
+2023/11/15 17:56:00 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/15 18:14:55 SYSTEM RESTARTED
+2023/11/15 18:17:30 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/15 18:17:30 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/15 18:17:30 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/15 18:17:30 mysql query: AddRecords
+2023/11/15 18:17:30 mysql query: UpdateRecords
+2023/11/15 18:17:30 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/15 18:17:30 HandleLoginStaff login successful for staff user: staff10
+2023/11/15 18:18:00 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.routines LEFT JOIN tkoh_oms.locations C ON tkoh_oms.routines.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.routines.end_location_id = D.location_id WHERE is_active = ? AND order_created_type = ?
+2023/11/15 18:18:00 Failure when Failed to search: Failed to search: Error 1054 (42S22): Unknown column 'order_created_type' in 'where clause'
+2023/11/15 18:18:51 SYSTEM RESTARTED
+2023/11/15 18:18:54 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.routines LEFT JOIN tkoh_oms.locations C ON tkoh_oms.routines.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.routines.end_location_id = D.location_id WHERE is_active = ?
+2023/11/15 18:19:43 mysql query: FindRecords: SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.routines LEFT JOIN tkoh_oms.locations C ON tkoh_oms.routines.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.routines.end_location_id = D.location_id WHERE is_active = ?
+2023/11/15 18:19:43 mysql query: OrderListToOrderResponse
+2023/11/15 18:19:43 [{22 PICK_AND_DELIVERY {[] [] []} 2023-11-15 18:19:43 true 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00} {23 PICK_AND_DELIVERY {[] [] [1 2 3 4 5]} 2023-11-15 18:19:43 true 0 2 1 5/F DS  2 LG/F Clean Zone 1970-01-01T08:00:00+08:00}]

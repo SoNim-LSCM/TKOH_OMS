@@ -4,7 +4,7 @@ package websocket
 
 import (
 	"encoding/json"
-	"errors"
+	"fmt"
 	"log"
 	"os"
 
@@ -22,7 +22,7 @@ const SubscribeTokenResponse string = `{
 	"userType" : "STAFF"
  }`
 
-var wsObject *websocket.Conn
+var wsConnPair = make(map[string]*websocket.Conn)
 
 func SetupWebsocket() {
 	app := fiber.New()
@@ -42,34 +42,41 @@ func SetupWebsocket() {
 
 		// websocket.Conn bindings https://pkg.go.dev/github.com/fasthttp/websocket?tab=doc#pkg-index
 		var (
-			mt       int
+			// mt       int
 			err      error
 			loggedIn bool = false
+			wsLive   bool = true
 		)
 
 		type SubscribeTokenDTO struct {
 			Username  string `json:"username"`
 			AuthToken string `json:"authToken"`
 		}
-		wsObject = c
 		request := new(SubscribeTokenDTO)
+		c.SetCloseHandler(func(code int, text string) error {
+			delete(wsConnPair, c.RemoteAddr().String())
+			wsLive = false
+			return c.Close()
+		})
+		wsConnPair[c.RemoteAddr().String()] = c
 
-		for {
-			if !loggedIn {
-				if err = wsObject.ReadJSON(request); err != nil || (request.AuthToken == "" || request.Username == "") {
-					ret := []byte(err.Error())
-					log.Println("request:", err)
-					if err = wsObject.WriteMessage(mt, ret); err != nil {
-						log.Println("write:", err)
+		for wsLive {
+			err = c.ReadJSON(request)
+			if err == nil {
+				fmt.Println(SendBoardcastMessage("123123"))
+				if !loggedIn {
+					if request.AuthToken == "" || request.Username == "" {
+
+					} else {
+						log.Printf("Login Username: %s , AuthToken: %s\n", request.Username, request.AuthToken)
+						var response loginAuth.SubscribeTokenResponse
+						err := json.Unmarshal([]byte(SubscribeTokenResponse), &response)
+						errorHandler.CheckError(err, "translate string to json in wsHandler")
+						err = SendBoardcastMessage(response)
+						errorHandler.CheckError(err, "Error in translating message to websocket message")
+						loggedIn = true
 					}
 				} else {
-					log.Printf("Login Username: %s , AuthToken: %s\n", request.Username, request.AuthToken)
-					var response loginAuth.SubscribeTokenResponse
-					err := json.Unmarshal([]byte(SubscribeTokenResponse), &response)
-					errorHandler.CheckError(err, "translate string to json in wsHandler")
-					err = SendMessage(response)
-					errorHandler.CheckError(err, "Error in translating message to websocket message")
-					loggedIn = true
 				}
 			}
 		}
@@ -79,9 +86,22 @@ func SetupWebsocket() {
 	log.Println(app.Listen(":" + port))
 }
 
-func SendMessage(msg interface{}) error {
-	if wsObject == nil {
-		return errors.New("No client connected to websocket")
+func SendBoardcastMessage(msg interface{}) error {
+	for addr, wsConn := range wsConnPair {
+		err := wsConn.WriteJSON(msg)
+		if err != nil {
+			delete(wsConnPair, addr)
+		}
 	}
-	return wsObject.WriteJSON(msg)
+	return nil
+}
+
+func SenDirectMessage(msg interface{}) error {
+	for _, wsConn := range wsConnPair {
+		err := wsConn.WriteJSON(msg)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

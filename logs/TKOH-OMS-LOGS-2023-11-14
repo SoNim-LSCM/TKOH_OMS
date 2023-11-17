@@ -112,7 +112,7 @@
 2023/11/14 10:29:06 mysql query: FindOrders: schedule_id = ?
 2023/11/14 10:29:06 mysql query: FindOrders: schedule_id = ? AND order_status = ?
 2023/11/14 10:29:06 mysql query: FindOrders: schedule_id = ?
-2023/11/14 10:29:06 mysql query: FindOrders: map[end_location_id:%!s(int=3) expected_delivey_time:2023-10-12 10:00:00 expected_start_time:2023-10-12 08:30:00 last_update_time:2023-11-14 10:29:06 schedule_id:%!s(int=1) start_location_id:%!s(int=2)]
+2023/11/14 10:29:06 mysql query: FindOrders: map[end_location_id:%!s(int=3) expected_delivery_time:2023-10-12 10:00:00 expected_start_time:2023-10-12 08:30:00 last_update_time:2023-11-14 10:29:06 schedule_id:%!s(int=1) start_location_id:%!s(int=2)]
 2023/11/14 10:29:06 mysql query: AddRecords
 2023/11/14 10:39:33 SYSTEM RESTARTED
 2023/11/14 10:39:39 mysql query: FindOrders: schedule_id = ?
@@ -2432,17 +2432,17 @@
 2023/11/14 17:06:47 mysql query: AddRoutineOrder
 2023/11/14 17:06:47 mysql query: OrderRequestToOrders
 2023/11/14 17:06:47 mysql query: AddRecords
-2023/11/14 17:06:47 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '' for column 'expected_delivey_time' at row 1
+2023/11/14 17:06:47 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '' for column 'expected_delivery_time' at row 1
 2023/11/14 17:07:38 SYSTEM RESTARTED
 2023/11/14 17:07:40 mysql query: AddRoutineOrder
 2023/11/14 17:07:40 mysql query: OrderRequestToOrders
 2023/11/14 17:07:40 mysql query: AddRecords
-2023/11/14 17:07:40 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '' for column 'expected_delivey_time' at row 1
+2023/11/14 17:07:40 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '' for column 'expected_delivery_time' at row 1
 2023/11/14 17:10:02 SYSTEM RESTARTED
 2023/11/14 17:10:05 mysql query: AddRoutineOrder
 2023/11/14 17:10:05 mysql query: OrderRequestToOrders
 2023/11/14 17:10:05 mysql query: AddRecords
-2023/11/14 17:10:05 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '1000' for column 'expected_delivey_time' at row 1
+2023/11/14 17:10:05 Failure when Add Routine Fail: : Error 1292 (22007): Incorrect datetime value: '1000' for column 'expected_delivery_time' at row 1
 2023/11/14 17:11:02 SYSTEM RESTARTED
 2023/11/14 17:11:04 mysql query: AddRoutineOrder
 2023/11/14 17:11:04 mysql query: OrderRequestToOrders
@@ -2698,3 +2698,21 @@
 2023/11/14 23:25:36 mysql query: UpdateRecords
 2023/11/14 23:25:36 mysql query: FindRecords: username = ? AND user_type = ?
 2023/11/14 23:25:36 HandleLoginStaff login successful for staff user: staff10
+2023/11/14 23:47:37 SYSTEM RESTARTED
+2023/11/14 23:51:20 SYSTEM RESTARTED
+2023/11/14 23:51:36 SYSTEM RESTARTED
+2023/11/14 23:51:58 mysql connect error: dial tcp 20.24.109.185:3306: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+2023/11/14 23:59:04 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:59:19 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:59:21 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/14 23:59:30 SYSTEM RESTARTED
+2023/11/15 00:00:05 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/15 00:00:05 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/15 00:00:05 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/15 00:00:05 mysql query: AddRecords
+2023/11/15 00:00:05 mysql query: UpdateRecords
+2023/11/15 00:00:05 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/15 00:00:05 HandleLoginStaff login successful for staff user: staff10
+2023/11/15 00:00:19 mysql query: FindRecords: order_status IN ? AND (start_location_id = ? OR end_location_id = ?)
+2023/11/15 00:00:19 mysql query: OrderListToOrderResponse
+2023/11/15 00:00:19 [{2 3 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 QUEUEING_AT_START_BAY } {2 4 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 QUEUEING_AT_START_BAY } {3 5 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3  000101010000 1  000101010000 000101010000 QUEUEING_AT_START_BAY } {3 6 PICK_AND_DELIVERY ADHOC 6 CREATED 000101010000  000101010000 3  000101010000 1  000101010000 000101010000 QUEUEING_AT_START_BAY } {5 9 string ADHOC 2 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 PLANNING_TO_START_LOCATION } {5 10 string ADHOC 2 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 PLANNING_TO_START_LOCATION } {5 11 string ADHOC 2 CREATED 000101010000  000101010000 2  000101010000 1  000101010000 000101010000 PLANNING_TO_START_LOCATION } {7 12 string ADHOC 2 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {7 13 string ADHOC 2 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {0 18 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {0 19 PICK_AND_DELIVERY ADHOC 8 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {18 22 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 0  000101010000 000101010000 PLANNING_TO_START_LOCATION } {18 23 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 0  000101010000 000101010000 PLANNING_TO_START_LOCATION } {19 24 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {19 25 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {20 26 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION } {20 27 PICK_AND_DELIVERY ADHOC 14 CREATED 000101010000  000101010000 1  000101010000 2  000101010000 000101010000 PLANNING_TO_START_LOCATION }]

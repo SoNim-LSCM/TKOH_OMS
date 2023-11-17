@@ -7,6 +7,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/SoNim-LSCM/TKOH_OMS/constants/orderStatus"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
@@ -17,17 +18,32 @@ import (
 	"gorm.io/gorm"
 )
 
-func FindOrders(filterFields interface{}, filterValues ...interface{}) ([]db_models.Orders, error) {
+func FindOrders(filterFields string, filterValues ...interface{}) ([]db_models.Orders, error) {
 	var orders []db_models.Orders
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		if err := FindRecords(tx, &orders, "orders", filterFields, filterValues...); err != nil {
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields
+		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
+
 		return nil
 	})
 	return orders, err
+}
 
+func FindRoutines(filterFields string, filterValues ...interface{}) ([]db_models.Routines, error) {
+	var routines []db_models.Routines
+	database.CheckDatabaseConnection()
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.routines LEFT JOIN tkoh_oms.locations C ON tkoh_oms.routines.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.routines.end_location_id = D.location_id WHERE " + filterFields
+		if err := FindRecordsWithRaw(tx, &routines, query, filterValues...); err != nil {
+			return errors.New("Failed to search: " + err.Error())
+		}
+
+		return nil
+	})
+	return routines, err
 }
 
 func AddOrders(orderRequest dto.AddDeliveryOrderDTO, userId int) (orderManagement.OrderList, error) {
@@ -40,7 +56,6 @@ func AddOrders(orderRequest dto.AddDeliveryOrderDTO, userId int) (orderManagemen
 
 		// create new schedule
 		schedulesList := []db_models.Schedules{{ScheduleID: 0, ScheduleStatus: "CREATED", ScheduleCraeteTime: utils.GetTimeNowString(), OrderType: orderRequest.OrderType, NumberOfAmrRequire: orderRequest.NumberOfAmrRequire, LastUpdateTime: utils.GetTimeNowString()}}
-		fmt.Println(schedulesList)
 		if err := AddRecords(tx, schedulesList); err != nil {
 			return err
 		}
@@ -67,14 +82,14 @@ func AddOrders(orderRequest dto.AddDeliveryOrderDTO, userId int) (orderManagemen
 	return orderList, err
 }
 
-func AddRoutines(orderRequest dto.AddRoutineDTO, userId int) (orderManagement.RoutineOrderList, error) {
+func AddRoutines(routineRequest dto.AddRoutineDTO, userId int) (orderManagement.RoutineOrderList, error) {
 	database.CheckDatabaseConnection()
 	log.Printf("mysql query: AddRoutineOrder\n")
-	var orderList orderManagement.RoutineOrderList
+	var routineOrderList orderManagement.RoutineOrderList
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
 		// translate order request to routines
-		routines, err := RoutineRequestToRoutines(orderRequest, userId)
+		routines, err := RoutineRequestToRoutines(routineRequest, userId)
 		if err != nil {
 			return err
 		}
@@ -83,7 +98,7 @@ func AddRoutines(orderRequest dto.AddRoutineDTO, userId int) (orderManagement.Ro
 			return err
 		}
 		// translate new routine to routine response
-		orderList, err = RoutineListToRoutineResponse(GetRoutines())
+		routineOrderList, err = RoutineListToRoutineResponse(routines)
 		if err != nil {
 			return err
 		}
@@ -91,7 +106,7 @@ func AddRoutines(orderRequest dto.AddRoutineDTO, userId int) (orderManagement.Ro
 		return nil
 	})
 
-	return orderList, err
+	return routineOrderList, err
 }
 
 func TriggerOrderOrderIds(orderId []int) (orderManagement.OrderList, error) {
@@ -191,7 +206,7 @@ func UpdateOrders(userId int, request dto.UpdateDeliveryOrderDTO) (orderManageme
 				// change orders
 			} else if i < schedules[0].NumberOfAmrRequire {
 				updatedOrderList := []db_models.Orders{}
-				updateMap := utils.CreateMap([]string{"schedule_id", "start_location_id", "end_location_id", "expected_start_time", "expected_delivey_time"}, request.ScheduleID, request.StartLocationID, request.EndLocationID, expectedStartTime, expectedDeliveryTime)
+				updateMap := utils.CreateMap([]string{"schedule_id", "start_location_id", "end_location_id", "expected_start_time", "expected_delivery_time"}, request.ScheduleID, request.StartLocationID, request.EndLocationID, expectedStartTime, expectedDeliveryTime)
 				err = AddOrdersLogs(tx, userId, "order_id = ?", orders[i].OrderID)
 				if err != nil {
 					return errors.New("Failed to create log")
@@ -210,7 +225,6 @@ func UpdateOrders(userId int, request dto.UpdateDeliveryOrderDTO) (orderManageme
 				bJson, err := json.Marshal(request)
 				var orderRequest dto.AddDeliveryOrderDTO
 				json.Unmarshal(bJson, &orderRequest)
-				fmt.Println(orderRequest)
 				orderRequest.NumberOfAmrRequire = 1
 				// translate order request to uploadOrders
 				uploadOrders, err := OrderRequestToOrders(orderRequest, request.ScheduleID, 6)
@@ -289,6 +303,43 @@ func CancelOrders(scheduleId int) (orderManagement.OrderList, error) {
 	return orderList, err
 }
 
+func UpdateRoutineOrders(userId int, request dto.UpdateRoutineDeliveryOrderDTO) (orderManagement.RoutineOrderList, error) {
+	var updatedList orderManagement.RoutineOrderList
+	var routinesList = []db_models.Routines{}
+	expectedStartTime, err := RoutineResponseTimeToString(request.ExpectedStartTime)
+	if err != nil {
+		return updatedList, err
+	}
+	expectedDeliveryTime, err := RoutineResponseTimeToString(request.ExpectedDeliveryTime)
+	if err != nil {
+		return updatedList, err
+	}
+	routinePattern, err := RoutinePatternToString(request.RoutinePattern)
+	if err != nil {
+		return updatedList, err
+	}
+	updateMap := utils.CreateMap([]string{"routine_pattern", "number_of_amr_require", "start_location_id", "end_location_id", "expected_start_time", "expected_delivery_time"}, routinePattern, request.NumberOfAmrRequire, request.StartLocationID, request.EndLocationID, expectedStartTime, expectedDeliveryTime)
+	err = database.DB.Transaction(func(tx *gorm.DB) error {
+		err := UpdateRecords(tx, &routinesList, "routines", updateMap, "routine_id = ?", request.RoutineID)
+		if err != nil {
+			return err
+		}
+		err = AddRoutinesLogs(tx, userId, "routine_id = ?", request.RoutineID)
+		if err != nil {
+			return err
+		}
+		updatedList, err = RoutineListToRoutineResponse(routinesList)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	if err != nil {
+		return updatedList, err
+	}
+
+	return updatedList, nil
+}
 func OrderRequestToOrders(orderRequest dto.AddDeliveryOrderDTO, scheduleNo int, userId int) ([]db_models.Orders, error) {
 	var orders []db_models.Orders
 	log.Printf("mysql query: OrderRequestToOrders\n")
@@ -311,12 +362,14 @@ func OrderRequestToOrders(orderRequest dto.AddDeliveryOrderDTO, scheduleNo int, 
 			return orders, err
 		}
 		order.StartLocationID = orderRequest.StartLocationID
+		order.StartLocationName = orderRequest.StartLocationName
 		order.EndLocationID = orderRequest.EndLocationID
-		order.ExpectedStartTime, err = StringToDatetime(order.ExpectedStartTime)
+		order.EndLocationName = orderRequest.EndLocationName
+		order.ExpectedStartTime, err = StringToDatetime(orderRequest.ExpectedStartTime)
 		if err != nil {
 			return orders, err
 		}
-		order.ExpectedDeliveryTime, err = StringToDatetime(order.ExpectedDeliveryTime)
+		order.ExpectedDeliveryTime, err = StringToDatetime(orderRequest.ExpectedDeliveryTime)
 		if err != nil {
 			return orders, err
 		}
@@ -386,41 +439,57 @@ func RoutineRequestToRoutines(routinesRequest dto.AddRoutineDTO, userId int) ([]
 		return routinesList, err
 	}
 	routines.LastUpdateBy = userId
+	routines.RoutineCreatedBy = userId
 	routines.LastUpdateTime = utils.GetTimeNowString()
 	routines.RoutinePattern, err = RoutinePatternToString(routinesRequest.RoutinePattern)
 	if err != nil {
 		return routinesList, nil
 	}
-	routines.ExpectedDeliveryTime = utils.TimeInt64ToString(0)
+	routines.ExpectedDeliveryTime, err = StringToDatetime(routinesRequest.ExpectedDeliveryTime)
+	if err != nil {
+		return routinesList, err
+	}
+	routines.ExpectedStartTime, err = StringToDatetime(routinesRequest.ExpectedStartTime)
+	if err != nil {
+		return routinesList, err
+	}
 	routinesList = append(routinesList, routines)
 	return routinesList, nil
 }
 
 func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManagement.RoutineOrderList, error) {
 	log.Printf("mysql query: OrderListToOrderResponse\n")
-	var orderListResponse orderManagement.RoutineOrderList
+	var routineOrderListResponse orderManagement.RoutineOrderList
 	jsonString, err := json.Marshal(routineList)
 	if err != nil {
-		return orderListResponse, err
+		return routineOrderListResponse, err
 	}
-	json.Unmarshal(jsonString, &orderListResponse)
+	json.Unmarshal(jsonString, &routineOrderListResponse)
 	if err != nil {
-		return orderListResponse, err
+		return routineOrderListResponse, err
 	}
 	for i, routine := range routineList {
 		var err error
 		routinePattern, err := StringToRoutinePattern(routine.RoutinePattern)
 		if err != nil {
-			return orderListResponse, err
+			return routineOrderListResponse, err
 		}
-		orderListResponse[i].RoutinePattern = routinePattern
-		orderListResponse[i].NextDeliveryDate, err = GetNextDeliveryDate(routinePattern)
+		routineOrderListResponse[i].RoutinePattern = routinePattern
+		routineOrderListResponse[i].NextDeliveryDate, err = GetNextDeliveryDate(routinePattern)
 		if err != nil {
-			return orderListResponse, err
+			return routineOrderListResponse, err
+		}
+		routineOrderListResponse[i].ExpectedDeliveryTime, err = StringToRoutineResponseTime(routine.ExpectedDeliveryTime)
+		if err != nil {
+			return routineOrderListResponse, err
+		}
+		routineOrderListResponse[i].ExpectedStartTime, err = StringToRoutineResponseTime(routine.ExpectedStartTime)
+		if err != nil {
+			return routineOrderListResponse, err
 		}
 	}
-	log.Println(orderListResponse)
-	return orderListResponse, nil
+	log.Println(routineOrderListResponse)
+	return routineOrderListResponse, nil
 }
 
 func OrderIdsToIntArray(orderIds string) ([]int, error) {
@@ -504,6 +573,28 @@ func SchedulesToSchedulesLogs(userId int, schedules []db_models.Schedules) ([]db
 	return schedulesLogs, nil
 }
 
+func RoutinesToRoutinesLogs(userId int, routines []db_models.Routines) ([]db_models.RoutinesLogs, error) {
+	var routinesLogs []db_models.RoutinesLogs
+
+	bJson, err := json.Marshal(routines)
+	if err != nil {
+		return routinesLogs, err
+	}
+	err = json.Unmarshal(bJson, &routinesLogs)
+	if err != nil {
+		return routinesLogs, err
+	}
+
+	for i, _ := range routinesLogs {
+		routinesLogs[i].LastUpdateBy = userId
+		if routinesLogs[i].LastUpdateTime == "" {
+			routinesLogs[i].LastUpdateTime = utils.TimeInt64ToString(0)
+		}
+	}
+
+	return routinesLogs, nil
+}
+
 func RoutinePatternToString(routinePattern orderManagement.RoutinePattern) (string, error) {
 	var patternString string
 	bJson, err := json.Marshal(routinePattern)
@@ -526,9 +617,96 @@ func StringToRoutinePattern(patternString string) (orderManagement.RoutinePatter
 
 func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string, error) {
 
-	// -------------------- Not Implemented -----------------------------
+	// var patternString string
+	// patternString = utils.GetTimeNowString()
+	timeNow := time.Now()
+	var nextRoutineDate = timeNow
+	if routinePattern.Week != nil {
+		targetDate := timeNow
+		if routinePattern.Month != nil {
+			currentMonth := timeNow.Month()
+			var monthsDiffMin = 12
+			for _, month := range routinePattern.Month {
+				monthsDiff := month - int(currentMonth)
+				if monthsDiff < 0 {
+					monthsDiff += 12
+				}
+				if monthsDiff < monthsDiffMin {
+					monthsDiffMin = monthsDiff
+				}
+			}
+			targetDate = timeNow.AddDate(0, monthsDiffMin, 1-timeNow.Day())
+		}
+		fmt.Printf("targetDate: %s\n", targetDate)
+		currentWeekday := targetDate.Weekday()
+		var daysDiffMin = 7
+		for _, week := range routinePattern.Week {
+			daysDiff := week - int(currentWeekday)
+			if daysDiff < 0 {
+				daysDiff += 7
+			}
+			if daysDiff < daysDiffMin {
+				daysDiffMin = daysDiff
+			}
+		}
+		nextRoutineDate = targetDate.AddDate(0, 0, daysDiffMin)
+	} else if routinePattern.Day != nil {
+		currentMonth := timeNow.Month()
+		var monthsDiffMin = 12
+		var nextRoutineDay = 0
 
-	var patternString string
-	patternString = utils.GetTimeNowString()
-	return patternString, nil
+		if routinePattern.Month != nil {
+			for _, month := range routinePattern.Month {
+				monthsDiff := month - int(currentMonth)
+				if monthsDiff < 0 {
+					monthsDiff += 12
+				}
+				if monthsDiff < monthsDiffMin {
+					monthsDiffMin = monthsDiff
+				}
+			}
+			fmt.Printf("monthsDiffMin: %d\n", monthsDiffMin)
+		} else {
+			monthsDiffMin = 0
+		}
+
+		if monthsDiffMin == 0 {
+			daysDiffMin := 31
+			for _, day := range routinePattern.Day {
+				currentDay := timeNow.Day()
+				daysDiff := day - int(currentDay)
+				if daysDiff > 0 && daysDiff < daysDiffMin {
+					daysDiffMin = daysDiff
+				}
+			}
+			fmt.Printf("daysDiffMin: %d\n", daysDiffMin)
+			if daysDiffMin == 31 {
+				monthsDiffMin = 1
+				nextRoutineDay = routinePattern.Day[0]
+			} else {
+				nextRoutineDay = timeNow.Day() + daysDiffMin
+			}
+		} else {
+			nextRoutineDay = routinePattern.Day[0]
+		}
+		nextRoutineYear := int(timeNow.Year())
+		nextRoutineMonth := int(timeNow.Month()) + monthsDiffMin
+
+		nextRoutineDate = time.Time.AddDate(time.Unix(0, 0), nextRoutineYear-1970, nextRoutineMonth-1, nextRoutineDay-1)
+	} else if routinePattern.Month != nil {
+		currentMonth := timeNow.Month()
+		var monthsDiffMin = 12
+		for _, month := range routinePattern.Month {
+			monthsDiff := month - int(currentMonth)
+			if monthsDiff < 0 {
+				monthsDiff += 12
+			}
+			if monthsDiff < monthsDiffMin {
+				monthsDiffMin = monthsDiff
+			}
+		}
+		nextRoutineDate = timeNow.AddDate(0, monthsDiffMin, 1-timeNow.Day())
+	}
+
+	return nextRoutineDate.Format("20060102"), nil
 }

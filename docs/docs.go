@@ -162,7 +162,7 @@ const docTemplate = `{
                         "Bearer": []
                     }
                 ],
-                "description": "Get the list of delivery order by order status .",
+                "description": "Get the list of delivery order by order status which start/end at the staff's duty location.",
                 "consumes": [
                     "*/*"
                 ],
@@ -249,6 +249,40 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/mapHandling.GetFloorPlanResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/getRoutineDeliveryOrder": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Get the list of routine delivery orders.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order Management"
+                ],
+                "summary": "Get Routine Delivery Order.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/orderManagement.OrderListBody"
                         }
                     },
                     "400": {
@@ -498,11 +532,8 @@ const docTemplate = `{
             }
         },
         "/testAW2": {
-            "get": {
+            "post": {
                 "description": "Get the response of AW2 (Server notify the user which location selected).",
-                "consumes": [
-                    "*/*"
-                ],
                 "produces": [
                     "text/plain"
                 ],
@@ -510,6 +541,16 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test AW2 websocket response.",
+                "parameters": [
+                    {
+                        "description": "AW2 response",
+                        "name": "parameters",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -518,11 +559,8 @@ const docTemplate = `{
             }
         },
         "/testHW1": {
-            "get": {
+            "post": {
                 "description": "Get the response of MW1 (Server report robot status and location (every 1s) ).",
-                "consumes": [
-                    "*/*"
-                ],
                 "produces": [
                     "text/plain"
                 ],
@@ -530,6 +568,16 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test MW1 websocket response.",
+                "parameters": [
+                    {
+                        "description": "MW1 response",
+                        "name": "parameters",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -538,11 +586,8 @@ const docTemplate = `{
             }
         },
         "/testOW1": {
-            "get": {
+            "post": {
                 "description": "Get the response of OW1 (Server notify any of created order status changed).",
-                "consumes": [
-                    "*/*"
-                ],
                 "produces": [
                     "text/plain"
                 ],
@@ -552,11 +597,12 @@ const docTemplate = `{
                 "summary": "Test OW1 websocket response.",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Processing Status",
-                        "name": "processingStatus",
-                        "in": "query",
-                        "required": true
+                        "description": "OW1 response",
+                        "name": "parameters",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -567,11 +613,8 @@ const docTemplate = `{
             }
         },
         "/testSW1": {
-            "get": {
+            "post": {
                 "description": "Get the response of SW1 (Server report robot status and location (every 1s) ).",
-                "consumes": [
-                    "*/*"
-                ],
                 "produces": [
                     "text/plain"
                 ],
@@ -579,6 +622,16 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test SW1 websocket response.",
+                "parameters": [
+                    {
+                        "description": "SW1 response",
+                        "name": "parameters",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -661,6 +714,57 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/dto.UpdateDeliveryOrderDTO"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Processing Status",
+                        "name": "processingStatus",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/orderManagement.UpdateDeliveryOrderResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.FailResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/updateRoutineDeliveryOrder": {
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Update Routine Delivery Order .",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order Management"
+                ],
+                "summary": "Update Routine Delivery Order.",
+                "parameters": [
+                    {
+                        "description": "Update Delivery Order Parameters",
+                        "name": "todo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.UpdateDeliveryOrderDTO"
+                        }
                     }
                 ],
                 "responses": {
@@ -713,10 +817,10 @@ const docTemplate = `{
         "dto.AddRoutineDTO": {
             "type": "object",
             "properties": {
-                "destinationLocationId": {
+                "endLocationId": {
                     "type": "integer"
                 },
-                "destinationLocationName": {
+                "endLocationName": {
                     "type": "string"
                 },
                 "expectedDeliveryTime": {
@@ -1114,15 +1218,15 @@ const docTemplate = `{
         "orderManagement.RoutineOrderListBody": {
             "type": "object",
             "properties": {
-                "routine": {
+                "routineList": {
                     "type": "array",
                     "items": {
                         "type": "object",
                         "properties": {
-                            "destinationLocationId": {
+                            "endLocationId": {
                                 "type": "integer"
                             },
-                            "destinationLocationName": {
+                            "endLocationName": {
                                 "type": "string"
                             },
                             "expectedDeliveryTime": {

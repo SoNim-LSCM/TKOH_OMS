@@ -3,7 +3,6 @@ package service
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"log"
 	"strings"
 
@@ -26,7 +25,6 @@ func FindUsers(filterFields interface{}, filterValues ...interface{}) ([]db_mode
 		return nil
 	})
 	return users, err
-
 }
 
 func UpdateUser(db *gorm.DB, username string, userType string, updateFields []string, updateValues ...interface{}) ([]db_models.Users, error) {
@@ -40,7 +38,6 @@ func UpdateUser(db *gorm.DB, username string, userType string, updateFields []st
 	if err != nil {
 		return updatedUser, err
 	}
-
 	return updatedUser, err
 }
 
@@ -146,7 +143,6 @@ func Logout(claim *utils.Claims, token string) ([]db_models.Users, error) {
 		if err != nil {
 			return err
 		}
-
 		if len(users) == 0 {
 			return errors.New("User not found")
 		}
@@ -158,7 +154,7 @@ func Logout(claim *utils.Claims, token string) ([]db_models.Users, error) {
 			return errors.New("Incorrect token")
 		}
 
-		_, err = UpdateUser(tx, users[0].Username, users[0].UserType, []string{"last_logout_time", "token"}, utils.GetTimeNowString(), "")
+		_, err = UpdateUser(tx, claim.Username, claim.UserType, []string{"last_logout_time", "token"}, utils.GetTimeNowString(), "")
 		if err != nil {
 			return err
 		}
@@ -267,7 +263,6 @@ func UsersToUsersLogs(users []db_models.Users) ([]db_models.UsersLogs, error) {
 
 	for i, _ := range usersLogsList {
 		// usersLogsList[i].Id = 123
-		fmt.Println(usersLogsList[i].LastLogoutTime)
 		if usersLogsList[i].TokenExpiryTime == "" {
 			usersLogsList[i].TokenExpiryTime = utils.TimeInt64ToString(0)
 		}

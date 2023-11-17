@@ -21,9 +21,9 @@ definitions:
     type: object
   dto.AddRoutineDTO:
     properties:
-      destinationLocationId:
+      endLocationId:
         type: integer
-      destinationLocationName:
+      endLocationName:
         type: string
       expectedDeliveryTime:
         type: string
@@ -280,12 +280,12 @@ definitions:
     type: object
   orderManagement.RoutineOrderListBody:
     properties:
-      routine:
+      routineList:
         items:
           properties:
-            destinationLocationId:
+            endLocationId:
               type: integer
-            destinationLocationName:
+            endLocationName:
               type: string
             expectedDeliveryTime:
               type: string
@@ -439,7 +439,8 @@ paths:
     get:
       consumes:
       - '*/*'
-      description: Get the list of delivery order by order status .
+      description: Get the list of delivery order by order status which start/end
+        at the staff's duty location.
       parameters:
       - collectionFormat: csv
         description: Order Status
@@ -503,6 +504,27 @@ paths:
       summary: Get Floor Plan.
       tags:
       - Map Handling
+  /getRoutineDeliveryOrder:
+    get:
+      consumes:
+      - '*/*'
+      description: Get the list of routine delivery orders.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.OrderListBody'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
+      summary: Get Routine Delivery Order.
+      tags:
+      - Order Management
   /health:
     get:
       consumes:
@@ -656,11 +678,15 @@ paths:
       tags:
       - Order Management
   /testAW2:
-    get:
-      consumes:
-      - '*/*'
+    post:
       description: Get the response of AW2 (Server notify the user which location
         selected).
+      parameters:
+      - description: AW2 response
+        in: body
+        name: parameters
+        schema:
+          type: string
       produces:
       - text/plain
       responses:
@@ -670,11 +696,15 @@ paths:
       tags:
       - Test
   /testHW1:
-    get:
-      consumes:
-      - '*/*'
+    post:
       description: Get the response of MW1 (Server report robot status and location
         (every 1s) ).
+      parameters:
+      - description: MW1 response
+        in: body
+        name: parameters
+        schema:
+          type: string
       produces:
       - text/plain
       responses:
@@ -684,17 +714,15 @@ paths:
       tags:
       - Test
   /testOW1:
-    get:
-      consumes:
-      - '*/*'
+    post:
       description: Get the response of OW1 (Server notify any of created order status
         changed).
       parameters:
-      - description: Processing Status
-        in: query
-        name: processingStatus
-        required: true
-        type: string
+      - description: OW1 response
+        in: body
+        name: parameters
+        schema:
+          type: string
       produces:
       - text/plain
       responses:
@@ -704,11 +732,15 @@ paths:
       tags:
       - Test
   /testSW1:
-    get:
-      consumes:
-      - '*/*'
+    post:
       description: Get the response of SW1 (Server report robot status and location
         (every 1s) ).
+      parameters:
+      - description: SW1 response
+        in: body
+        name: parameters
+        schema:
+          type: string
       produces:
       - text/plain
       responses:
@@ -759,6 +791,10 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/dto.UpdateDeliveryOrderDTO'
+      - description: Processing Status
+        in: query
+        name: processingStatus
+        type: string
       produces:
       - application/json
       responses:
@@ -773,6 +809,34 @@ paths:
       security:
       - Bearer: []
       summary: Update Delivery Order.
+      tags:
+      - Order Management
+  /updateRoutineDeliveryOrder:
+    post:
+      consumes:
+      - application/json
+      description: Update Routine Delivery Order .
+      parameters:
+      - description: Update Delivery Order Parameters
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateDeliveryOrderDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/orderManagement.UpdateDeliveryOrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.FailResponse'
+      security:
+      - Bearer: []
+      summary: Update Routine Delivery Order.
       tags:
       - Order Management
 securityDefinitions:

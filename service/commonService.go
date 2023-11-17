@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"strings"
@@ -11,6 +12,17 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
+
+func FindRecordsWithRaw(db *gorm.DB, records interface{}, query string, filterValues ...interface{}) error {
+	database.CheckDatabaseConnection()
+	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms." + table + " LEFT JOIN tkoh_oms.locations C ON tkoh_oms." + table + ".start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms." + table + ".end_location_id = D.location_id WHERE " + filterFields
+	log.Printf("mysql query: FindRecords: %s\n", query)
+	err := db.Raw(query, filterValues...).Scan(records).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 func FindRecords(db *gorm.DB, records interface{}, table string, filterFields interface{}, filterValues ...interface{}) error {
 	database.CheckDatabaseConnection()
@@ -87,6 +99,21 @@ func AddOrdersLogs(db *gorm.DB, userId int, filterFields interface{}, filterValu
 	return AddRecords(db, logRecord)
 }
 
+func AddRoutinesLogs(db *gorm.DB, userId int, filterFields interface{}, filterValues ...interface{}) error {
+	database.CheckDatabaseConnection()
+	logRecord := []db_models.RoutinesLogs{}
+	routines := []db_models.Routines{}
+	err := FindRecords(db, &routines, "routines", filterFields, filterValues...)
+	if err != nil {
+		return err
+	}
+	logRecord, err = RoutinesToRoutinesLogs(userId, routines)
+	if err != nil {
+		return err
+	}
+	return AddRecords(db, logRecord)
+}
+
 func StringToResponseTime(timeString string) (string, error) {
 	var outputString string
 	if timeString == "" {
@@ -118,9 +145,44 @@ func StringToDatetime(timeString string) (string, error) {
 		if err != nil {
 			timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
 			if err != nil {
+				timeObj, err = time.Parse("200601021504", "19700101"+timeString)
+				if err != nil {
+					return outputString, errors.New("Failed to translate time string to datetime")
+				}
+			}
+		}
+	}
+	return timeObj.Format("2006-01-02 15:04:05"), nil
+}
+
+func StringToRoutineResponseTime(timeString string) (string, error) {
+	var outputString string
+	if timeString == "" {
+		timeString = time.Time{}.Format("2006-01-02T15:04:05")
+	}
+	timeString = strings.Split(timeString, "+")[0]
+	timeObj, err := time.Parse("2006-01-02T15:04:05", timeString)
+	if err != nil {
+		timeObj, err = time.Parse("200601021504", timeString)
+		if err != nil {
+			timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
+			if err != nil {
 				return outputString, err
 			}
 		}
+	}
+	return timeObj.Format("1504"), nil
+}
+
+func RoutineResponseTimeToString(routineResponseTime string) (string, error) {
+	var outputString string
+	if routineResponseTime == "" {
+		return outputString, errors.New("Empty time input")
+	}
+	outputString = "19700101" + routineResponseTime
+	timeObj, err := time.Parse("200601021504", outputString)
+	if err != nil {
+		return outputString, err
 	}
 	return timeObj.Format("2006-01-02 15:04:05"), nil
 }

@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 
 	// "github.com/SoNim-LSCM/TKOH_OMS/models"
 
@@ -24,17 +23,21 @@ const AW2_RESPONSE string = `{
 // @Summary		Test AW2 websocket response.
 // @Description	Get the response of AW2 (Server notify the user which location selected).
 // @Tags			Test
-// @Accept			*/*
+// @Param parameters body string false "AW2 response"
 // @Produce		plain
 // @Success		200	"OK"
-// @Router			/testAW2 [get]
+// @Router			/testAW2 [post]
 func HandleTestAW2(c *fiber.Ctx) error {
 
 	// mqtt.PublishMqtt("direct/publish", []byte("packet scheduled message"))
 	var response wsTest.ReportDutyLocationUpdateResponse
-	err := json.Unmarshal([]byte(AW2_RESPONSE), &response)
-	errorHandler.CheckError(err, "translate string to json in wsTest")
-	websocket.SendMessage(response)
+	if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
+		err := json.Unmarshal([]byte(AW2_RESPONSE), &response)
+		errorHandler.CheckError(err, "translate string to json in wsTest")
+	}
+	if err := websocket.SendBoardcastMessage(response); err != nil {
+		return c.SendString(err.Error())
+	}
 	return c.SendString("OK")
 }
 
@@ -51,20 +54,23 @@ const OW1_RESPONSE string = `{
 // @Summary		Test OW1 websocket response.
 // @Description	Get the response of OW1 (Server notify any of created order status changed).
 // @Tags			Test
-// @Accept			*/*
-// @Param			processingStatus	query	string	true	"Processing Status"
+// @Param parameters body string false "OW1 response"
 // @Produce		plain
 // @Success		200	"OK"
-// @Router			/testOW1 [get]
+// @Router			/testOW1 [post]
 func HandleTestOW1(c *fiber.Ctx) error {
 	// get the processingStatus from the request body
-	processingStatus := c.Query("processingStatus")
+	// processingStatus := c.Query("processingStatus")
 	var response wsTest.ReportOrderStatusUpdateResponse
-	err := json.Unmarshal([]byte(OW1_RESPONSE), &response)
-	fmt.Println(response)
-	response.ProcessingStatus = processingStatus
-	errorHandler.CheckError(err, "translate string to json in wsTest")
-	if err := websocket.SendMessage(response); err != nil {
+	if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
+		err := json.Unmarshal([]byte(OW1_RESPONSE), &response)
+		errorHandler.CheckError(err, "translate string to json in wsTest")
+	}
+	// err := json.Unmarshal([]byte(OW1_RESPONSE), &response)
+	// fmt.Println(response)
+	// response.ProcessingStatus = processingStatus
+	// errorHandler.CheckError(err, "translate string to json in wsTest")
+	if err := websocket.SendBoardcastMessage(response); err != nil {
 		return c.SendString(err.Error())
 	}
 	return c.SendString("OK")
@@ -89,15 +95,19 @@ const MW1_RESPONSE string = `{
 // @Summary		Test MW1 websocket response.
 // @Description	Get the response of MW1 (Server report robot status and location (every 1s) ).
 // @Tags			Test
-// @Accept			*/*
+// @Param parameters body string false "MW1 response"
 // @Produce		plain
 // @Success		200	"OK"
-// @Router			/testHW1 [get]
+// @Router			/testHW1 [post]
 func HandleTestMW1(c *fiber.Ctx) error {
 	var response wsTest.ReportRobotStatusLocationResponse
-	err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
-	errorHandler.CheckError(err, "translate string to json in wsTest")
-	websocket.SendMessage(response)
+	if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
+		err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
+		errorHandler.CheckError(err, "translate string to json in wsTest")
+	}
+	if err := websocket.SendBoardcastMessage(response); err != nil {
+		return c.SendString(err.Error())
+	}
 	return c.SendString("OK")
 }
 
@@ -110,14 +120,18 @@ const SW1_RESPONSE string = `{
 // @Summary		Test SW1 websocket response.
 // @Description	Get the response of SW1 (Server report robot status and location (every 1s) ).
 // @Tags			Test
-// @Accept			*/*
+// @Param parameters body string false "SW1 response"
 // @Produce		plain
 // @Success		200	"OK"
-// @Router			/testSW1 [get]
+// @Router			/testSW1 [post]
 func HandleTestSW1(c *fiber.Ctx) error {
 	var response systemStatus.SystemStatusResponse
-	err := json.Unmarshal([]byte(SW1_RESPONSE), &response)
-	errorHandler.CheckError(err, "translate string to json in wsTest")
-	websocket.SendMessage(response)
+	if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
+		err := json.Unmarshal([]byte(SW1_RESPONSE), &response)
+		errorHandler.CheckError(err, "translate string to json in wsTest")
+	}
+	if err := websocket.SendBoardcastMessage(response); err != nil {
+		return c.SendString(err.Error())
+	}
 	return c.SendString("OK")
 }
