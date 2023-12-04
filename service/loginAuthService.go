@@ -3,7 +3,6 @@ package service
 import (
 	"encoding/json"
 	"errors"
-	"log"
 	"strings"
 
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
@@ -55,9 +54,9 @@ func LoginStaff(request *dto.LoginStaffDTO) ([]db_models.Users, error) {
 			return errors.New("User not found")
 		}
 
-		if request.DutyLocationId != users[0].DutyLocationId {
-			return errors.New("Failed to search for staff")
-		}
+		// if request.DutyLocationId != users[0].DutyLocationId {
+		// 	return errors.New("Failed to search for staff")
+		// }
 
 		if isValid, err := utils.ValidateJwtToken(users[0].Token); err != nil || isValid {
 			if isValid {
@@ -71,7 +70,7 @@ func LoginStaff(request *dto.LoginStaffDTO) ([]db_models.Users, error) {
 			}
 		}
 
-		token, expiryTime, err := utils.GenerateJwtStaff(users[0].UserId, users[0].Username, users[0].DutyLocationId)
+		token, expiryTime, err := utils.GenerateJwtStaff(users[0].UserId, users[0].Username, request.DutyLocationId)
 		if err != nil {
 			return err
 		}
@@ -147,10 +146,8 @@ func Logout(claim *utils.Claims, token string) ([]db_models.Users, error) {
 			return errors.New("User not found")
 		}
 		if users[0].Token == "" {
-			log.Printf("Attempt to logout logged out account with username: %s user type: %s\n", claim.Username, claim.UserType)
 			return errors.New("Account logged out already")
 		} else if users[0].Token != token {
-			log.Printf("Attempt to logout logged out account with incorrect token, username: %s user type: %s token: %s\n", claim.Username, claim.UserType, token)
 			return errors.New("Incorrect token")
 		}
 
@@ -179,10 +176,8 @@ func RenewToken(claim *utils.Claims, token string) ([]db_models.Users, error) {
 			return errors.New("User not found")
 		}
 		if users[0].Token == "" {
-			log.Printf("Attempt to logout logged out account with username: %s user type: %s\n", claim.Username, claim.UserType)
 			return errors.New("Account logged out already")
 		} else if users[0].Token != token {
-			log.Printf("Attempt to logout logged out account with incorrect token, username: %s user type: %s token: %s\n", claim.Username, claim.UserType, token)
 			return errors.New("Incorrect token")
 		}
 
@@ -224,7 +219,6 @@ func RenewToken(claim *utils.Claims, token string) ([]db_models.Users, error) {
 			}
 			return nil
 		default:
-			log.Println("Unknown user type inside JWT token")
 			return errors.New("Unknown user type inside JWT token")
 		}
 		return nil

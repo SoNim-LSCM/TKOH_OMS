@@ -3,26 +3,18 @@ package websocket
 // reference from https://github.com/gofiber/contrib/tree/main/websocket
 
 import (
-	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 
 	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/loginAuth"
+	"github.com/SoNim-LSCM/TKOH_OMS/utils"
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 )
 
-const SubscribeTokenResponse string = `{
-	"messageCode": "CONNECTION_REGISTERED",
-	"userId": 1,
-	"username": "user1",
-	"userType" : "STAFF"
- }`
-
-var wsConnPair = make(map[string]*websocket.Conn)
+var wsConnPair = make(map[int]*websocket.Conn)
 
 func SetupWebsocket() {
 	app := fiber.New()
@@ -53,30 +45,47 @@ func SetupWebsocket() {
 			AuthToken string `json:"authToken"`
 		}
 		request := new(SubscribeTokenDTO)
-		c.SetCloseHandler(func(code int, text string) error {
-			delete(wsConnPair, c.RemoteAddr().String())
-			wsLive = false
-			return c.Close()
-		})
-		wsConnPair[c.RemoteAddr().String()] = c
+		// c.SetCloseHandler(func(code int, text string) error {
+		// 	delete(wsConnPair, c.RemoteAddr().String())
+		// 	// delete(wsConnPair, c.RemoteAddr().String())
+		// 	wsLive = false
+		// 	return c.Close()
+		// })
+		// wsConnPair[c.RemoteAddr().String()] = c
 
 		for wsLive {
 			err = c.ReadJSON(request)
 			if err == nil {
-				fmt.Println(SendBoardcastMessage("123123"))
+				var response interface{}
 				if !loggedIn {
-					if request.AuthToken == "" || request.Username == "" {
-
-					} else {
+					response = loginAuth.FailSubscribeTokenResponse{MessageCode: "FAILED", FailReason: "User Not Found"}
+					if request.AuthToken != "" || request.Username != "" {
 						log.Printf("Login Username: %s , AuthToken: %s\n", request.Username, request.AuthToken)
-						var response loginAuth.SubscribeTokenResponse
-						err := json.Unmarshal([]byte(SubscribeTokenResponse), &response)
-						errorHandler.CheckError(err, "translate string to json in wsHandler")
-						err = SendBoardcastMessage(response)
-						errorHandler.CheckError(err, "Error in translating message to websocket message")
-						loggedIn = true
+						isValid, err := utils.ValidateJwtToken(request.AuthToken)
+						if isValid && err == nil {
+							claims, err := utils.GetDetailsJwtToken(request.AuthToken)
+							if claims.Username == request.Username && err == nil {
+								response = loginAuth.SubscribeTokenResponse{MessageCode: "CONNECTION_REGISTERED", UserID: claims.UserId, Username: claims.Username, UserType: claims.UserType}
+								c.SetCloseHandler(func(code int, text string) error {
+									delete(wsConnPair, claims.UserId)
+									wsLive = false
+									return c.Close()
+								})
+								wsConnPair[claims.UserId] = c
+								loggedIn = true
+							} else {
+								response = loginAuth.FailSubscribeTokenResponse{MessageCode: "FAILED", FailReason: "Broken token / token unmatch with user"}
+							}
+						} else {
+							response = loginAuth.FailSubscribeTokenResponse{MessageCode: "FAILED", FailReason: "Invalid token"}
+						}
+					} else {
+						response = loginAuth.FailSubscribeTokenResponse{MessageCode: "FAILED", FailReason: "Invalid Input"}
 					}
+					err = c.WriteJSON(response)
+					errorHandler.CheckError(err, "Error in write json to websocket")
 				} else {
+					c.WriteJSON(request)
 				}
 			}
 		}
@@ -87,11 +96,9 @@ func SetupWebsocket() {
 }
 
 func SendBoardcastMessage(msg interface{}) error {
-	for addr, wsConn := range wsConnPair {
+	for _, wsConn := range wsConnPair {
 		err := wsConn.WriteJSON(msg)
-		if err != nil {
-			delete(wsConnPair, addr)
-		}
+		errorHandler.CheckError(err, "Send Websocket Message Failed")
 	}
 	return nil
 }

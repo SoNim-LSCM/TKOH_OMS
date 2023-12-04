@@ -29,28 +29,28 @@ func HandleLoginStaff(c *fiber.Ctx) error {
 	request := new(dto.LoginStaffDTO)
 
 	// validate the request body
-	err := c.BodyParser(request)
-	if errorHandler.CheckError(err, "HandleLoginStaff Insufficient input paramters") {
-		return c.Status(400).JSON(models.GetFailResponse("Insufficient input paramters: " + err.Error()))
+	err := c.BodyParser(&request)
+	if errorHandler.CheckError(err, "Login Staff Insufficient input paramters") {
+		return c.Status(400).JSON(models.GetFailResponse("Insufficient input paramters", err.Error()))
 	}
 
-	log.Printf("HandleLoginStaff with username: %s dutyLocationId: %d\n", request.Username, request.DutyLocationId)
+	log.Printf("Login Staff with Username: %s, Duty Location ID: %d\n", request.Username, request.DutyLocationId)
 
 	updatedUser, err := service.LoginStaff(request)
-	if err != nil {
-		return c.Status(400).JSON(models.GetFailResponse("Login staff failed " + err.Error()))
+	if errorHandler.CheckError(err, "Login Staff Failed with Login Staff Failed") {
+		return c.Status(400).JSON(models.GetFailResponse("Login Staff Failed", err.Error()))
 	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 
 	body, err := service.UsersToLoginResponse(updatedUser[0])
-	if errorHandler.CheckError(err, "Translate from users to login response failed: ") {
-		return c.Status(400).JSON(models.GetFailResponse("Translate from users to login response failed " + err.Error()))
+	if errorHandler.CheckError(err, "Login Staff Failed with Data Transformation Failed") {
+		return c.Status(400).JSON(models.GetFailResponse("Data Transformation Failed", err.Error()))
 	}
 
 	response := loginAuth.LoginResponse{Header: header, Body: body}
 
-	log.Printf("HandleLoginStaff login successful for staff user: %s\n", request.Username)
+	log.Printf("Login Staff Success for User: %s\n", request.Username)
 
 	// return the API Response
 	return c.Status(200).JSON(response)
@@ -72,28 +72,28 @@ func HandleLoginAdmin(c *fiber.Ctx) error {
 	request := new(dto.LoginAdminDTO)
 
 	// validate the request body
-	err := c.BodyParser(request)
-	if errorHandler.CheckError(err, "HandleLoginAdmin Insufficient input paramters") {
-		return c.Status(400).JSON(models.GetFailResponse("Insufficient input paramters: " + err.Error()))
+	err := c.BodyParser(&request)
+	if errorHandler.CheckError(err, "Login Admin Failed with Invalid/Missing Input") {
+		return c.Status(400).JSON(models.GetFailResponse("Invalid/Missing Input", err.Error()))
 	}
 
-	log.Printf("HandleLoginAdmin with username: %s password: %s\n", request.Username, request.Password)
+	log.Printf("Login Admin Failed with Username: %s\n", request.Username)
 
 	updatedUser, err := service.LoginAdmin(request)
-	if err != nil {
-		return c.Status(400).JSON(models.GetFailResponse("Login staff failed " + err.Error()))
+	if errorHandler.CheckError(err, "Login Admin Failed with Login Admin Failed") {
+		return c.Status(400).JSON(models.GetFailResponse("Login Admin Failed", err.Error()))
 	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 
 	body, err := service.UsersToLoginResponse(updatedUser[0])
-	if errorHandler.CheckError(err, "Translate from users to login response failed: ") {
-		return c.Status(400).JSON(models.GetFailResponse("Translate from users to login response failed " + err.Error()))
+	if errorHandler.CheckError(err, "Login Admin Failed with Data Transformation Failed") {
+		return c.Status(400).JSON(models.GetFailResponse("Login Admin Failed with Data Transformation Failed", err.Error()))
 	}
 
 	response := loginAuth.LoginResponse{Header: header, Body: body}
 
-	log.Printf("Login successful for admin user: %s\n", request.Username)
+	log.Printf("Login Successful for Admin User: %s\n", request.Username)
 
 	// return the API Response
 	return c.Status(200).JSON(response)
@@ -110,21 +110,20 @@ func HandleLoginAdmin(c *fiber.Ctx) error {
 // @Router		/logout [get]
 // @Security Bearer
 func HandleLogout(c *fiber.Ctx) error {
-	log.Printf("mysql query: HandleLogout start\n")
 	claim, token, err := utils.CtxToClaim(c)
-	if errorHandler.CheckError(err, "Invalid token") {
-		return c.Status(400).JSON(models.GetFailResponse("Invalid token: " + err.Error()))
+	if errorHandler.CheckError(err, "Logout Failed with Invalid token") {
+		return c.Status(400).JSON(models.GetFailResponse("Invalid token", err.Error()))
 	}
-	log.Printf("mysql query: HandleLogout: %s, %s\n", claim.Username, claim.UserType)
+	log.Printf("Logout with User: %s\n", claim.Username)
 	_, err = service.Logout(claim, token)
-	if err != nil {
-		return c.Status(400).JSON(models.GetFailResponse("Login failed: " + err.Error()))
+	if errorHandler.CheckError(err, "Logout Failed with Login Failed") {
+		return c.Status(400).JSON(models.GetFailResponse("Login Failed", err.Error()))
 	}
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	response := loginAuth.LogoutResponse{Header: header}
 
-	log.Printf("Logout successful for user: %s\n", claim.Username)
+	log.Printf("Logout Success for User: %s\n", claim.Username)
 
 	// return the API Response
 	return c.Status(200).JSON(response)
@@ -145,22 +144,22 @@ func HandleLogout(c *fiber.Ctx) error {
 func HandleRenewToken(c *fiber.Ctx) error {
 
 	claim, token, err := utils.CtxToClaim(c)
-	if errorHandler.CheckError(err, "Invalid token") {
-		return c.Status(400).JSON(models.GetFailResponse("Invalid token: " + err.Error()))
+	if errorHandler.CheckError(err, "Renew Token with Invalid token") {
+		return c.Status(400).JSON(models.GetFailResponse("Invalid token", err.Error()))
 	}
-
+	log.Printf("Renew Token by User: %s (%s)\n", claim.Username, claim.UserType)
 	updatedUser, err := service.RenewToken(claim, token)
 
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 
 	body, err := service.UsersToLoginResponse(updatedUser[0])
-	if errorHandler.CheckError(err, "Translate from users to login response failed: ") {
-		return c.Status(400).JSON(models.GetFailResponse("Translate from users to login response failed " + err.Error()))
+	if errorHandler.CheckError(err, "Renew Token with Data Transformation Failed") {
+		return c.Status(400).JSON(models.GetFailResponse("Renew Token with Data Transformation Failed", err.Error()))
 	}
 
 	response := loginAuth.LoginResponse{Header: header, Body: body}
 
-	log.Printf("Renew token successful for user: %s\n", claim.Username)
+	log.Printf("Renew Token Success for User: %s (%s)\n", claim.Username, body.UserType)
 
 	// return the API Response
 	return c.Status(200).JSON(response)

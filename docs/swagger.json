@@ -59,7 +59,7 @@
                 }
             }
         },
-        "/addRoutine": {
+        "/addRoutineDeliveryOrder": {
             "post": {
                 "security": [
                     {
@@ -757,7 +757,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateDeliveryOrderDTO"
+                            "$ref": "#/definitions/dto.UpdateRoutineDeliveryOrderDTO"
                         }
                     }
                 ],
@@ -765,7 +765,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/orderManagement.UpdateDeliveryOrderResponse"
+                            "$ref": "#/definitions/orderManagement.UpdateRoutineDeliveryOrderResponse"
                         }
                     },
                     "400": {
@@ -908,6 +908,9 @@
                 "messageTime": {
                     "type": "string"
                 },
+                "payloadId": {
+                    "type": "string"
+                },
                 "processingStatus": {
                     "type": "string"
                 },
@@ -942,6 +945,64 @@
                 },
                 "scheduleId": {
                     "type": "integer"
+                },
+                "startLocationId": {
+                    "type": "integer"
+                },
+                "startLocationName": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UpdateRoutineDeliveryOrderDTO": {
+            "type": "object",
+            "properties": {
+                "endLocationId": {
+                    "type": "integer"
+                },
+                "endLocationName": {
+                    "type": "string"
+                },
+                "expectedDeliveryTime": {
+                    "type": "string"
+                },
+                "expectedStartTime": {
+                    "type": "string"
+                },
+                "isActive": {
+                    "type": "boolean"
+                },
+                "numberOfAmrRequire": {
+                    "type": "integer"
+                },
+                "orderType": {
+                    "type": "string"
+                },
+                "routineId": {
+                    "type": "integer"
+                },
+                "routinePattern": {
+                    "type": "object",
+                    "properties": {
+                        "day": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "month": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "week": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
                 },
                 "startLocationId": {
                     "type": "integer"
@@ -1145,9 +1206,6 @@
                             "endLocationName": {
                                 "type": "string"
                             },
-                            "endTime": {
-                                "type": "string"
-                            },
                             "expectedArrivalTime": {
                                 "type": "string"
                             },
@@ -1300,6 +1358,17 @@
             "properties": {
                 "body": {
                     "$ref": "#/definitions/orderManagement.OrderListBody"
+                },
+                "header": {
+                    "$ref": "#/definitions/models.ResponseHeader"
+                }
+            }
+        },
+        "orderManagement.UpdateRoutineDeliveryOrderResponse": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "$ref": "#/definitions/orderManagement.RoutineOrderListBody"
                 },
                 "header": {
                     "$ref": "#/definitions/models.ResponseHeader"

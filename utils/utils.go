@@ -120,6 +120,31 @@ func ValidateJwtToken(token string) (bool, error) {
 	return false, err
 }
 
+func GetDetailsJwtToken(token string) (*Claims, error) {
+	var claims *Claims
+	if token == "" {
+		return claims, nil
+	}
+
+	tokenClaims, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(SECRET_KEY), nil
+	})
+
+	if tokenClaims != nil {
+		var ok bool
+		claims, ok = tokenClaims.Claims.(*Claims)
+		if ok && tokenClaims.Valid {
+			timeNow := time.Now().Unix()
+			if claims.ExpiresAt > timeNow {
+				return claims, nil
+			}
+			return claims, nil
+		}
+	}
+
+	return claims, err
+}
+
 func CtxToAuth(c *fiber.Ctx) (string, string, error) {
 	authHeader := c.GetReqHeaders()["Authorization"][0]
 	if authHeader == "" {

@@ -6,7 +6,7 @@ import (
 
 func CheckError(err error, action string) bool {
 	if err != nil {
-		log.Printf("Failure when %s: %s", action, err.Error())
+		log.Printf("%s: %s\n", action, err.Error())
 		return true
 	}
 	return false

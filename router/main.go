@@ -12,7 +12,7 @@ func SetupRoutes(app *fiber.App) {
 	oms := app.Group("/oms")
 
 	// Health Check
-	app.Get("/health", handlers.HandleHealthCheck)
+	oms.Get("/health", handlers.HandleHealthCheck)
 
 	// Login Auth
 	oms.Post("/loginStaff", handlers.HandleLoginStaff)
@@ -27,7 +27,7 @@ func SetupRoutes(app *fiber.App) {
 	oms.Get("/triggerHandlingOrder", handlers.HandleTriggerHandlingOrder)
 	oms.Post("/updateDeliveryOrder", handlers.HandleUpdateDeliveryOrder)
 	oms.Post("/cancelDeliveryOrder", handlers.HandleCancelDeliveryOrder)
-	oms.Post("/addRoutine", handlers.HandleAddRoutine)
+	oms.Post("/addRoutineDeliveryOrder", handlers.HandleAddRoutineDeliveryOrder)
 	oms.Post("/updateRoutineDeliveryOrder", handlers.HandleUpdateRoutineDeliveryOrder)
 
 	// for rfms

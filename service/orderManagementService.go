@@ -9,11 +9,13 @@ import (
 	"strings"
 	"time"
 
+	apiHandler "github.com/SoNim-LSCM/TKOH_OMS/api"
 	"github.com/SoNim-LSCM/TKOH_OMS/constants/orderStatus"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
 	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
 	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/orderManagement"
+	"github.com/SoNim-LSCM/TKOH_OMS/models/rfms"
 	"github.com/SoNim-LSCM/TKOH_OMS/utils"
 	"gorm.io/gorm"
 )
@@ -26,7 +28,6 @@ func FindOrders(filterFields string, filterValues ...interface{}) ([]db_models.O
 		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
-
 		return nil
 	})
 	return orders, err
@@ -40,15 +41,12 @@ func FindRoutines(filterFields string, filterValues ...interface{}) ([]db_models
 		if err := FindRecordsWithRaw(tx, &routines, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
-
 		return nil
 	})
 	return routines, err
 }
 
 func AddOrders(orderRequest dto.AddDeliveryOrderDTO, userId int) (orderManagement.OrderList, error) {
-	database.CheckDatabaseConnection()
-	log.Printf("mysql query: AddOrder\n")
 	var orderList orderManagement.OrderList
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
@@ -84,7 +82,6 @@ func AddOrders(orderRequest dto.AddDeliveryOrderDTO, userId int) (orderManagemen
 
 func AddRoutines(routineRequest dto.AddRoutineDTO, userId int) (orderManagement.RoutineOrderList, error) {
 	database.CheckDatabaseConnection()
-	log.Printf("mysql query: AddRoutineOrder\n")
 	var routineOrderList orderManagement.RoutineOrderList
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
@@ -102,7 +99,6 @@ func AddRoutines(routineRequest dto.AddRoutineDTO, userId int) (orderManagement.
 		if err != nil {
 			return err
 		}
-
 		return nil
 	})
 
@@ -112,17 +108,21 @@ func AddRoutines(routineRequest dto.AddRoutineDTO, userId int) (orderManagement.
 func TriggerOrderOrderIds(orderId []int) (orderManagement.OrderList, error) {
 	var orders []db_models.Orders
 	var orderList orderManagement.OrderList
-	updateFields := []string{"order_status", "order_start_time"}
-	timeNow := utils.GetTimeNowString()
-	updateMap := utils.CreateMap(updateFields, string(orderStatus.Processing), timeNow)
+	updateFields := []string{"processing_status"}
+	updateMap1 := utils.CreateMap(updateFields, string("ARRIVED_START_LOCATION"))
+	updateMap2 := utils.CreateMap(updateFields, string("ARRIVED_END_LOCATION"))
 	// updateValues := []string{string(orderStatus.Processing), timeNow}
 
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		err := UpdateRecords(tx, &orders, "orders", updateMap, "order_id IN ?", orderId)
-		if err != nil {
-			return err
-		}
+		err := UpdateRecords(tx, &orders, "orders", updateMap1, "order_id IN ? AND order_status = ? AND processing_status IN ?", orderId, orderStatus.Processing, "QUEUEING_AT_START_BAY")
+		// if err != nil {
+		// 	return err
+		// }
+		err = UpdateRecords(tx, &orders, "orders", updateMap2, "order_id IN ? AND order_status = ? AND processing_status IN ?", orderId, orderStatus.Processing, "QUEUEING_AT_END_BAY")
+		// if err != nil {
+		// 	return err
+		// }
 		orderList, err = OrderListToOrderResponse(orders)
 		if err != nil {
 			return err
@@ -342,7 +342,6 @@ func UpdateRoutineOrders(userId int, request dto.UpdateRoutineDeliveryOrderDTO) 
 }
 func OrderRequestToOrders(orderRequest dto.AddDeliveryOrderDTO, scheduleNo int, userId int) ([]db_models.Orders, error) {
 	var orders []db_models.Orders
-	log.Printf("mysql query: OrderRequestToOrders\n")
 	for i := 0; i < orderRequest.NumberOfAmrRequire; i++ {
 		var err error
 		var order db_models.Orders
@@ -352,7 +351,7 @@ func OrderRequestToOrders(orderRequest dto.AddDeliveryOrderDTO, scheduleNo int, 
 		order.OrderType = orderRequest.OrderType
 		order.OrderCreatedType = "ADHOC"
 		order.OrderCreatedBy = userId
-		order.OrderStatus = "CREATED"
+		order.OrderStatus = "TO_BE_CREATED"
 		order.OrderStartTime, err = StringToDatetime("")
 		if err != nil {
 			return orders, err
@@ -377,7 +376,7 @@ func OrderRequestToOrders(orderRequest dto.AddDeliveryOrderDTO, scheduleNo int, 
 		if err != nil {
 			return orders, err
 		}
-		order.ProcessingStatus = "PLANNING_TO_START_LOCATION"
+		order.ProcessingStatus = ""
 		order.LastUpdateTime = utils.GetTimeNowString()
 		order.LastUpdateBy = userId
 		orders = append(orders, order)
@@ -386,7 +385,6 @@ func OrderRequestToOrders(orderRequest dto.AddDeliveryOrderDTO, scheduleNo int, 
 }
 
 func OrderListToOrderResponse(orderList []db_models.Orders) (orderManagement.OrderList, error) {
-	log.Printf("mysql query: OrderListToOrderResponse\n")
 	var orderListResponse orderManagement.OrderList
 	// roomList, err := FindAllDutyRooms()
 	// if err != nil {
@@ -422,14 +420,12 @@ func OrderListToOrderResponse(orderList []db_models.Orders) (orderManagement.Ord
 		// orderListResponse[i].StartLocationName = roomList[orderListResponse[i].StartLocationID-1].LocationName
 		// orderListResponse[i].EndLocationName = roomList[orderListResponse[i].EndLocationID-1].LocationName
 	}
-	log.Println(orderListResponse)
 	return orderListResponse, nil
 }
 
 func RoutineRequestToRoutines(routinesRequest dto.AddRoutineDTO, userId int) ([]db_models.Routines, error) {
 	var routinesList []db_models.Routines
 	var routines db_models.Routines
-	log.Printf("mysql query: OrderRequestToOrders\n")
 	bJson, err := json.Marshal(routinesRequest)
 	if err != nil {
 		return routinesList, err
@@ -458,7 +454,6 @@ func RoutineRequestToRoutines(routinesRequest dto.AddRoutineDTO, userId int) ([]
 }
 
 func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManagement.RoutineOrderList, error) {
-	log.Printf("mysql query: OrderListToOrderResponse\n")
 	var routineOrderListResponse orderManagement.RoutineOrderList
 	jsonString, err := json.Marshal(routineList)
 	if err != nil {
@@ -488,8 +483,113 @@ func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManage
 			return routineOrderListResponse, err
 		}
 	}
-	log.Println(routineOrderListResponse)
 	return routineOrderListResponse, nil
+}
+
+func InitOrderToRFMS(userId int, orderList orderManagement.OrderList) error {
+	for _, order := range orderList {
+		param := rfms.CreateJobRequest{JobNature: "PICKING", Zone: "LG/F", Location: "Destination"}
+		response := apiHandler.POST("/createJob", param)
+
+		_, updateMap, err := GetUpdateOrderFields(response)
+		if err != nil {
+			return errors.New("Failed to phrase create job response (2)")
+		}
+
+		database.CheckDatabaseConnection()
+		err = database.DB.Transaction(func(tx *gorm.DB) error {
+			var updatedList = []db_models.Orders{}
+			err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
+			if err != nil {
+				return err
+			}
+			return nil
+		})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+
+}
+
+// func UpdateOrderFromRFMS(newJobStatus dto.ReportJobStatusDTO) error {
+
+// 	database.CheckDatabaseConnection()
+// 	err := database.DB.Transaction(func(tx *gorm.DB) error {
+// 		updateFields := []string{"order_status", "job_id"}
+// 		updateMap := utils.CreateMap(updateFields, createJobResponse.Body.Status, createJobResponse.Body.JobID)
+// 		var updatedList = []db_models.Orders{}
+// 		err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// 	if err != nil {
+// 		return err
+// 	}
+// }
+
+func GetUpdateOrderFields(rawResponse []byte) (dto.ReportJobStatusDTO, map[string]interface{}, error) {
+	rawString := string(rawResponse)
+	updateJobStatus := dto.ReportJobStatusResponseDTO{}
+	err := json.Unmarshal(rawResponse, &updateJobStatus)
+	if err != nil {
+		return updateJobStatus.Body, nil, errors.New("Failed to phrase create job response")
+	}
+	log.Println(string(rawResponse))
+	log.Println(updateJobStatus)
+	var updateMap = make(map[string]interface{})
+	if strings.Contains(rawString, "status") {
+		if updateJobStatus.Body.Status == "FAILED" {
+			return updateJobStatus.Body, nil, errors.New("RFMS Returned Fail")
+		}
+		updateMap["order_status"] = updateJobStatus.Body.Status
+	}
+	if strings.Contains(rawString, "est") {
+		updateMap["expected_start_time"] = updateJobStatus.Body.Est
+	}
+	if strings.Contains(rawString, "eta") {
+		updateMap["expected_arrival_time"] = updateJobStatus.Body.Eta
+	}
+	if strings.Contains(rawString, "processingStatus") {
+		updateMap["processing_status"] = updateJobStatus.Body.ProcessingStatus
+	}
+	// if (strings.Contains(rawString, "payloadId")){
+	// 	updateFields = append(updateFields, "location")
+	// }
+
+	updateMap["last_update_time"] = utils.GetTimeNowString()
+	// log.Println(updateMap)
+	return updateJobStatus.Body, updateMap, nil
+}
+
+func BackgroundInitOrderToRFMS() error {
+	database.CheckDatabaseConnection()
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		orders := []db_models.Orders{}
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE order_status = "
+		if err := FindRecordsWithRaw(tx, &orders, query, "TO_BE_CREATED"); err != nil {
+			return errors.New("Failed to search: " + err.Error())
+		}
+		if len(orders) == 0 {
+			return errors.New("No orders to be created")
+		}
+		orderList, err := OrderListToOrderResponse(orders)
+		if err != nil {
+			return err
+		}
+		err = InitOrderToRFMS(orders[0].OrderCreatedBy, orderList)
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func OrderIdsToIntArray(orderIds string) ([]int, error) {

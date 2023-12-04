@@ -8,7 +8,6 @@ type OrderList []struct {
 	OrderCreatedBy       int    `json:"orderCreatedBy"`
 	OrderStatus          string `json:"orderStatus"`
 	StartTime            string `json:"startTime"`
-	EndTime              string `json:"endTime"`
 	ActualArrivalTime    string `json:"actualArrivalTime"`
 	StartLocationID      int    `json:"startLocationId"`
 	StartLocationName    string `json:"startLocationName"`
@@ -19,4 +18,5 @@ type OrderList []struct {
 	ExpectedDeliveryTime string `json:"expectedDeliveryTime"`
 	ProcessingStatus     string `json:"processingStatus"`
 	FailedReason         string `json:"failedReason"`
+	JobID                int    `json:"jobId"`
 }

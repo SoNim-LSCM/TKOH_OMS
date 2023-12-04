@@ -5,9 +5,11 @@ import (
 	"os"
 	"time"
 
+	apiHandler "github.com/SoNim-LSCM/TKOH_OMS/api"
 	"github.com/SoNim-LSCM/TKOH_OMS/config"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
 	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"github.com/robfig/cron/v3"
 
 	// "github.com/SoNim-LSCM/TKOH_OMS/mqtt"
 
@@ -26,18 +28,37 @@ func SetupAndRunApp() {
 	errorHandler.CheckError(err, "load env")
 
 	// set output logs
-	now := time.Now()
+	var f *os.File
+	go config.SetupLogCron(f)
+
 	logPath := os.Getenv("LOG_PATH")
-	f, err := os.OpenFile(logPath+"/TKOH-OMS-LOGS-"+now.Format("2006-01-02"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	now := time.Now()
+	f, err = os.OpenFile(logPath+"/TKOH-OMS-LOGS-"+now.Format("2006-01-02"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	errorHandler.CheckFatalError(err)
+	c1 := cron.New()
+	c1.AddFunc("0 0 * * *", func() {
+		// fmt.Println("test")
+		f.Close()
+		now := time.Now()
+		f, err = os.OpenFile(logPath+"/TKOH-OMS-LOGS-"+now.Format("2006-01-02"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		errorHandler.CheckFatalError(err)
+
+		log.SetOutput(f)
+		log.Println("START OF A NEW LOG FILE !!!")
+	})
+	c1.Start()
+	log.SetOutput(f)
+
 	defer f.Close()
 
 	log.SetOutput(f)
 	log.Println("SYSTEM RESTARTED")
 
+	apiHandler.Init()
+
 	// start database
 	go database.StartMySql()
-	errorHandler.CheckError(err, "start MySql")
+	errorHandler.CheckError(err, "Start MySql")
 
 	// start mqtt server
 	// go mqtt.MqttSetup()

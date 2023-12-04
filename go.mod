@@ -32,6 +32,7 @@ require (
 	github.com/mochi-mqtt/server/v2 v2.4.1 // indirect
 	github.com/openshift/osin v1.0.1 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect
+	github.com/robfig/cron/v3 v3.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/rs/xid v1.4.0 // indirect
 	github.com/savsgio/gotils v0.0.0-20230208104028-c358bd845dee // indirect

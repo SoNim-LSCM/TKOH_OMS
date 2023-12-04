@@ -3,7 +3,6 @@ package service
 import (
 	"errors"
 	"fmt"
-	"log"
 	"strings"
 	"time"
 
@@ -16,7 +15,6 @@ import (
 func FindRecordsWithRaw(db *gorm.DB, records interface{}, query string, filterValues ...interface{}) error {
 	database.CheckDatabaseConnection()
 	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms." + table + " LEFT JOIN tkoh_oms.locations C ON tkoh_oms." + table + ".start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms." + table + ".end_location_id = D.location_id WHERE " + filterFields
-	log.Printf("mysql query: FindRecords: %s\n", query)
 	err := db.Raw(query, filterValues...).Scan(records).Error
 	if err != nil {
 		return err
@@ -26,7 +24,6 @@ func FindRecordsWithRaw(db *gorm.DB, records interface{}, query string, filterVa
 
 func FindRecords(db *gorm.DB, records interface{}, table string, filterFields interface{}, filterValues ...interface{}) error {
 	database.CheckDatabaseConnection()
-	log.Printf("mysql query: FindRecords: %s\n", filterFields)
 	if err := db.Table(table).Where(filterFields, filterValues...).Find(records).Error; err != nil {
 		return err
 	}
@@ -35,7 +32,6 @@ func FindRecords(db *gorm.DB, records interface{}, table string, filterFields in
 
 func UpdateRecords(db *gorm.DB, updatedRecordList interface{}, table string, updateMap map[string]interface{}, filterFields interface{}, filterValues ...interface{}) error {
 	database.CheckDatabaseConnection()
-	log.Printf("mysql query: UpdateRecords\n")
 	db.Clauses(clause.Locking{Strength: "UPDATE"}).Table(table).Where(filterFields, filterValues...).Updates(updateMap)
 	err := FindRecords(db, updatedRecordList, table, filterFields, filterValues...)
 	if err != nil {
@@ -46,7 +42,6 @@ func UpdateRecords(db *gorm.DB, updatedRecordList interface{}, table string, upd
 
 func AddRecords(db *gorm.DB, records interface{}) error {
 	database.CheckDatabaseConnection()
-	log.Printf("mysql query: AddRecords\n")
 	if err := db.Create(records).Error; err != nil {
 		return err
 	}

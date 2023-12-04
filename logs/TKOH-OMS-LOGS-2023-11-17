@@ -2219,3 +2219,40 @@
 2023/11/17 18:17:35 Login Username: user1 , AuthToken: TOKEN
 2023/11/17 18:17:43 Login Username: user1 , AuthToken: TOKEN
 2023/11/17 18:18:19 SYSTEM RESTARTED
+2023/11/17 18:24:16 SYSTEM RESTARTED
+2023/11/17 18:35:21 SYSTEM RESTARTED
+2023/11/17 18:36:07 SYSTEM RESTARTED
+2023/11/17 18:41:50 SYSTEM RESTARTED
+2023/11/17 18:44:26 SYSTEM RESTARTED
+2023/11/17 18:45:32 SYSTEM RESTARTED
+2023/11/17 18:45:33 HandleLoginStaff with username: staff10 dutyLocationId: 1
+2023/11/17 18:45:33 mysql query: FindRecords: &{%!s(int=0) staff10  STAFF      %!s(int=0) }
+2023/11/17 18:45:33 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/17 18:45:33 mysql query: AddRecords
+2023/11/17 18:45:33 mysql query: UpdateRecords
+2023/11/17 18:45:33 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/17 18:45:33 HandleLoginStaff login successful for staff user: staff10
+2023/11/17 18:45:51 Login Username: staff10 , AuthToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJkdXR5TG9jYXRpb25JZCI6MSwiZXhwIjoxNzAwMjE5NzMzLCJ1c2VySWQiOjE0LCJ1c2VyVHlwZSI6IlNUQUZGIiwidXNlcm5hbWUiOiJzdGFmZjEwIn0.ixXyp-PalF_9pn7BPobMhrAjU2fHEJvbfnyXNjFHhdU
+2023/11/17 18:47:01 SYSTEM RESTARTED
+2023/11/17 18:47:04 Login Username: staff10 , AuthToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJkdXR5TG9jYXRpb25JZCI6MSwiZXhwIjoxNzAwMjE5NzMzLCJ1c2VySWQiOjE0LCJ1c2VyVHlwZSI6IlNUQUZGIiwidXNlcm5hbWUiOiJzdGFmZjEwIn0.ixXyp-PalF_9pn7BPobMhrAjU2fHEJvbfnyXNjFHhdU
+2023/11/17 18:47:19 Login Username: staff10 , AuthToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJkdXR5TG9jYXRpb25JZCI6MSwiZXhwIjoxNzAwMjE5NzMzLCJ1c2VySWQiOjE0LCJ1c2VyVHlwZSI6IlNUQUZGIiwidXNlcm5hbWUiOiJzdGFmZjEwIn0.ixXyp-PalF_9pn7BPobMhrAjU2fHEJvbfnyXNjFHhdU
+2023/11/17 18:49:52 HandleLoginStaff with username: staff9 dutyLocationId: 1
+2023/11/17 18:49:52 mysql query: FindRecords: &{%!s(int=0) staff9  STAFF      %!s(int=0) }
+2023/11/17 18:49:52 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/17 18:49:52 mysql query: AddRecords
+2023/11/17 18:49:52 mysql query: UpdateRecords
+2023/11/17 18:49:52 mysql query: FindRecords: username = ? AND user_type = ?
+2023/11/17 18:49:52 HandleLoginStaff login successful for staff user: staff9
+2023/11/17 18:50:03 Login Username: staff9 , AuthToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJkdXR5TG9jYXRpb25JZCI6MSwiZXhwIjoxNzAwMjE5OTkyLCJ1c2VySWQiOjEzLCJ1c2VyVHlwZSI6IlNUQUZGIiwidXNlcm5hbWUiOiJzdGFmZjkifQ.8rOwrTEkclUfOE_BLZ62XAY3Cpr6U2dWgThgLROLirk
+2023/11/17 18:50:15 mysql query: UpdateRecords
+2023/11/17 18:50:15 mysql query: FindRecords: routine_id = ?
+2023/11/17 18:50:15 mysql query: FindRecords: routine_id = ?
+2023/11/17 18:50:15 mysql query: AddRecords
+2023/11/17 18:50:15 mysql query: OrderListToOrderResponse
+2023/11/17 18:50:15 [{1 PICK_AND_DELIVERY {[] [] [1]} 20231120 true 14 2 2  1300 1  1400}]
+2023/11/17 18:50:30 mysql query: UpdateRecords
+2023/11/17 18:50:30 mysql query: FindRecords: routine_id = ?
+2023/11/17 18:50:30 mysql query: FindRecords: routine_id = ?
+2023/11/17 18:50:30 mysql query: AddRecords
+2023/11/17 18:50:30 mysql query: OrderListToOrderResponse
+2023/11/17 18:50:30 [{1 PICK_AND_DELIVERY {[] [] [1]} 20231120 true 14 2 2  1300 1  1400}]
