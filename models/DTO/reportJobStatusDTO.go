@@ -7,7 +7,7 @@ type ReportJobStatusDTO struct {
 	Eta              string `json:"eta"`
 	ProcessingStatus string `json:"processingStatus"`
 	Zone             string `json:"zone"`
-	Location         string `json:"location"`
+	LocationId       int    `json:"locationId"`
 	RobotID          string `json:"robotId"`
 	PayloadID        string `json:"payloadId"`
 	MessageTime      string `json:"messageTime"`

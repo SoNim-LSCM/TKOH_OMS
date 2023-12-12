@@ -24,7 +24,7 @@ func FindOrders(filterFields string, filterValues ...interface{}) ([]db_models.O
 	var orders []db_models.Orders
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY case when processing_status like 'UNLOADING' then 1 when processing_status like 'ARRIVED%' then 2 when processing_status like 'QUEUEING%' then 3 when processing_status like 'MOVING_TO_LAYBY_AREA' then 4 when processing_status like 'GOING%' then 5 when processing_status like 'PLANNING%' then 6 else 7 end asc"
 		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
@@ -486,52 +486,222 @@ func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManage
 	return routineOrderListResponse, nil
 }
 
-func InitOrderToRFMS(userId int, orderList orderManagement.OrderList) error {
-	for _, order := range orderList {
-		param := rfms.CreateJobRequest{JobNature: "PICKING", Zone: "LG/F", Location: "Destination"}
-		response := apiHandler.POST("/createJob", param)
+func BackgroundInitOrderToRFMS() error {
 
-		_, updateMap, err := GetUpdateOrderFields(response)
-		if err != nil {
-			return errors.New("Failed to phrase create job response (2)")
-		}
+	if database.CheckDatabaseConnection() {
+		err := database.DB.Transaction(func(tx *gorm.DB) error {
 
-		database.CheckDatabaseConnection()
-		err = database.DB.Transaction(func(tx *gorm.DB) error {
-			var updatedList = []db_models.Orders{}
-			err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
-			if err != nil {
+			orders := []db_models.Orders{}
+
+			if err := FindRecords(tx, &orders, "orders", "order_status = ?", "TO_BE_CREATED"); err != nil {
 				return err
 			}
+
+			if len(orders) == 0 {
+				return errors.New("No orders to be created")
+			}
+
+			for _, order := range orders {
+
+				jobNatures := []string{}
+				locations := []int{}
+				// orderTypes := strings.Split(order.OrderType, "_")
+				// jobNatures = append(jobNatures, orderTypes[0])
+				switch order.OrderType {
+				case "PICK_AND_DELIVERY":
+					jobNatures = append(jobNatures, "PICK")
+					// zones = append(zones, "LG/F")
+					locations = append(locations, 1)
+
+					jobNatures = append(jobNatures, "DELIVERY")
+					locations = append(locations, 1)
+				case "PICK_DELIVERY_PARK":
+					jobNatures = append(jobNatures, "PICK")
+					locations = append(locations, 1)
+
+					jobNatures = append(jobNatures, "DELIVERY")
+					locations = append(locations, 1)
+
+					jobNatures = append(jobNatures, "PARK")
+					locations = append(locations, 1)
+				case "PICK_ONLY":
+					jobNatures = append(jobNatures, "PICK")
+					locations = append(locations, 1)
+				case "DELIVERY_ONLY":
+					jobNatures = append(jobNatures, "DELIVERY")
+					locations = append(locations, 1)
+				case "DELIVERY_PARK":
+					jobNatures = append(jobNatures, "DELIVERY")
+					locations = append(locations, 1)
+
+					jobNatures = append(jobNatures, "PARK")
+					locations = append(locations, 1)
+				case "PARK_ONLY":
+					jobNatures = append(jobNatures, "PARK")
+					locations = append(locations, 1)
+				default:
+					return errors.New("Unknown Order Type")
+				}
+
+				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: 8}
+				response := apiHandler.POST("/createJob", param)
+
+				updateJobStatus := dto.ReportJobStatusResponseDTO{}
+				err := json.Unmarshal(response, &updateJobStatus)
+				if err != nil {
+					return err
+				}
+				if updateJobStatus.ResponseMessage == "FAILED" {
+					return errors.New("Create Job Failed with Reason: " + updateJobStatus.FailReason)
+				}
+				est, err := StringToDatetime(updateJobStatus.Body.Est)
+				if err != nil {
+					return err
+				}
+				eta, err := StringToDatetime(updateJobStatus.Body.Eta)
+				if err != nil {
+					return err
+				}
+				lastUpdateTime, err := StringToDatetime(updateJobStatus.Body.MessageTime)
+				if err != nil {
+					return err
+				}
+				newJob := db_models.Jobs{OrderID: order.OrderID, JobID: updateJobStatus.Body.JobID, JobType: jobNatures[0], JobStatus: updateJobStatus.Body.Status, ProcessingStatus: updateJobStatus.Body.ProcessingStatus, JobStartTime: est, ExpectedArrivalTime: eta, EndLocationID: updateJobStatus.Body.LocationId, FailedReason: updateJobStatus.FailReason, LastUpdateTime: lastUpdateTime}
+				newJobs := []db_models.Jobs{newJob}
+				log.Print(newJob)
+				err = AddRecords(tx, newJobs)
+				if err != nil {
+					return err
+				}
+				for i, jobNature := range jobNatures {
+					if i > 0 {
+						defaultTime, err := StringToDatetime("")
+						if err != nil {
+							return err
+						}
+						newJob := db_models.Jobs{OrderID: order.OrderID, JobID: 0, JobType: jobNature, JobStatus: "TO_BE_CREATED", ProcessingStatus: "UNKNOWN", JobStartTime: defaultTime, ExpectedArrivalTime: defaultTime, EndLocationID: locations[i], FailedReason: updateJobStatus.FailReason, LastUpdateTime: defaultTime}
+						newJobs := []db_models.Jobs{newJob}
+						err = AddRecords(tx, newJobs)
+						if err != nil {
+							return err
+						}
+					}
+				}
+
+				updatedList := []db_models.Orders{}
+				updateFields := []string{"order_status", "job_id"}
+				updateMap := utils.CreateMap(updateFields, "CREATED", updateJobStatus.Body.JobID)
+				err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
+				if err != nil {
+					return err
+				}
+
+				// _, updateMap, err := GetUpdateJobFields(response)
+				// if err != nil {
+				// 	return errors.New("Failed to phrase create job response (2)")
+				// }
+				// var updatedList = []db_models.Orders{}
+				// err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
+				// if err != nil {
+				// 	return err
+				// }
+			}
+
 			return nil
 		})
 		if err != nil {
 			return err
 		}
+	} else {
+		return errors.New("Database not initialized")
 	}
+
 	return nil
 
 }
 
-// func UpdateOrderFromRFMS(newJobStatus dto.ReportJobStatusDTO) error {
+func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) error {
+	newJobStatus := request.Body
+	database.CheckDatabaseConnection()
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		est, err := StringToDatetime(newJobStatus.Est)
+		if err != nil {
+			return err
+		}
+		eta, err := StringToDatetime(newJobStatus.Eta)
+		if err != nil {
+			return err
+		}
+		lastUpdateTime, err := StringToDatetime(newJobStatus.MessageTime)
+		if err != nil {
+			return err
+		}
+		updateFields := []string{"job_status", "processing_status", "job_start_time", "expected_arrival_time", "end_location_id", "failed_reason", "last_update_time"}
+		updateMap := utils.CreateMap(updateFields, newJobStatus.Status, newJobStatus.ProcessingStatus, est, eta, newJobStatus.LocationId, "", lastUpdateTime)
+		var updatedJobList = []db_models.Jobs{}
+		err = UpdateRecords(tx, &updatedJobList, "jobs", updateMap, "job_id = ?", newJobStatus.JobID)
+		if err != nil {
+			return err
+		}
 
-// 	database.CheckDatabaseConnection()
-// 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-// 		updateFields := []string{"order_status", "job_id"}
-// 		updateMap := utils.CreateMap(updateFields, createJobResponse.Body.Status, createJobResponse.Body.JobID)
-// 		var updatedList = []db_models.Orders{}
-// 		err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// 	if err != nil {
-// 		return err
-// 	}
-// }
+		currentJobId := newJobStatus.JobID
 
-func GetUpdateOrderFields(rawResponse []byte) (dto.ReportJobStatusDTO, map[string]interface{}, error) {
+		if newJobStatus.Status == "COMPLETED" {
+			nextJobs := []db_models.Jobs{}
+			FindRecords(tx, &nextJobs, "jobs", "order_id = ? and processing_status = ? order by create_id", updatedJobList[0].OrderID, "UNKNOWN")
+			if len(nextJobs) > 0 {
+				param := rfms.CreateJobRequest{JobNature: nextJobs[0].JobType, LocationID: nextJobs[0].EndLocationID}
+				response := apiHandler.POST("/createJob", param)
+
+				updateJobStatus := dto.ReportJobStatusResponseDTO{}
+				err := json.Unmarshal(response, &updateJobStatus)
+				if err != nil {
+					return err
+				}
+				if updateJobStatus.ResponseMessage == "FAILED" {
+					return errors.New("Create Job Failed")
+				}
+				est, err := StringToDatetime(updateJobStatus.Body.Est)
+				if err != nil {
+					return err
+				}
+				eta, err := StringToDatetime(updateJobStatus.Body.Eta)
+				if err != nil {
+					return err
+				}
+				lastUpdateTime, err := StringToDatetime(updateJobStatus.Body.MessageTime)
+				if err != nil {
+					return err
+				}
+				updateFields := []string{"job_status", "processing_status", "job_start_time", "expected_arrival_time", "end_location_id", "failed_reason", "last_update_time", "job_id"}
+				updateMap := utils.CreateMap(updateFields, updateJobStatus.Body.Status, updateJobStatus.Body.ProcessingStatus, est, eta, updateJobStatus.Body.LocationId, "", lastUpdateTime, updateJobStatus.Body.JobID)
+				var updatedJobList = []db_models.Jobs{}
+				err = UpdateRecords(tx, &updatedJobList, "jobs", updateMap, "create_id = ?", nextJobs[0].CreateID)
+				if err != nil {
+					return err
+				}
+				currentJobId = updateJobStatus.Body.JobID
+			}
+
+			updatedOrderList := []db_models.Orders{}
+			updateOrderFields := []string{"order_status", "job_id"}
+			updateOrderMap := utils.CreateMap(updateOrderFields, "PROCESSING", currentJobId)
+			UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ? and order_status = ?", updatedJobList[0].OrderID, "CREATED")
+
+		}
+		// err = UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ?", order.OrderID)
+		// if err != nil {
+		// 	return err
+		// }
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func GetUpdateJobFields(rawResponse []byte) (dto.ReportJobStatusDTO, map[string]interface{}, error) {
 	rawString := string(rawResponse)
 	updateJobStatus := dto.ReportJobStatusResponseDTO{}
 	err := json.Unmarshal(rawResponse, &updateJobStatus)
@@ -545,7 +715,7 @@ func GetUpdateOrderFields(rawResponse []byte) (dto.ReportJobStatusDTO, map[strin
 		if updateJobStatus.Body.Status == "FAILED" {
 			return updateJobStatus.Body, nil, errors.New("RFMS Returned Fail")
 		}
-		updateMap["order_status"] = updateJobStatus.Body.Status
+		updateMap["job_status"] = updateJobStatus.Body.Status
 	}
 	if strings.Contains(rawString, "est") {
 		updateMap["expected_start_time"] = updateJobStatus.Body.Est
@@ -563,33 +733,6 @@ func GetUpdateOrderFields(rawResponse []byte) (dto.ReportJobStatusDTO, map[strin
 	updateMap["last_update_time"] = utils.GetTimeNowString()
 	// log.Println(updateMap)
 	return updateJobStatus.Body, updateMap, nil
-}
-
-func BackgroundInitOrderToRFMS() error {
-	database.CheckDatabaseConnection()
-	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		orders := []db_models.Orders{}
-		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE order_status = "
-		if err := FindRecordsWithRaw(tx, &orders, query, "TO_BE_CREATED"); err != nil {
-			return errors.New("Failed to search: " + err.Error())
-		}
-		if len(orders) == 0 {
-			return errors.New("No orders to be created")
-		}
-		orderList, err := OrderListToOrderResponse(orders)
-		if err != nil {
-			return err
-		}
-		err = InitOrderToRFMS(orders[0].OrderCreatedBy, orderList)
-		if err != nil {
-			return err
-		}
-		return nil
-	})
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 func OrderIdsToIntArray(orderIds string) ([]int, error) {

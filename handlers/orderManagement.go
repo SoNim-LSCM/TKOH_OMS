@@ -108,10 +108,10 @@ func HandleAddDeliveryOrder(c *fiber.Ctx) error {
 	if errorHandler.CheckError(err, "Add Delivery Order Failed with Add Orders Fail") {
 		return c.Status(400).JSON(models.GetFailResponse("Add Orders Fail", err.Error()))
 	}
-	err = service.InitOrderToRFMS(claim.UserId, orderList)
-	if errorHandler.CheckError(err, "Add Delivery Order Failed with Send Order to RFMS") {
-		return c.Status(400).JSON(models.GetFailResponse("Add Orders Fail", err.Error()))
-	}
+	// err = service.InitOrderToRFMS(claim.UserId, orderList)
+	// if errorHandler.CheckError(err, "Add Delivery Order Failed with Send Order to RFMS") {
+	// 	return c.Status(400).JSON(models.GetFailResponse("Add Orders Fail", err.Error()))
+	// }
 	header := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "SUCCESS"}
 	body := orderManagement.OrderListBody{OrderList: orderList}
 	response := orderManagement.AddDeliveryOrderResponse{Header: header, Body: body}
@@ -448,7 +448,7 @@ func HandleReportJobStatus(c *fiber.Ctx) error {
 	log.Printf("Report Job Status\n")
 
 	// get the todo from the request body
-	request := new(dto.ReportJobStatusDTO)
+	request := dto.ReportJobStatusResponseDTO{}
 
 	// validate the request body
 	err := c.BodyParser(&request)
@@ -456,6 +456,11 @@ func HandleReportJobStatus(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"Invalid/Missing Input": err.Error()})
 	}
 	log.Printf("Report Job Status with Paramters: %s\n", request)
+
+	err = service.UpdateOrderFromRFMS(request)
+	if errorHandler.CheckError(err, "Report Job Status Failed to Write Database") {
+		return c.Status(400).JSON(fiber.Map{"Report Job Status Failed to Write Database": err.Error()})
+	}
 
 	response := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "Success"}
 	log.Printf("Report Job Status Success\n")

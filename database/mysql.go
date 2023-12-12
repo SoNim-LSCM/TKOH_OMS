@@ -20,6 +20,7 @@ import (
 )
 
 var DB *gorm.DB
+var is_init = false
 
 type Dialer struct {
 	client *ssh.Client
@@ -143,7 +144,7 @@ func StartMySqlSSH() {
 	DB = db
 }
 
-func StartMySql() {
+func StartMySql(db_connected chan<- bool) {
 	host := os.Getenv("MYSQL_DB_HOST")
 	user := os.Getenv("MYSQL_DB_USERNAME")
 	password := os.Getenv("MYSQL_DB_PASSWORD")
@@ -158,7 +159,8 @@ func StartMySql() {
 	}
 
 	DB = db
-
+	is_init = true
+	db_connected <- true
 }
 
 // path to cert-files hard coded
@@ -190,10 +192,13 @@ func createTLSConf() tls.Config {
 	}
 }
 
-func CheckDatabaseConnection() {
-	sqlDB, err1 := DB.DB()
-	err2 := sqlDB.Ping()
-	if err1 != nil || err2 != nil {
-		StartMySqlSSH()
+func CheckDatabaseConnection() bool {
+	if is_init {
+		sqlDB, err1 := DB.DB()
+		err2 := sqlDB.Ping()
+		if err1 != nil || err2 != nil {
+			StartMySqlSSH()
+		}
 	}
+	return is_init
 }

@@ -3,6 +3,6 @@ package dto
 type ReportJobStatusResponseDTO struct {
 	ResponseCode    int                `json:"responseCode"`
 	ResponseMessage string             `json:"responseMessage"`
-	FailedReason    string             `json:"failedReason"`
+	FailReason      string             `json:"failReason"`
 	Body            ReportJobStatusDTO `json:"body"`
 }

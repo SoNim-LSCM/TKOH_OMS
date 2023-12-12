@@ -9,6 +9,7 @@ import (
 	"github.com/SoNim-LSCM/TKOH_OMS/config"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
 	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"github.com/SoNim-LSCM/TKOH_OMS/service"
 	"github.com/robfig/cron/v3"
 
 	// "github.com/SoNim-LSCM/TKOH_OMS/mqtt"
@@ -56,8 +57,10 @@ func SetupAndRunApp() {
 
 	apiHandler.Init()
 
+	db_connected := make(chan bool)
+
 	// start database
-	go database.StartMySql()
+	go database.StartMySql(db_connected)
 	errorHandler.CheckError(err, "Start MySql")
 
 	// start mqtt server
@@ -81,6 +84,9 @@ func SetupAndRunApp() {
 
 	// setup websocket
 	go websocket.SetupWebsocket()
+
+	//background service
+	go service.BackgroundService(db_connected)
 
 	// get the port and start
 	port := os.Getenv("API_PORT")
