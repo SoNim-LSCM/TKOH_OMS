@@ -457,12 +457,13 @@ func HandleReportJobStatus(c *fiber.Ctx) error {
 	}
 	log.Printf("Report Job Status with Paramters: %s\n", request)
 
-	err = service.UpdateOrderFromRFMS(request)
+	orderList, err := service.UpdateOrderFromRFMS(request)
 	if errorHandler.CheckError(err, "Report Job Status Failed to Write Database") {
 		return c.Status(400).JSON(fiber.Map{"Report Job Status Failed to Write Database": err.Error()})
 	}
 
 	response := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "Success"}
+	websocket.SendBoardcastMessage(ws_model.GetUpdateOrderResponse(orderList))
 	log.Printf("Report Job Status Success\n")
 
 	// return the API Response

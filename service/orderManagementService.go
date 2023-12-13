@@ -24,7 +24,7 @@ func FindOrders(filterFields string, filterValues ...interface{}) ([]db_models.O
 	var orders []db_models.Orders
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY case when processing_status like 'UNLOADING' then 1 when processing_status like 'ARRIVED%' then 2 when processing_status like 'QUEUEING%' then 3 when processing_status like 'MOVING_TO_LAYBY_AREA' then 4 when processing_status like 'GOING%' then 5 when processing_status like 'PLANNING%' then 6 else 7 end asc"
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY case when processing_status like 'UNLOADING' then 1 when processing_status like 'ARRIVED%' then 2 when processing_status like 'QUEUING%' then 3 when processing_status like 'MOVING_TO_LAYBY_AREA' then 4 when processing_status like 'GOING%' then 5 when processing_status like 'PLANNING%' then 6 else 7 end asc"
 		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
@@ -115,11 +115,11 @@ func TriggerOrderOrderIds(orderId []int) (orderManagement.OrderList, error) {
 
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		err := UpdateRecords(tx, &orders, "orders", updateMap1, "order_id IN ? AND order_status = ? AND processing_status IN ?", orderId, orderStatus.Processing, "QUEUEING_AT_START_BAY")
+		err := UpdateRecords(tx, &orders, "orders", updateMap1, "order_id IN ? AND order_status = ? AND processing_status IN ?", orderId, orderStatus.Processing, "QUEUING_AT_START_BAY")
 		// if err != nil {
 		// 	return err
 		// }
-		err = UpdateRecords(tx, &orders, "orders", updateMap2, "order_id IN ? AND order_status = ? AND processing_status IN ?", orderId, orderStatus.Processing, "QUEUEING_AT_END_BAY")
+		err = UpdateRecords(tx, &orders, "orders", updateMap2, "order_id IN ? AND order_status = ? AND processing_status IN ?", orderId, orderStatus.Processing, "QUEUING_AT_END_BAY")
 		// if err != nil {
 		// 	return err
 		// }
@@ -498,47 +498,57 @@ func BackgroundInitOrderToRFMS() error {
 			}
 
 			if len(orders) == 0 {
-				return errors.New("No orders to be created")
+				return nil
 			}
 
 			for _, order := range orders {
 
 				jobNatures := []string{}
 				locations := []int{}
+				statusLocation := []string{}
 				// orderTypes := strings.Split(order.OrderType, "_")
 				// jobNatures = append(jobNatures, orderTypes[0])
 				switch order.OrderType {
 				case "PICK_AND_DELIVERY":
 					jobNatures = append(jobNatures, "PICK")
-					// zones = append(zones, "LG/F")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "START_LOCATION")
 
 					jobNatures = append(jobNatures, "DELIVERY")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "END_LOCATION")
 				case "PICK_DELIVERY_PARK":
 					jobNatures = append(jobNatures, "PICK")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "START_LOCATION")
 
 					jobNatures = append(jobNatures, "DELIVERY")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "END_LOCATION")
 
 					jobNatures = append(jobNatures, "PARK")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "PARKING")
 				case "PICK_ONLY":
 					jobNatures = append(jobNatures, "PICK")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "END_LOCATION")
 				case "DELIVERY_ONLY":
 					jobNatures = append(jobNatures, "DELIVERY")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "END_LOCATION")
 				case "DELIVERY_PARK":
 					jobNatures = append(jobNatures, "DELIVERY")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "END_LOCATION")
 
 					jobNatures = append(jobNatures, "PARK")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "PARKING")
 				case "PARK_ONLY":
 					jobNatures = append(jobNatures, "PARK")
 					locations = append(locations, 1)
+					statusLocation = append(statusLocation, "PARKING")
 				default:
 					return errors.New("Unknown Order Type")
 				}
@@ -568,7 +578,7 @@ func BackgroundInitOrderToRFMS() error {
 				}
 				newJob := db_models.Jobs{OrderID: order.OrderID, JobID: updateJobStatus.Body.JobID, JobType: jobNatures[0], JobStatus: updateJobStatus.Body.Status, ProcessingStatus: updateJobStatus.Body.ProcessingStatus, JobStartTime: est, ExpectedArrivalTime: eta, EndLocationID: updateJobStatus.Body.LocationId, FailedReason: updateJobStatus.FailReason, LastUpdateTime: lastUpdateTime}
 				newJobs := []db_models.Jobs{newJob}
-				log.Print(newJob)
+				// log.Print(newJob)
 				err = AddRecords(tx, newJobs)
 				if err != nil {
 					return err
@@ -579,7 +589,7 @@ func BackgroundInitOrderToRFMS() error {
 						if err != nil {
 							return err
 						}
-						newJob := db_models.Jobs{OrderID: order.OrderID, JobID: 0, JobType: jobNature, JobStatus: "TO_BE_CREATED", ProcessingStatus: "UNKNOWN", JobStartTime: defaultTime, ExpectedArrivalTime: defaultTime, EndLocationID: locations[i], FailedReason: updateJobStatus.FailReason, LastUpdateTime: defaultTime}
+						newJob := db_models.Jobs{OrderID: order.OrderID, JobID: 0, JobType: jobNature, JobStatus: "TO_BE_CREATED", ProcessingStatus: "UNKNOWN", JobStartTime: defaultTime, ExpectedArrivalTime: defaultTime, EndLocationID: locations[i], FailedReason: updateJobStatus.FailReason, LastUpdateTime: defaultTime, StatusLocation: statusLocation[0]}
 						newJobs := []db_models.Jobs{newJob}
 						err = AddRecords(tx, newJobs)
 						if err != nil {
@@ -620,8 +630,9 @@ func BackgroundInitOrderToRFMS() error {
 
 }
 
-func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) error {
+func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) (orderManagement.OrderList, error) {
 	newJobStatus := request.Body
+	orderList := orderManagement.OrderList{}
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
 		est, err := StringToDatetime(newJobStatus.Est)
@@ -645,6 +656,8 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) error {
 		}
 
 		currentJobId := newJobStatus.JobID
+		currentJobStatus := newJobStatus.ProcessingStatus
+		statusLocation := ""
 
 		if newJobStatus.Status == "COMPLETED" {
 			nextJobs := []db_models.Jobs{}
@@ -680,14 +693,42 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) error {
 				if err != nil {
 					return err
 				}
+				jobsLogList, err := JobsToJobsLogs(updatedJobList)
+				if err != nil {
+					return err
+				}
+				err = AddRecords(tx, jobsLogList)
+				if err != nil {
+					return err
+				}
+
 				currentJobId = updateJobStatus.Body.JobID
+				currentJobStatus = updateJobStatus.Body.ProcessingStatus
+				statusLocation = updatedJobList[0].StatusLocation
+			}
+
+			processingStatus := getProcessingStatusFromJob(currentJobStatus, statusLocation)
+			orderStatus := "PROCESSING"
+			if currentJobStatus == "ARRIVED" && statusLocation == "END_LOCATION" {
+				orderStatus = "COMPLETED"
 			}
 
 			updatedOrderList := []db_models.Orders{}
-			updateOrderFields := []string{"order_status", "job_id"}
-			updateOrderMap := utils.CreateMap(updateOrderFields, "PROCESSING", currentJobId)
+			updateOrderFields := []string{"order_status", "processing_status", "job_id"}
+			updateOrderMap := utils.CreateMap(updateOrderFields, orderStatus, processingStatus, currentJobId)
 			UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ? and order_status = ?", updatedJobList[0].OrderID, "CREATED")
-
+			ordersLogList, err := OrdersToOrdersLogs(0, updatedOrderList)
+			if err != nil {
+				return err
+			}
+			err = AddRecords(tx, ordersLogList)
+			if err != nil {
+				return err
+			}
+			orderList, err = OrderListToOrderResponse(updatedOrderList)
+			if err != nil {
+				return err
+			}
 		}
 		// err = UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ?", order.OrderID)
 		// if err != nil {
@@ -696,9 +737,28 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) error {
 		return nil
 	})
 	if err != nil {
-		return err
+		return orderList, err
 	}
-	return nil
+	return orderList, nil
+}
+
+func getProcessingStatusFromJob(jobStatus string, statusLocation string) string {
+	switch jobStatus {
+	case "PLANNING":
+		return "PLANNING_TO_" + statusLocation
+	case "GOING_TO_LOCATION":
+		return "GOING_TO_" + statusLocation
+	case "QUEUING":
+		return "QUEUING_AT_" + strings.Replace(statusLocation, "LOCATION", "BAY", -1)
+	case "ARRIVING":
+		return "ARRIVING_TO_" + statusLocation
+	case "ARRIVED":
+		return "ARRIVED_TO_" + statusLocation
+	case "MOVING_TO_LAYBY":
+		return "MOVING_TO_LAYBY"
+	default:
+		return "UNKNOWN"
+	}
 }
 
 func GetUpdateJobFields(rawResponse []byte) (dto.ReportJobStatusDTO, map[string]interface{}, error) {
@@ -752,6 +812,30 @@ func OrderDtoToOrderList(dto.UpdateDeliveryOrderDTO) ([]db_models.Orders, error)
 	orderList := []db_models.Orders{}
 
 	return orderList, nil
+}
+
+func JobsToJobsLogs(jobs []db_models.Jobs) ([]db_models.JobsLogs, error) {
+	var jobsLogs []db_models.JobsLogs
+
+	bJson, err := json.Marshal(jobs)
+	if err != nil {
+		return jobsLogs, err
+	}
+	err = json.Unmarshal(bJson, &jobsLogs)
+	if err != nil {
+		return jobsLogs, err
+	}
+
+	for _, jobsLog := range jobsLogs {
+		if jobsLog.ExpectedArrivalTime == "" {
+			jobsLog.ExpectedArrivalTime = utils.TimeInt64ToString(0)
+		}
+		if jobsLog.LastUpdateTime == "" {
+			jobsLog.LastUpdateTime = utils.TimeInt64ToString(0)
+		}
+	}
+
+	return jobsLogs, nil
 }
 
 func OrdersToOrdersLogs(userId int, orders []db_models.Orders) ([]db_models.OrdersLogs, error) {
