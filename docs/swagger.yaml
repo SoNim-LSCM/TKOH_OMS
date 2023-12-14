@@ -80,8 +80,8 @@ definitions:
         type: string
       jobId:
         type: integer
-      location:
-        type: string
+      locationId:
+        type: integer
       messageTime:
         type: string
       payloadId:
@@ -239,6 +239,8 @@ definitions:
     type: object
   models.ResponseHeader:
     properties:
+      failedReason:
+        type: string
       responseCode:
         type: integer
       responseMessage:
@@ -284,6 +286,8 @@ definitions:
               type: string
             failedReason:
               type: string
+            jobId:
+              type: integer
             orderCreatedBy:
               type: integer
             orderCreatedType:
@@ -794,6 +798,19 @@ paths:
       summary: Test SW1 websocket response.
       tags:
       - Test
+  /toggleBackgroundService:
+    get:
+      consumes:
+      - '*/*'
+      description: Toggle Background Service
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Background service is ON / OFF
+      summary: Toggle Background Service.
+      tags:
+      - Health
   /triggerHandlingOrder:
     get:
       consumes:

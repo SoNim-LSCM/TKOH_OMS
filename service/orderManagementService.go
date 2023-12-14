@@ -553,7 +553,7 @@ func BackgroundInitOrderToRFMS() error {
 					return errors.New("Unknown Order Type")
 				}
 
-				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: 8}
+				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: 15}
 				response := apiHandler.POST("/createJob", param)
 
 				updateJobStatus := dto.ReportJobStatusResponseDTO{}

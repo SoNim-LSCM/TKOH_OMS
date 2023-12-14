@@ -13,6 +13,7 @@ func SetupRoutes(app *fiber.App) {
 
 	// Health Check
 	oms.Get("/health", handlers.HandleHealthCheck)
+	oms.Get("/toggleBackgroundService", handlers.ToggleBackgroundService)
 
 	// Login Auth
 	oms.Post("/loginStaff", handlers.HandleLoginStaff)

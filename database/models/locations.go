@@ -1,6 +1,7 @@
 package db_models
 
 type Locations struct {
-	LocationId   int    `json:"locationId"`
+	ID           int    `json:"id" sql:"AUTO_INCREMENT" gorm:"primary_key"`
+	LocationID   int    `json:"locationId"`
 	LocationName string `json:"locationName"`
 }

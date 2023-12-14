@@ -639,6 +639,26 @@ const docTemplate = `{
                 }
             }
         },
+        "/toggleBackgroundService": {
+            "get": {
+                "description": "Toggle Background Service",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "Health"
+                ],
+                "summary": "Toggle Background Service.",
+                "responses": {
+                    "200": {
+                        "description": "Background service is ON / OFF"
+                    }
+                }
+            }
+        },
         "/triggerHandlingOrder": {
             "get": {
                 "security": [
@@ -908,8 +928,8 @@ const docTemplate = `{
                 "jobId": {
                     "type": "integer"
                 },
-                "location": {
-                    "type": "string"
+                "locationId": {
+                    "type": "integer"
                 },
                 "messageTime": {
                     "type": "string"
@@ -1154,6 +1174,9 @@ const docTemplate = `{
         "models.ResponseHeader": {
             "type": "object",
             "properties": {
+                "failedReason": {
+                    "type": "string"
+                },
                 "responseCode": {
                     "type": "integer"
                 },
@@ -1223,6 +1246,9 @@ const docTemplate = `{
                             },
                             "failedReason": {
                                 "type": "string"
+                            },
+                            "jobId": {
+                                "type": "integer"
                             },
                             "orderCreatedBy": {
                                 "type": "integer"
