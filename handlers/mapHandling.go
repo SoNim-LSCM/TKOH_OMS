@@ -49,6 +49,11 @@ func HandleGetFloorPlan(c *fiber.Ctx) error {
 // @Router			/getDutyRooms [get]
 func HandleGetDutyRooms(c *fiber.Ctx) error {
 
+	err := service.GetLocationFromRFMS()
+	if errorHandler.CheckError(err, "Get Location from RFMS") {
+		return c.Status(400).JSON(models.GetFailResponse("Get Location from RFMS", err.Error()))
+	}
+
 	var locationList mapHandling.LocationList
 	mainInterface, err := service.FindAllDutyRooms()
 	if errorHandler.CheckError(err, "Duty Rooms Not Found") {

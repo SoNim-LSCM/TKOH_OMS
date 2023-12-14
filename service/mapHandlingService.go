@@ -2,17 +2,25 @@ package service
 
 import (
 	"encoding/json"
+	"errors"
+	"log"
 
+	apiHandler "github.com/SoNim-LSCM/TKOH_OMS/api"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
 	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/mapHandling"
+	"github.com/SoNim-LSCM/TKOH_OMS/models/rfms"
 )
 
 func FindAllDutyRooms() ([]db_models.Locations, error) {
-	database.CheckDatabaseConnection()
 	var val []db_models.Locations
-	err := database.DB.Find(&val).Error
-	return val, err
+	if database.CheckDatabaseConnection() {
+		err := database.DB.Find(&val).Error
+		return val, err
+	} else {
+		return val, errors.New("Database Connection Fail")
+	}
+	return val, nil
 }
 
 func GetFloorPlan() ([]db_models.Floors, error) {
@@ -33,4 +41,50 @@ func FloorPlanToMapList(floorPlan []db_models.Floors) (mapHandling.MapList, erro
 		return mapList, err
 	}
 	return mapList, err
+}
+
+func GetLocationFromRFMS() error {
+
+	response := apiHandler.Get("/locationList?type=DESTINATION", nil)
+	jsonResponse := rfms.GetLocationResponse{}
+	err := json.Unmarshal(response, &jsonResponse)
+	if err != nil {
+		return err
+	}
+	locations, err := locationListToDBLocations(jsonResponse.Body.LocationList)
+	if err != nil {
+		return err
+	}
+
+	log.Print(locations)
+
+	// if database.CheckDatabaseConnection() {
+	// 	err = database.DB.Transaction(func(tx *gorm.DB) error {
+	// 		err := TruncateTable(tx, "locations")
+	// 		if err != nil {
+	// 			return err
+	// 		}
+	// 		err = AddRecords(tx, locations)
+	// 		if err != nil {
+	// 			return err
+	// 		}
+
+	// 		return nil
+	// 	})
+	// 	return err
+	// }
+	return nil
+}
+
+func locationListToDBLocations(locationList interface{}) ([]db_models.Locations, error) {
+	locations := []db_models.Locations{}
+	bJson, err := json.Marshal(locationList)
+	if err != nil {
+		return locations, err
+	}
+	err = json.Unmarshal(bJson, &locations)
+	if err != nil {
+		return locations, err
+	}
+	return locations, err
 }

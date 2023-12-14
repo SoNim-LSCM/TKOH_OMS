@@ -20,6 +20,19 @@ import (
 	"gorm.io/gorm"
 )
 
+func FindOrdersForFrontPage(filterFields string, locationId int, filterValues ...interface{}) ([]db_models.Orders, error) {
+	var orders []db_models.Orders
+	database.CheckDatabaseConnection()
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY start_location_id, if (start_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_START%' then 4 when processing_status like 'QUEUING_AT_START%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'GOING_TO_START%' then 7 when processing_status like 'PLANNING_TO_START%' then 8 when processing_status = '' then 98 else 99 end , if (end_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_END%' then 4 when processing_status like 'QUEUING_AT_END%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'PLANNING_TO_END%' then 7 when processing_status like 'GOING_TO_END%' then 8 when processing_status like '%START%' then 9 when processing_status = '' then 98 else 99 end , 999) ) ,end_location_id asc"
+		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
+			return errors.New("Failed to search: " + err.Error())
+		}
+		return nil
+	})
+	return orders, err
+}
+
 func FindOrders(filterFields string, filterValues ...interface{}) ([]db_models.Orders, error) {
 	var orders []db_models.Orders
 	database.CheckDatabaseConnection()
@@ -606,15 +619,6 @@ func BackgroundInitOrderToRFMS() error {
 					return err
 				}
 
-				// _, updateMap, err := GetUpdateJobFields(response)
-				// if err != nil {
-				// 	return errors.New("Failed to phrase create job response (2)")
-				// }
-				// var updatedList = []db_models.Orders{}
-				// err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
-				// if err != nil {
-				// 	return err
-				// }
 			}
 
 			return nil
@@ -755,7 +759,7 @@ func getProcessingStatusFromJob(jobStatus string, statusLocation string) string 
 	case "ARRIVED":
 		return "ARRIVED_TO_" + statusLocation
 	case "MOVING_TO_LAYBY":
-		return "MOVING_TO_LAYBY"
+		return "MOVING_TO_" + statusLocation + "_LAYBY"
 	default:
 		return "UNKNOWN"
 	}

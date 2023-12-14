@@ -51,7 +51,7 @@ func HandleGetDeliveryOrder(c *fiber.Ctx) error {
 	}
 	log.Printf("Get Delivery Order with Paramters: %s\n", statusString)
 
-	orders, err := service.FindOrders("order_status IN ? AND (start_location_id = ? OR end_location_id = ?)", statusArray, claim.DutyLocationId, claim.DutyLocationId)
+	orders, err := service.FindOrdersForFrontPage("order_status IN ? AND (start_location_id = ? OR end_location_id = ?)", claim.DutyLocationId, statusArray, claim.DutyLocationId, claim.DutyLocationId)
 	// err := service.FindRecords(&user, "orders", "order_status", statusArray, &orders)
 	if errorHandler.CheckError(err, "Get Delivery Order Failed with Failed to Search Record") {
 		return c.Status(400).JSON(models.GetFailResponse("Failed to Search Record", err.Error()))

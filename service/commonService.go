@@ -12,6 +12,16 @@ import (
 	"gorm.io/gorm/clause"
 )
 
+func TruncateTable(db *gorm.DB, tableName string) error {
+	database.CheckDatabaseConnection()
+	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms." + table + " LEFT JOIN tkoh_oms.locations C ON tkoh_oms." + table + ".start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms." + table + ".end_location_id = D.location_id WHERE " + filterFields
+	err := db.Raw("TRUNCATE " + tableName).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func FindRecordsWithRaw(db *gorm.DB, records interface{}, query string, filterValues ...interface{}) error {
 	database.CheckDatabaseConnection()
 	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms." + table + " LEFT JOIN tkoh_oms.locations C ON tkoh_oms." + table + ".start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms." + table + ".end_location_id = D.location_id WHERE " + filterFields

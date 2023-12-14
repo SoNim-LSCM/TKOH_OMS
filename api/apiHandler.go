@@ -21,7 +21,15 @@ func Init() {
 }
 
 func Get(endpoint string, param interface{}) []byte {
-	response, err := http.Get(baseUrl + endpoint)
+	//Encode the data
+	postBody, _ := json.Marshal(param)
+	responseBody := bytes.NewBuffer(postBody)
+	client := &http.Client{}
+	// response, err := http.Post(baseUrl+endpoint, "application/json", responseBody)
+	req, err := http.NewRequest("GET", "http://"+baseUrl+endpoint, responseBody)
+	req.Header.Add("Content-Type", "application/json")
+	req.SetBasicAuth("oms", "YNetORtE")
+	response, err := client.Do(req)
 	if err != nil {
 		log.Println(err)
 	}
