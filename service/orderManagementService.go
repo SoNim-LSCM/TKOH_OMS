@@ -13,6 +13,7 @@ import (
 	"github.com/SoNim-LSCM/TKOH_OMS/constants/orderStatus"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
 	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
+	"github.com/SoNim-LSCM/TKOH_OMS/models"
 	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/orderManagement"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/rfms"
@@ -59,35 +60,38 @@ func FindRoutines(filterFields string, filterValues ...interface{}) ([]db_models
 	return routines, err
 }
 
-func AddOrders(orderRequest dto.AddDeliveryOrderDTO, userId int) (orderManagement.OrderList, error) {
+func AddOrders(orderRequests []dto.AddDeliveryOrderDTO, userId int, orderCreatedType string) (orderManagement.OrderList, error) {
 	var orderList orderManagement.OrderList
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
 		var lastSchedule db_models.Schedules
 
-		// create new schedule
-		schedulesList := []db_models.Schedules{{ScheduleID: 0, ScheduleStatus: "CREATED", ScheduleCraeteTime: utils.GetTimeNowString(), OrderType: orderRequest.OrderType, NumberOfAmrRequire: orderRequest.NumberOfAmrRequire, LastUpdateTime: utils.GetTimeNowString()}}
-		if err := AddRecords(tx, schedulesList); err != nil {
-			return err
+		for _, orderRequest := range orderRequests {
+			// create new schedule
+			schedulesList := []db_models.Schedules{{ScheduleID: 0, ScheduleStatus: "CREATED", ScheduleCraeteTime: utils.GetTimeNowString(), OrderType: orderRequest.OrderType, OrderCreatedType: orderCreatedType, NumberOfAmrRequire: orderRequest.NumberOfAmrRequire, RoutineID: orderRequest.RoutineID, LastUpdateTime: utils.GetTimeNowString()}}
+			if err := AddRecords(tx, schedulesList); err != nil {
+				return err
+			}
+			// check no of schedules
+			if err := tx.Table("schedules").Last(&lastSchedule).Error; err != nil {
+				return err
+			}
+			// translate order request to orders
+			orders, err := OrderRequestToOrders(orderRequest, lastSchedule.ScheduleID, userId, orderCreatedType)
+			if err != nil {
+				return err
+			}
+			// create new orders
+			if err := AddRecords(tx, orders); err != nil {
+				return err
+			}
+			// translate new orders to order response
+			orderList, err = OrderListToOrderResponse(orders)
+			if err != nil {
+				return err
+			}
 		}
-		// check no of schedules
-		if err := tx.Table("schedules").Last(&lastSchedule).Error; err != nil {
-			return err
-		}
-		// translate order request to orders
-		orders, err := OrderRequestToOrders(orderRequest, lastSchedule.ScheduleID, userId)
-		if err != nil {
-			return err
-		}
-		// create new orders
-		if err := AddRecords(tx, orders); err != nil {
-			return err
-		}
-		// translate new orders to order response
-		orderList, err = OrderListToOrderResponse(orders)
-		if err != nil {
-			return err
-		}
+
 		return nil
 	})
 	return orderList, err
@@ -96,7 +100,6 @@ func AddOrders(orderRequest dto.AddDeliveryOrderDTO, userId int) (orderManagemen
 func AddRoutines(routineRequest dto.AddRoutineDTO, userId int) (orderManagement.RoutineOrderList, error) {
 	database.CheckDatabaseConnection()
 	var routineOrderList orderManagement.RoutineOrderList
-	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
 		// translate order request to routines
 		routines, err := RoutineRequestToRoutines(routineRequest, userId)
@@ -118,27 +121,28 @@ func AddRoutines(routineRequest dto.AddRoutineDTO, userId int) (orderManagement.
 	return routineOrderList, err
 }
 
-func TriggerOrderOrderIds(orderId []int) (orderManagement.OrderList, error) {
-	var orders []db_models.Orders
+func TriggerOrderOrderIds(orderIds string) (orderManagement.OrderList, error) {
 	var orderList orderManagement.OrderList
-	updateFields := []string{"processing_status"}
-	updateMap1 := utils.CreateMap(updateFields, string("ARRIVED_START_LOCATION"))
-	updateMap2 := utils.CreateMap(updateFields, string("ARRIVED_END_LOCATION"))
-	// updateValues := []string{string(orderStatus.Processing), timeNow}
-
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		err := UpdateRecords(tx, &orders, "orders", updateMap1, "order_id IN ? AND order_status = ? AND processing_status IN ?", orderId, orderStatus.Processing, "QUEUING_AT_START_BAY")
-		// if err != nil {
-		// 	return err
-		// }
-		err = UpdateRecords(tx, &orders, "orders", updateMap2, "order_id IN ? AND order_status = ? AND processing_status IN ?", orderId, orderStatus.Processing, "QUEUING_AT_END_BAY")
-		// if err != nil {
-		// 	return err
-		// }
-		orderList, err = OrderListToOrderResponse(orders)
+		jobList := []db_models.Jobs{}
+		err := FindRecordsWithRaw(tx, &jobList, "SELECT * FROM jobs WHERE order_id IN ("+orderIds+") and job_status = ? ", "PROCESSING")
 		if err != nil {
 			return err
+		}
+		jobIdList := []int{}
+		for _, orders := range jobList {
+			jobIdList = append(jobIdList, orders.JobID)
+		}
+		param := rfms.TriggerHandlingJobRequest{JobIdList: jobIdList}
+		response := apiHandler.Post("/triggerHandlingJob", param)
+		triggerOrderResponse := models.FailResponseHeader{}
+		err = json.Unmarshal(response, &triggerOrderResponse)
+		if err != nil {
+			return err
+		}
+		if triggerOrderResponse.ResponseCode != 200 {
+			return errors.New("RFMS with Fail Response")
 		}
 		return nil
 	})
@@ -146,21 +150,24 @@ func TriggerOrderOrderIds(orderId []int) (orderManagement.OrderList, error) {
 }
 
 func TriggerOrderScheduleId(scheduleId int) (orderManagement.OrderList, error) {
-	var orders []db_models.Orders
 	var orderList orderManagement.OrderList
-	updateFields := []string{"order_status", "order_start_time"}
-	timeNow := utils.GetTimeNowString()
-	updateMap := utils.CreateMap(updateFields, string(orderStatus.Processing), timeNow)
-
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		err := UpdateRecords(tx, &orders, "orders", updateMap, "schedule_id = ?", scheduleId)
+		jobList := []db_models.Jobs{}
+		err := FindRecordsWithRaw(tx, &jobList, "SELECT * FROM jobs WHERE schedule_id = ? and job_status = ? ", scheduleId, "PROCESSING")
 		if err != nil {
 			return err
 		}
-		orderList, err = OrderListToOrderResponse(orders)
+		jobIdList := append([]int{}, jobList[0].JobID)
+		param := rfms.TriggerHandlingJobRequest{JobIdList: jobIdList}
+		response := apiHandler.Post("/triggerHandlingJob", param)
+		triggerOrderResponse := models.FailResponse{}
+		err = json.Unmarshal(response, &triggerOrderResponse)
 		if err != nil {
 			return err
+		}
+		if triggerOrderResponse.Header.ResponseCode != 200 {
+			return errors.New("RFMS with Fail Response")
 		}
 		return nil
 	})
@@ -178,7 +185,7 @@ func UpdateOrders(userId int, request dto.UpdateDeliveryOrderDTO) (orderManageme
 		}
 
 		orders := []db_models.Orders{}
-		if FindRecords(tx, &orders, "orders", "schedule_id = ? AND order_status = ?", request.ScheduleID, orderStatus.Created) != nil {
+		if FindRecords(tx, &orders, "orders", "schedule_id = ? AND (order_status = ? OR order_status = ?) AND order_status <> ?", request.ScheduleID, orderStatus.Created, orderStatus.ToBeCreated, orderStatus.Canceled) != nil {
 			return errors.New("Failed to find order with schedule id")
 		}
 
@@ -240,7 +247,7 @@ func UpdateOrders(userId int, request dto.UpdateDeliveryOrderDTO) (orderManageme
 				json.Unmarshal(bJson, &orderRequest)
 				orderRequest.NumberOfAmrRequire = 1
 				// translate order request to uploadOrders
-				uploadOrders, err := OrderRequestToOrders(orderRequest, request.ScheduleID, 6)
+				uploadOrders, err := OrderRequestToOrders(orderRequest, request.ScheduleID, 6, schedules[0].OrderCreatedType)
 				if err != nil {
 					return err
 				}
@@ -285,9 +292,9 @@ func CancelOrders(scheduleId int) (orderManagement.OrderList, error) {
 		var amrs = schedules[0].NumberOfAmrRequire
 
 		for _, order := range orders {
-			if (order.OrderStatus != string(orderStatus.Created)) && (order.OrderStatus != string(orderStatus.Canceled)) {
+			if (order.OrderStatus != string(orderStatus.Created)) && (order.OrderStatus != string(orderStatus.ToBeCreated)) && (order.OrderStatus != string(orderStatus.Canceled)) {
 				return errors.New("Cancel failed, order started")
-			} else if order.OrderStatus == string(orderStatus.Created) {
+			} else if order.OrderStatus == string(orderStatus.Created) || order.OrderStatus == string(orderStatus.ToBeCreated) {
 				amrs -= 1
 			}
 		}
@@ -331,7 +338,7 @@ func UpdateRoutineOrders(userId int, request dto.UpdateRoutineDeliveryOrderDTO) 
 	if err != nil {
 		return updatedList, err
 	}
-	updateMap := utils.CreateMap([]string{"routine_pattern", "number_of_amr_require", "start_location_id", "end_location_id", "expected_start_time", "expected_delivery_time"}, routinePattern, request.NumberOfAmrRequire, request.StartLocationID, request.EndLocationID, expectedStartTime, expectedDeliveryTime)
+	updateMap := utils.CreateMap([]string{"routine_pattern", "number_of_amr_require", "start_location_id", "end_location_id", "expected_start_time", "expected_delivery_time", "is_active"}, routinePattern, request.NumberOfAmrRequire, request.StartLocationID, request.EndLocationID, expectedStartTime, expectedDeliveryTime, request.IsActive)
 	err = database.DB.Transaction(func(tx *gorm.DB) error {
 		err := UpdateRecords(tx, &routinesList, "routines", updateMap, "routine_id = ?", request.RoutineID)
 		if err != nil {
@@ -353,16 +360,17 @@ func UpdateRoutineOrders(userId int, request dto.UpdateRoutineDeliveryOrderDTO) 
 
 	return updatedList, nil
 }
-func OrderRequestToOrders(orderRequest dto.AddDeliveryOrderDTO, scheduleNo int, userId int) ([]db_models.Orders, error) {
+
+func OrderRequestToOrders(orderRequests dto.AddDeliveryOrderDTO, scheduleNo int, userId int, orderCreatedType string) ([]db_models.Orders, error) {
 	var orders []db_models.Orders
-	for i := 0; i < orderRequest.NumberOfAmrRequire; i++ {
+	for i := 0; i < orderRequests.NumberOfAmrRequire; i++ {
 		var err error
 		var order db_models.Orders
 		order.ScheduleID = scheduleNo
 		// order.OrderID = i + orderNo
 		order.OrderID = 0
-		order.OrderType = orderRequest.OrderType
-		order.OrderCreatedType = "ADHOC"
+		order.OrderType = orderRequests.OrderType
+		order.OrderCreatedType = orderCreatedType
 		order.OrderCreatedBy = userId
 		order.OrderStatus = "TO_BE_CREATED"
 		order.OrderStartTime, err = StringToDatetime("")
@@ -373,15 +381,15 @@ func OrderRequestToOrders(orderRequest dto.AddDeliveryOrderDTO, scheduleNo int, 
 		if err != nil {
 			return orders, err
 		}
-		order.StartLocationID = orderRequest.StartLocationID
-		order.StartLocationName = orderRequest.StartLocationName
-		order.EndLocationID = orderRequest.EndLocationID
-		order.EndLocationName = orderRequest.EndLocationName
-		order.ExpectedStartTime, err = StringToDatetime(orderRequest.ExpectedStartTime)
+		order.StartLocationID = orderRequests.StartLocationID
+		order.StartLocationName = orderRequests.StartLocationName
+		order.EndLocationID = orderRequests.EndLocationID
+		order.EndLocationName = orderRequests.EndLocationName
+		order.ExpectedStartTime, err = StringToDatetime(orderRequests.ExpectedStartTime)
 		if err != nil {
 			return orders, err
 		}
-		order.ExpectedDeliveryTime, err = StringToDatetime(orderRequest.ExpectedDeliveryTime)
+		order.ExpectedDeliveryTime, err = StringToDatetime(orderRequests.ExpectedDeliveryTime)
 		if err != nil {
 			return orders, err
 		}
@@ -499,176 +507,50 @@ func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManage
 	return routineOrderListResponse, nil
 }
 
+func BackgroundRoutinesToSchedules() error {
+	routines, err := FindRoutines("is_active = ? AND routine_id = 2", true)
+	if err != nil {
+		return err
+	}
+	if len(routines) == 0 {
+		return nil
+	}
+	log.Print(routines)
+	addDeliveryOrderDTO, err := RoutinesToAddDeliveryOrderDTO(routines)
+	if err != nil {
+		return err
+	}
+	log.Print(addDeliveryOrderDTO)
+	_, err = AddOrders(addDeliveryOrderDTO, 0, "ROUTINE")
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func BackgroundInitOrderToRFMS() error {
 
 	if database.CheckDatabaseConnection() {
+
+		jobs := []db_models.Jobs{}
+
 		err := database.DB.Transaction(func(tx *gorm.DB) error {
 
-			orders := []db_models.Orders{}
-
-			if err := FindRecords(tx, &orders, "orders", "order_status = ?", "TO_BE_CREATED"); err != nil {
+			if err := FindRecords(tx, &jobs, "jobs", "job_status = ?", "TO_BE_CREATED"); err != nil {
 				return err
-			}
-
-			if len(orders) == 0 {
-				return nil
-			}
-
-			for _, order := range orders {
-
-				jobNatures := []string{}
-				locations := []int{}
-				statusLocation := []string{}
-				// orderTypes := strings.Split(order.OrderType, "_")
-				// jobNatures = append(jobNatures, orderTypes[0])
-				switch order.OrderType {
-				case "PICK_AND_DELIVERY":
-					jobNatures = append(jobNatures, "PICK")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "START_LOCATION")
-
-					jobNatures = append(jobNatures, "DELIVERY")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "END_LOCATION")
-				case "PICK_DELIVERY_PARK":
-					jobNatures = append(jobNatures, "PICK")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "START_LOCATION")
-
-					jobNatures = append(jobNatures, "DELIVERY")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "END_LOCATION")
-
-					jobNatures = append(jobNatures, "PARK")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "PARKING")
-				case "PICK_ONLY":
-					jobNatures = append(jobNatures, "PICK")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "END_LOCATION")
-				case "DELIVERY_ONLY":
-					jobNatures = append(jobNatures, "DELIVERY")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "END_LOCATION")
-				case "DELIVERY_PARK":
-					jobNatures = append(jobNatures, "DELIVERY")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "END_LOCATION")
-
-					jobNatures = append(jobNatures, "PARK")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "PARKING")
-				case "PARK_ONLY":
-					jobNatures = append(jobNatures, "PARK")
-					locations = append(locations, 1)
-					statusLocation = append(statusLocation, "PARKING")
-				default:
-					return errors.New("Unknown Order Type")
-				}
-
-				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: 15}
-				response := apiHandler.POST("/createJob", param)
-
-				updateJobStatus := dto.ReportJobStatusResponseDTO{}
-				err := json.Unmarshal(response, &updateJobStatus)
-				if err != nil {
-					return err
-				}
-				if updateJobStatus.ResponseMessage == "FAILED" {
-					return errors.New("Create Job Failed with Reason: " + updateJobStatus.FailReason)
-				}
-				est, err := StringToDatetime(updateJobStatus.Body.Est)
-				if err != nil {
-					return err
-				}
-				eta, err := StringToDatetime(updateJobStatus.Body.Eta)
-				if err != nil {
-					return err
-				}
-				lastUpdateTime, err := StringToDatetime(updateJobStatus.Body.MessageTime)
-				if err != nil {
-					return err
-				}
-				newJob := db_models.Jobs{OrderID: order.OrderID, JobID: updateJobStatus.Body.JobID, JobType: jobNatures[0], JobStatus: updateJobStatus.Body.Status, ProcessingStatus: updateJobStatus.Body.ProcessingStatus, JobStartTime: est, ExpectedArrivalTime: eta, EndLocationID: updateJobStatus.Body.LocationId, FailedReason: updateJobStatus.FailReason, LastUpdateTime: lastUpdateTime}
-				newJobs := []db_models.Jobs{newJob}
-				// log.Print(newJob)
-				err = AddRecords(tx, newJobs)
-				if err != nil {
-					return err
-				}
-				for i, jobNature := range jobNatures {
-					if i > 0 {
-						defaultTime, err := StringToDatetime("")
-						if err != nil {
-							return err
-						}
-						newJob := db_models.Jobs{OrderID: order.OrderID, JobID: 0, JobType: jobNature, JobStatus: "TO_BE_CREATED", ProcessingStatus: "UNKNOWN", JobStartTime: defaultTime, ExpectedArrivalTime: defaultTime, EndLocationID: locations[i], FailedReason: updateJobStatus.FailReason, LastUpdateTime: defaultTime, StatusLocation: statusLocation[0]}
-						newJobs := []db_models.Jobs{newJob}
-						err = AddRecords(tx, newJobs)
-						if err != nil {
-							return err
-						}
-					}
-				}
-
-				updatedList := []db_models.Orders{}
-				updateFields := []string{"order_status", "job_id"}
-				updateMap := utils.CreateMap(updateFields, "CREATED", updateJobStatus.Body.JobID)
-				err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
-				if err != nil {
-					return err
-				}
-
 			}
 
 			return nil
 		})
-		if err != nil {
-			return err
-		}
-	} else {
-		return errors.New("Database not initialized")
-	}
 
-	return nil
-
-}
-
-func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) (orderManagement.OrderList, error) {
-	newJobStatus := request.Body
-	orderList := orderManagement.OrderList{}
-	database.CheckDatabaseConnection()
-	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		est, err := StringToDatetime(newJobStatus.Est)
-		if err != nil {
-			return err
-		}
-		eta, err := StringToDatetime(newJobStatus.Eta)
-		if err != nil {
-			return err
-		}
-		lastUpdateTime, err := StringToDatetime(newJobStatus.MessageTime)
-		if err != nil {
-			return err
-		}
-		updateFields := []string{"job_status", "processing_status", "job_start_time", "expected_arrival_time", "end_location_id", "failed_reason", "last_update_time"}
-		updateMap := utils.CreateMap(updateFields, newJobStatus.Status, newJobStatus.ProcessingStatus, est, eta, newJobStatus.LocationId, "", lastUpdateTime)
-		var updatedJobList = []db_models.Jobs{}
-		err = UpdateRecords(tx, &updatedJobList, "jobs", updateMap, "job_id = ?", newJobStatus.JobID)
-		if err != nil {
-			return err
-		}
-
-		currentJobId := newJobStatus.JobID
-		currentJobStatus := newJobStatus.ProcessingStatus
-		statusLocation := ""
-
-		if newJobStatus.Status == "COMPLETED" {
-			nextJobs := []db_models.Jobs{}
-			FindRecords(tx, &nextJobs, "jobs", "order_id = ? and processing_status = ? order by create_id", updatedJobList[0].OrderID, "UNKNOWN")
-			if len(nextJobs) > 0 {
-				param := rfms.CreateJobRequest{JobNature: nextJobs[0].JobType, LocationID: nextJobs[0].EndLocationID}
-				response := apiHandler.POST("/createJob", param)
+		for _, job := range jobs {
+			err := database.DB.Transaction(func(tx *gorm.DB) error {
+				param := rfms.CreateJobRequest{JobNature: job.JobType, LocationID: job.EndLocationID, RobotID: job.RobotID, PayloadID: job.PayloadID}
+				if job.JobType == "PARK" {
+					param = rfms.CreateJobRequest{JobNature: job.JobType, RobotID: job.RobotID, PayloadID: job.PayloadID}
+				}
+				response := apiHandler.Post("/createJob", param)
 
 				updateJobStatus := dto.ReportJobStatusResponseDTO{}
 				err := json.Unmarshal(response, &updateJobStatus)
@@ -690,8 +572,235 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) (orderManagemen
 				if err != nil {
 					return err
 				}
-				updateFields := []string{"job_status", "processing_status", "job_start_time", "expected_arrival_time", "end_location_id", "failed_reason", "last_update_time", "job_id"}
-				updateMap := utils.CreateMap(updateFields, updateJobStatus.Body.Status, updateJobStatus.Body.ProcessingStatus, est, eta, updateJobStatus.Body.LocationId, "", lastUpdateTime, updateJobStatus.Body.JobID)
+
+				updateFields := []string{"job_id", "job_status", "processing_status", "job_start_time", "expected_arrival_time", "last_update_time"}
+				updateMap := utils.CreateMap(updateFields, updateJobStatus.Body.JobID, updateJobStatus.Body.Status, updateJobStatus.Body.ProcessingStatus, est, eta, lastUpdateTime)
+				var updatedJobList = []db_models.Jobs{}
+				err = UpdateRecords(tx, &updatedJobList, "jobs", updateMap, "create_id = ?", job.CreateID)
+				if err != nil {
+					return err
+				}
+				jobsLogList, err := JobsToJobsLogs(updatedJobList)
+				if err != nil {
+					return err
+				}
+				err = AddRecords(tx, jobsLogList)
+				if err != nil {
+					return err
+				}
+
+				return nil
+			})
+			if err != nil {
+				return err
+			}
+		}
+
+		if err != nil {
+			return err
+		}
+
+		orders := []db_models.Orders{}
+
+		err = database.DB.Transaction(func(tx *gorm.DB) error {
+
+			if err := FindRecords(tx, &orders, "orders", "order_status = ?", "TO_BE_CREATED"); err != nil {
+				return err
+			}
+
+			if len(orders) == 0 {
+				return nil
+			}
+
+			return nil
+		})
+
+		for _, order := range orders {
+			err = database.DB.Transaction(func(tx *gorm.DB) error {
+				jobNatures := []string{}
+				locations := []int{}
+				statusLocation := []string{}
+				// orderTypes := strings.Split(order.OrderType, "_")
+				// jobNatures = append(jobNatures, orderTypes[0])
+				switch order.OrderType {
+				case "PICK_AND_DELIVERY":
+					jobNatures = append(jobNatures, "PICK")
+					locations = append(locations, order.StartLocationID)
+					statusLocation = append(statusLocation, "START_LOCATION")
+
+					jobNatures = append(jobNatures, "DELIVERY")
+					locations = append(locations, order.EndLocationID)
+					statusLocation = append(statusLocation, "END_LOCATION")
+				case "PICK_DELIVERY_PARK":
+					jobNatures = append(jobNatures, "PICK")
+					locations = append(locations, order.StartLocationID)
+					statusLocation = append(statusLocation, "START_LOCATION")
+
+					jobNatures = append(jobNatures, "DELIVERY")
+					locations = append(locations, order.EndLocationID)
+					statusLocation = append(statusLocation, "END_LOCATION")
+
+					jobNatures = append(jobNatures, "PARK")
+					locations = append(locations, order.EndLocationID)
+					statusLocation = append(statusLocation, "PARKING")
+				case "PICK_ONLY":
+					jobNatures = append(jobNatures, "PICK")
+					locations = append(locations, order.StartLocationID)
+					statusLocation = append(statusLocation, "END_LOCATION")
+				case "DELIVERY_ONLY":
+					jobNatures = append(jobNatures, "DELIVERY")
+					locations = append(locations, order.EndLocationID)
+					statusLocation = append(statusLocation, "END_LOCATION")
+				case "DELIVERY_PARK":
+					jobNatures = append(jobNatures, "DELIVERY")
+					locations = append(locations, order.EndLocationID)
+					statusLocation = append(statusLocation, "END_LOCATION")
+
+					jobNatures = append(jobNatures, "PARK")
+					locations = append(locations, order.EndLocationID)
+					statusLocation = append(statusLocation, "PARKING")
+				case "PARK_ONLY":
+					jobNatures = append(jobNatures, "PARK")
+					locations = append(locations, order.EndLocationID)
+					statusLocation = append(statusLocation, "PARKING")
+				default:
+					return errors.New("Unknown Order Type")
+				}
+
+				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: locations[0]}
+				response := apiHandler.Post("/createJob", param)
+
+				updateJobStatus := dto.ReportJobStatusResponseDTO{}
+				err := json.Unmarshal(response, &updateJobStatus)
+				if err != nil {
+					return err
+				}
+				log.Printf("/createJob response: %f", updateJobStatus)
+				if updateJobStatus.ResponseMessage == "FAILED" {
+					return errors.New("Create Job Failed with Reason: " + updateJobStatus.FailReason)
+				}
+				est, err := StringToDatetime(updateJobStatus.Body.Est)
+				if err != nil {
+					return err
+				}
+				eta, err := StringToDatetime(updateJobStatus.Body.Eta)
+				if err != nil {
+					return err
+				}
+				lastUpdateTime, err := StringToDatetime(updateJobStatus.Body.MessageTime)
+				if err != nil {
+					return err
+				}
+				newJob := db_models.Jobs{OrderID: order.OrderID, JobID: updateJobStatus.Body.JobID, JobType: jobNatures[0], JobStatus: updateJobStatus.Body.Status, ProcessingStatus: updateJobStatus.Body.ProcessingStatus, JobStartTime: est, ExpectedArrivalTime: eta, EndLocationID: updateJobStatus.Body.LocationId, FailedReason: updateJobStatus.FailReason, LastUpdateTime: lastUpdateTime, StatusLocation: statusLocation[0]}
+				newJobs := append([]db_models.Jobs{}, newJob)
+				for i, jobNature := range jobNatures {
+					if i > 0 {
+						defaultTime, err := StringToDatetime("")
+						if err != nil {
+							return err
+						}
+						newJob := db_models.Jobs{OrderID: order.OrderID, JobID: 0, JobType: jobNature, JobStatus: "WAIT_FOR_PREVIOUS_JOB_END", ProcessingStatus: "UNKNOWN", JobStartTime: defaultTime, ExpectedArrivalTime: defaultTime, EndLocationID: locations[i], FailedReason: updateJobStatus.FailReason, LastUpdateTime: defaultTime, StatusLocation: statusLocation[i]}
+						newJobs = append(newJobs, newJob)
+					}
+				}
+
+				log.Print(newJobs)
+				err = AddRecords(tx, newJobs)
+				if err != nil {
+					return err
+				}
+
+				updatedList := []db_models.Orders{}
+				updateFields := []string{"order_status", "job_id"}
+				updateMap := utils.CreateMap(updateFields, "CREATED", updateJobStatus.Body.JobID)
+				err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
+				log.Print(updatedList)
+				if err != nil {
+					return err
+				}
+				ordersLogList, err := OrdersToOrdersLogs(0, updatedList)
+				if err != nil {
+					return err
+				}
+				err = AddRecords(tx, ordersLogList)
+				if err != nil {
+					return err
+				}
+
+				return nil
+			})
+		}
+
+		if err != nil {
+			return err
+		}
+	} else {
+		return errors.New("Database not initialized")
+	}
+
+	return nil
+}
+
+func RoutinesToAddDeliveryOrderDTO(routines []db_models.Routines) ([]dto.AddDeliveryOrderDTO, error) {
+	addDeliveryOrderDTO := []dto.AddDeliveryOrderDTO{}
+	today := time.Now().Format("20060102")
+	for _, routine := range routines {
+		pattern := orderManagement.RoutinePattern{}
+		// bJson, err := json.Marshal(routine.RoutinePattern)
+		// if err != nil {
+		// 	return addDeliveryOrderDTO, err
+		// }
+		err := json.Unmarshal([]byte(routine.RoutinePattern), &pattern)
+		if err != nil {
+			return addDeliveryOrderDTO, err
+		}
+		nextDeliveryDate, err := GetNextDeliveryDate(pattern)
+		if err != nil {
+			return addDeliveryOrderDTO, err
+		}
+		if nextDeliveryDate == today {
+			addDeliveryOrderDTO = append(addDeliveryOrderDTO, dto.AddDeliveryOrderDTO{OrderType: routine.OrderType, NumberOfAmrRequire: routine.NumberOfAmrRequire, StartLocationID: routine.StartLocationID, StartLocationName: routine.StartLocationName, ExpectedStartTime: routine.ExpectedStartTime, EndLocationID: routine.EndLocationID, EndLocationName: routine.EndLocationName, RoutineID: routine.RoutineID, ExpectedDeliveryTime: routine.ExpectedDeliveryTime})
+		}
+	}
+	return addDeliveryOrderDTO, nil
+}
+
+func UpdateOrderFromRFMS(request dto.ReportJobStatusDTO) (orderManagement.OrderList, error) {
+	newJobStatus := request
+	orderList := orderManagement.OrderList{}
+	database.CheckDatabaseConnection()
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		est, err := StringToDatetime(newJobStatus.Est)
+		if err != nil {
+			return err
+		}
+		eta, err := StringToDatetime(newJobStatus.Eta)
+		if err != nil {
+			return err
+		}
+		lastUpdateTime, err := StringToDatetime(newJobStatus.MessageTime)
+		if err != nil {
+			return err
+		}
+		updateFields := []string{"job_status", "processing_status", "job_start_time", "expected_arrival_time", "end_location_id", "failed_reason", "last_update_time", "robot_id", "payload_id"}
+		updateMap := utils.CreateMap(updateFields, newJobStatus.Status, newJobStatus.ProcessingStatus, est, eta, newJobStatus.LocationId, "", lastUpdateTime, newJobStatus.RobotID, newJobStatus.PayloadID)
+		var updatedJobList = []db_models.Jobs{}
+		err = UpdateRecords(tx, &updatedJobList, "jobs", updateMap, "job_id = ?", newJobStatus.JobID)
+		if err != nil {
+			return err
+		}
+
+		currentJobId := newJobStatus.JobID
+		currentJobStatus := newJobStatus.ProcessingStatus
+		statusLocation := updatedJobList[0].StatusLocation
+		orderStatus := "PROCESSING"
+
+		if newJobStatus.Status == "COMPLETED" {
+			nextJobs := []db_models.Jobs{}
+			FindRecords(tx, &nextJobs, "jobs", "order_id = ? and job_status = ? order by create_id", updatedJobList[0].OrderID, "WAIT_FOR_PREVIOUS_JOB_END")
+			if len(nextJobs) > 0 {
+				updateFields := []string{"job_status", "robot_id", "payload_id"}
+				updateMap := utils.CreateMap(updateFields, "TO_BE_CREATED", newJobStatus.RobotID, newJobStatus.PayloadID)
 				var updatedJobList = []db_models.Jobs{}
 				err = UpdateRecords(tx, &updatedJobList, "jobs", updateMap, "create_id = ?", nextJobs[0].CreateID)
 				if err != nil {
@@ -705,39 +814,33 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusResponseDTO) (orderManagemen
 				if err != nil {
 					return err
 				}
-
-				currentJobId = updateJobStatus.Body.JobID
-				currentJobStatus = updateJobStatus.Body.ProcessingStatus
-				statusLocation = updatedJobList[0].StatusLocation
-			}
-
-			processingStatus := getProcessingStatusFromJob(currentJobStatus, statusLocation)
-			orderStatus := "PROCESSING"
-			if currentJobStatus == "ARRIVED" && statusLocation == "END_LOCATION" {
+			} else {
 				orderStatus = "COMPLETED"
-			}
-
-			updatedOrderList := []db_models.Orders{}
-			updateOrderFields := []string{"order_status", "processing_status", "job_id"}
-			updateOrderMap := utils.CreateMap(updateOrderFields, orderStatus, processingStatus, currentJobId)
-			UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ? and order_status = ?", updatedJobList[0].OrderID, "CREATED")
-			ordersLogList, err := OrdersToOrdersLogs(0, updatedOrderList)
-			if err != nil {
-				return err
-			}
-			err = AddRecords(tx, ordersLogList)
-			if err != nil {
-				return err
-			}
-			orderList, err = OrderListToOrderResponse(updatedOrderList)
-			if err != nil {
-				return err
 			}
 		}
 		// err = UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ?", order.OrderID)
 		// if err != nil {
 		// 	return err
 		// }
+
+		processingStatus := getProcessingStatusFromJob(currentJobStatus, statusLocation)
+
+		updatedOrderList := []db_models.Orders{}
+		updateOrderFields := []string{"order_status", "processing_status", "job_id"}
+		updateOrderMap := utils.CreateMap(updateOrderFields, orderStatus, processingStatus, currentJobId)
+		UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ?", updatedJobList[0].OrderID)
+		ordersLogList, err := OrdersToOrdersLogs(0, updatedOrderList)
+		if err != nil {
+			return err
+		}
+		err = AddRecords(tx, ordersLogList)
+		if err != nil {
+			return err
+		}
+		orderList, err = OrderListToOrderResponse(updatedOrderList)
+		if err != nil {
+			return err
+		}
 		return nil
 	})
 	if err != nil {
@@ -760,6 +863,10 @@ func getProcessingStatusFromJob(jobStatus string, statusLocation string) string 
 		return "ARRIVED_TO_" + statusLocation
 	case "MOVING_TO_LAYBY":
 		return "MOVING_TO_" + statusLocation + "_LAYBY"
+	case "PARKING":
+		return "PARKING"
+	case "UNLOADING":
+		return "UNLOADING"
 	default:
 		return "UNKNOWN"
 	}
@@ -952,13 +1059,14 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 	// patternString = utils.GetTimeNowString()
 	timeNow := time.Now()
 	var nextRoutineDate = timeNow
-	if routinePattern.Week != nil {
+	if routinePattern.Week != nil && len(routinePattern.Week) > 0 {
 		targetDate := timeNow
-		if routinePattern.Month != nil {
+		if routinePattern.Month != nil && len(routinePattern.Month) > 0 {
+			// currentMonth := timeNow.Format("01")
 			currentMonth := timeNow.Month()
 			var monthsDiffMin = 12
 			for _, month := range routinePattern.Month {
-				monthsDiff := month - int(currentMonth)
+				monthsDiff := (month - int(currentMonth))
 				if monthsDiff < 0 {
 					monthsDiff += 12
 				}
@@ -966,13 +1074,15 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 					monthsDiffMin = monthsDiff
 				}
 			}
-			targetDate = timeNow.AddDate(0, monthsDiffMin, 1-timeNow.Day())
+			if monthsDiffMin > 0 {
+				targetDate = timeNow.AddDate(0, monthsDiffMin, 1-timeNow.Day())
+			}
 		}
-		fmt.Printf("targetDate: %s\n", targetDate)
+		log.Printf("targetDate: %s\n", targetDate)
 		currentWeekday := targetDate.Weekday()
 		var daysDiffMin = 7
 		for _, week := range routinePattern.Week {
-			daysDiff := week - int(currentWeekday)
+			daysDiff := (week - int(currentWeekday))
 			if daysDiff < 0 {
 				daysDiff += 7
 			}
@@ -981,14 +1091,15 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 			}
 		}
 		nextRoutineDate = targetDate.AddDate(0, 0, daysDiffMin)
-	} else if routinePattern.Day != nil {
+	} else if routinePattern.Day != nil && len(routinePattern.Day) > 0 {
+		// timeNow.Date(timeNow.Year(), timeNow.Month(), routinePattern.Day)
 		currentMonth := timeNow.Month()
 		var monthsDiffMin = 12
-		var nextRoutineDay = 0
+		// var nextRoutineDay = 0
 
-		if routinePattern.Month != nil {
+		if routinePattern.Month != nil && len(routinePattern.Month) > 0 {
 			for _, month := range routinePattern.Month {
-				monthsDiff := month - int(currentMonth)
+				monthsDiff := (month - int(currentMonth))
 				if monthsDiff < 0 {
 					monthsDiff += 12
 				}
@@ -996,39 +1107,33 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 					monthsDiffMin = monthsDiff
 				}
 			}
-			fmt.Printf("monthsDiffMin: %d\n", monthsDiffMin)
 		} else {
 			monthsDiffMin = 0
 		}
 
 		if monthsDiffMin == 0 {
-			daysDiffMin := 31
+			added := false
 			for _, day := range routinePattern.Day {
-				currentDay := timeNow.Day()
-				daysDiff := day - int(currentDay)
-				if daysDiff > 0 && daysDiff < daysDiffMin {
-					daysDiffMin = daysDiff
+				if day > timeNow.Day() {
+					nextRoutineDate = time.Date(timeNow.Year(), timeNow.Month(), day, 0, 0, 0, 0, time.Now().Location())
+					added = true
+					break
 				}
 			}
-			fmt.Printf("daysDiffMin: %d\n", daysDiffMin)
-			if daysDiffMin == 31 {
-				monthsDiffMin = 1
-				nextRoutineDay = routinePattern.Day[0]
-			} else {
-				nextRoutineDay = timeNow.Day() + daysDiffMin
+			if !added {
+				tempDate := timeNow.AddDate(0, monthsDiffMin, 0)
+				nextRoutineDate = time.Date(tempDate.Year(), tempDate.Month()+1, routinePattern.Day[0], 0, 0, 0, 0, time.Now().Location())
 			}
 		} else {
-			nextRoutineDay = routinePattern.Day[0]
+			tempDate := timeNow.AddDate(0, monthsDiffMin, 0)
+			nextRoutineDate = time.Date(tempDate.Year(), tempDate.Month(), routinePattern.Day[0], 0, 0, 0, 0, time.Now().Location())
 		}
-		nextRoutineYear := int(timeNow.Year())
-		nextRoutineMonth := int(timeNow.Month()) + monthsDiffMin
 
-		nextRoutineDate = time.Time.AddDate(time.Unix(0, 0), nextRoutineYear-1970, nextRoutineMonth-1, nextRoutineDay-1)
-	} else if routinePattern.Month != nil {
+	} else if routinePattern.Month != nil && len(routinePattern.Month) > 0 {
 		currentMonth := timeNow.Month()
 		var monthsDiffMin = 12
 		for _, month := range routinePattern.Month {
-			monthsDiff := month - int(currentMonth)
+			monthsDiff := (month - int(currentMonth))
 			if monthsDiff < 0 {
 				monthsDiff += 12
 			}
@@ -1036,7 +1141,13 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 				monthsDiffMin = monthsDiff
 			}
 		}
-		nextRoutineDate = timeNow.AddDate(0, monthsDiffMin, 1-timeNow.Day())
+		if monthsDiffMin != 0 {
+			tempDate := timeNow.AddDate(0, monthsDiffMin, 0)
+			nextRoutineDate = time.Date(tempDate.Year(), tempDate.Month(), 1, 0, 0, 0, 0, time.Now().Location())
+		} else {
+			nextRoutineDate = timeNow
+		}
+		// nextRoutineDate = timeNow.AddDate(0, monthsDiffMin, 1-timeNow.Day())
 	}
 
 	return nextRoutineDate.Format("20060102"), nil

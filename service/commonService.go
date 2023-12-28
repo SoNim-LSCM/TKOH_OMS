@@ -15,7 +15,7 @@ import (
 func TruncateTable(db *gorm.DB, tableName string) error {
 	database.CheckDatabaseConnection()
 	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms." + table + " LEFT JOIN tkoh_oms.locations C ON tkoh_oms." + table + ".start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms." + table + ".end_location_id = D.location_id WHERE " + filterFields
-	err := db.Raw("TRUNCATE " + tableName).Error
+	err := db.Exec("truncate table " + tableName).Error
 	if err != nil {
 		return err
 	}
@@ -148,11 +148,14 @@ func StringToDatetime(timeString string) (string, error) {
 	if err != nil {
 		timeObj, err = time.Parse("200601021504", timeString)
 		if err != nil {
-			timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
+			timeObj, err = time.Parse("20060102150405", timeString)
 			if err != nil {
-				timeObj, err = time.Parse("200601021504", "19700101"+timeString)
+				timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
 				if err != nil {
-					return outputString, errors.New("Failed to translate time string to datetime")
+					timeObj, err = time.Parse("200601021504", "19700101"+timeString)
+					if err != nil {
+						return outputString, errors.New("Failed to translate time string (" + timeString + ") to datetime")
+					}
 				}
 			}
 		}

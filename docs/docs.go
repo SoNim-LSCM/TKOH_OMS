@@ -534,6 +534,9 @@ const docTemplate = `{
         "/testAW2": {
             "post": {
                 "description": "Get the response of AW2 (Server notify the user which location selected).",
+                "consumes": [
+                    "*/*"
+                ],
                 "produces": [
                     "text/plain"
                 ],
@@ -541,16 +544,6 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test AW2 websocket response.",
-                "parameters": [
-                    {
-                        "description": "AW2 response",
-                        "name": "parameters",
-                        "in": "body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -558,9 +551,12 @@ const docTemplate = `{
                 }
             }
         },
-        "/testHW1": {
+        "/testMW1": {
             "post": {
                 "description": "Get the response of MW1 (Server report robot status and location (every 1s) ).",
+                "consumes": [
+                    "*/*"
+                ],
                 "produces": [
                     "text/plain"
                 ],
@@ -568,16 +564,6 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test MW1 websocket response.",
-                "parameters": [
-                    {
-                        "description": "MW1 response",
-                        "name": "parameters",
-                        "in": "body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -588,6 +574,9 @@ const docTemplate = `{
         "/testOW1": {
             "post": {
                 "description": "Get the response of OW1 (Server notify any of created order status changed).",
+                "consumes": [
+                    "*/*"
+                ],
                 "produces": [
                     "text/plain"
                 ],
@@ -595,16 +584,6 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test OW1 websocket response.",
-                "parameters": [
-                    {
-                        "description": "OW1 response",
-                        "name": "parameters",
-                        "in": "body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -615,6 +594,9 @@ const docTemplate = `{
         "/testSW1": {
             "post": {
                 "description": "Get the response of SW1 (Server report robot status and location (every 1s) ).",
+                "consumes": [
+                    "*/*"
+                ],
                 "produces": [
                     "text/plain"
                 ],
@@ -622,16 +604,6 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test SW1 websocket response.",
-                "parameters": [
-                    {
-                        "description": "SW1 response",
-                        "name": "parameters",
-                        "in": "body",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK"

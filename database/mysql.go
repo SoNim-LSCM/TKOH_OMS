@@ -197,7 +197,8 @@ func CheckDatabaseConnection() bool {
 		sqlDB, err1 := DB.DB()
 		err2 := sqlDB.Ping()
 		if err1 != nil || err2 != nil {
-			StartMySqlSSH()
+			db_connected := make(chan bool)
+			StartMySql(db_connected)
 		}
 	}
 	return is_init

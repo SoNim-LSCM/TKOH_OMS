@@ -8,8 +8,12 @@ import (
 	apiHandler "github.com/SoNim-LSCM/TKOH_OMS/api"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
 	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
+	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/mapHandling"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/rfms"
+	ws_model "github.com/SoNim-LSCM/TKOH_OMS/models/websocket"
+	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
+	"gorm.io/gorm"
 )
 
 func FindAllDutyRooms() ([]db_models.Locations, error) {
@@ -58,21 +62,49 @@ func GetLocationFromRFMS() error {
 
 	log.Print(locations)
 
-	// if database.CheckDatabaseConnection() {
-	// 	err = database.DB.Transaction(func(tx *gorm.DB) error {
-	// 		err := TruncateTable(tx, "locations")
-	// 		if err != nil {
-	// 			return err
-	// 		}
-	// 		err = AddRecords(tx, locations)
-	// 		if err != nil {
-	// 			return err
-	// 		}
+	if !database.CheckDatabaseConnection() {
+		return errors.New("Cannot Connect DB")
+	}
+	err = database.DB.Transaction(func(tx *gorm.DB) error {
+		err := TruncateTable(tx, "locations")
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+	err = database.DB.Transaction(func(tx *gorm.DB) error {
+		err := AddRecords(tx, locations)
+		if err != nil {
+			return err
+		}
 
-	// 		return nil
-	// 	})
-	// 	return err
-	// }
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func BackgroundReportRobotStatus() error {
+
+	response := apiHandler.Get("/robotStatus?robotType=AMR", nil)
+
+	updateJobStatus := dto.UpdateRobotStatusDTOResponse{}
+	err := json.Unmarshal(response, &updateJobStatus)
+	if err != nil {
+		return err
+	}
+	if updateJobStatus.ResponseCode != 200 {
+		return errors.New("Get Robot Status from RFMS Failed")
+	}
+
+	websocket.SendBoardcastMessage(ws_model.WebsocketUpdateRobotStatusResponse{MessageCode: "ROBOT_STATUS", RobotList: updateJobStatus.Body.RobotList})
+
 	return nil
 }
 

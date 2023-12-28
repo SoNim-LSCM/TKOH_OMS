@@ -728,14 +728,10 @@ paths:
       - Order Management
   /testAW2:
     post:
+      consumes:
+      - '*/*'
       description: Get the response of AW2 (Server notify the user which location
         selected).
-      parameters:
-      - description: AW2 response
-        in: body
-        name: parameters
-        schema:
-          type: string
       produces:
       - text/plain
       responses:
@@ -744,16 +740,12 @@ paths:
       summary: Test AW2 websocket response.
       tags:
       - Test
-  /testHW1:
+  /testMW1:
     post:
+      consumes:
+      - '*/*'
       description: Get the response of MW1 (Server report robot status and location
         (every 1s) ).
-      parameters:
-      - description: MW1 response
-        in: body
-        name: parameters
-        schema:
-          type: string
       produces:
       - text/plain
       responses:
@@ -764,14 +756,10 @@ paths:
       - Test
   /testOW1:
     post:
+      consumes:
+      - '*/*'
       description: Get the response of OW1 (Server notify any of created order status
         changed).
-      parameters:
-      - description: OW1 response
-        in: body
-        name: parameters
-        schema:
-          type: string
       produces:
       - text/plain
       responses:
@@ -782,14 +770,10 @@ paths:
       - Test
   /testSW1:
     post:
+      consumes:
+      - '*/*'
       description: Get the response of SW1 (Server report robot status and location
         (every 1s) ).
-      parameters:
-      - description: SW1 response
-        in: body
-        name: parameters
-        schema:
-          type: string
       produces:
       - text/plain
       responses:

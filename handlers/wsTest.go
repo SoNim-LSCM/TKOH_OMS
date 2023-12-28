@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"log"
 
 	// "github.com/SoNim-LSCM/TKOH_OMS/models"
 
@@ -23,7 +24,7 @@ const AW2_RESPONSE string = `{
 // @Summary		Test AW2 websocket response.
 // @Description	Get the response of AW2 (Server notify the user which location selected).
 // @Tags			Test
-// @Param parameters body string false "AW2 response"
+// @Accept			*/*
 // @Produce		plain
 // @Success		200	"OK"
 // @Router			/testAW2 [post]
@@ -54,7 +55,7 @@ const OW1_RESPONSE string = `{
 // @Summary		Test OW1 websocket response.
 // @Description	Get the response of OW1 (Server notify any of created order status changed).
 // @Tags			Test
-// @Param parameters body string false "OW1 response"
+// @Accept			*/*
 // @Produce		plain
 // @Success		200	"OK"
 // @Router			/testOW1 [post]
@@ -81,9 +82,9 @@ const MW1_RESPONSE string = `{
     "robotList": [
         {
             "robotId": "AMR1",
-            "robotCoordatination": [255, 0],
-            "robotPostion": [0.2, 0.0, 0.5 ],
-            "robotOritenation": [0.01, 0.13, 0.0, 0.0],
+            "robotCoordatination": [112, 122],
+            "robotPostion": [12.2, 12.2, 0.0],
+            "robotOritenation": [0.0, 0.0, 3.14],
             "robotState": "BUSY",
             "robotStatus": ["MOVE"],
             "batteryLevel": 89.5,
@@ -95,16 +96,19 @@ const MW1_RESPONSE string = `{
 // @Summary		Test MW1 websocket response.
 // @Description	Get the response of MW1 (Server report robot status and location (every 1s) ).
 // @Tags			Test
-// @Param parameters body string false "MW1 response"
+// @Accept			*/*
 // @Produce		plain
 // @Success		200	"OK"
-// @Router			/testHW1 [post]
+// @Router			/testMW1 [post]
 func HandleTestMW1(c *fiber.Ctx) error {
+	log.Print("HandleTestMW1")
 	var response wsTest.ReportRobotStatusLocationResponse
-	if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
-		err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
-		errorHandler.CheckError(err, "translate string to json in wsTest")
-	}
+	// if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
+	// 	err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
+	// 	errorHandler.CheckError(err, "translate string to json in wsTest")
+	// }
+	err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
+	errorHandler.CheckError(err, "translate string to json in wsTest")
 	if err := websocket.SendBoardcastMessage(response); err != nil {
 		return c.SendString(err.Error())
 	}
@@ -120,7 +124,7 @@ const SW1_RESPONSE string = `{
 // @Summary		Test SW1 websocket response.
 // @Description	Get the response of SW1 (Server report robot status and location (every 1s) ).
 // @Tags			Test
-// @Param parameters body string false "SW1 response"
+// @Accept			*/*
 // @Produce		plain
 // @Success		200	"OK"
 // @Router			/testSW1 [post]

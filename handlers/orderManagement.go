@@ -104,7 +104,7 @@ func HandleAddDeliveryOrder(c *fiber.Ctx) error {
 	}
 	log.Printf("Get Delivery Order with Paramters: %s\n", request)
 
-	orderList, err = service.AddOrders(request, claim.UserId)
+	orderList, err = service.AddOrders(append([]dto.AddDeliveryOrderDTO{}, request), claim.UserId, "ADHOC")
 	if errorHandler.CheckError(err, "Add Delivery Order Failed with Add Orders Fail") {
 		return c.Status(400).JSON(models.GetFailResponse("Add Orders Fail", err.Error()))
 	}
@@ -157,6 +157,7 @@ func HandleGetRoutineDeliveryOrder(c *fiber.Ctx) error {
 	if errorHandler.CheckError(err, "Get Routine Delivery Order Failed with Data Transformation Failed") {
 		return c.Status(400).JSON(models.GetFailResponse("Data Transformation Failed", err.Error()))
 	}
+
 	body := orderManagement.RoutineOrderListBody{RoutineOrderList: routineResponse}
 	response := orderManagement.GetRoutineDeliveryOrderResponse{Header: header, Body: body}
 	websocket.SendBoardcastMessage(ws_model.GetUpdateRoutineResponse(routineResponse))
@@ -289,11 +290,11 @@ func HandleTriggerHandlingOrder(c *fiber.Ctx) error {
 	var orderList orderManagement.OrderList
 
 	if orderIdsString != "" {
-		orderIds, err := service.OrderIdsToIntArray(orderIdsString)
+		_, err := service.OrderIdsToIntArray(orderIdsString)
 		if errorHandler.CheckError(err, "Trigger Order Failed with Fail formating orderIds") {
 			return c.Status(400).JSON(models.GetFailResponse("Fail formating orderIds", err.Error()))
 		}
-		orderList, err = service.TriggerOrderOrderIds(orderIds)
+		orderList, err = service.TriggerOrderOrderIds(orderIdsString)
 		if errorHandler.CheckError(err, "Trigger Order Failed with Fail triggering order") {
 			return c.Status(400).JSON(models.GetFailResponse("Fail triggering order", err.Error()))
 		}
@@ -448,7 +449,7 @@ func HandleReportJobStatus(c *fiber.Ctx) error {
 	log.Printf("Report Job Status\n")
 
 	// get the todo from the request body
-	request := dto.ReportJobStatusResponseDTO{}
+	request := dto.ReportJobStatusDTO{}
 
 	// validate the request body
 	err := c.BodyParser(&request)

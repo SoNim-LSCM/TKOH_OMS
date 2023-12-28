@@ -13,4 +13,6 @@ type Jobs struct {
 	FailedReason        string `json:"failedReason"`
 	LastUpdateTime      string `json:"lastUpdateTime" gorm:"type:date;column:last_update_time"`
 	StatusLocation      string `json:"status_location"`
+	RobotID             string `json:"robotId"`
+	PayloadID           string `json:"payloadId"`
 }

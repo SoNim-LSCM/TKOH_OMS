@@ -41,7 +41,7 @@ func Get(endpoint string, param interface{}) []byte {
 	return body
 }
 
-func POST(endpoint string, param interface{}) []byte {
+func Post(endpoint string, param interface{}) []byte {
 	//Encode the data
 	postBody, _ := json.Marshal(param)
 	responseBody := bytes.NewBuffer(postBody)
