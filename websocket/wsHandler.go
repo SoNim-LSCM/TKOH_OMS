@@ -3,6 +3,7 @@ package websocket
 // reference from https://github.com/gofiber/contrib/tree/main/websocket
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -95,12 +96,21 @@ func SetupWebsocket() {
 	log.Println(app.Listen(":" + port))
 }
 
-func SendBoardcastMessage(msg interface{}) error {
-	for _, wsConn := range wsConnPair {
+func SendBoardcastMessage(msg interface{}) {
+	lostKeys := []int{}
+	for key, wsConn := range wsConnPair {
 		err := wsConn.WriteJSON(msg)
 		errorHandler.CheckError(err, "Send Websocket Message Failed")
+		if err != nil {
+			if err.Error() == "nil *Conn" {
+				log.Printf("Websocket for user: %s is nil", fmt.Sprint(key))
+				lostKeys = append(lostKeys, key)
+			}
+		}
 	}
-	return nil
+	for _, key := range lostKeys {
+		delete(wsConnPair, key)
+	}
 }
 
 func SenDirectMessage(msg interface{}) error {

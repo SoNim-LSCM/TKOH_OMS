@@ -193,13 +193,14 @@ func createTLSConf() tls.Config {
 }
 
 func CheckDatabaseConnection() bool {
-	if is_init {
-		sqlDB, err1 := DB.DB()
-		err2 := sqlDB.Ping()
-		if err1 != nil || err2 != nil {
-			db_connected := make(chan bool)
-			StartMySql(db_connected)
-		}
-	}
+	// if is_init {
+	// 	sqlDB, err1 := DB.DB()
+	// 	err2 := sqlDB.Ping()
+	// 	if err1 != nil || err2 != nil {
+	// 		sqlDB.Close()
+	// 		db_connected := make(chan bool)
+	// 		StartMySql(db_connected)
+	// 	}
+	// }
 	return is_init
 }

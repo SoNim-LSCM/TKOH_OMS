@@ -49,9 +49,12 @@ func FloorPlanToMapList(floorPlan []db_models.Floors) (mapHandling.MapList, erro
 
 func GetLocationFromRFMS() error {
 
-	response := apiHandler.Get("/locationList?type=DESTINATION", nil)
+	response, err := apiHandler.Get("/locationList?type=DESTINATION", nil)
+	if err != nil {
+		return err
+	}
 	jsonResponse := rfms.GetLocationResponse{}
-	err := json.Unmarshal(response, &jsonResponse)
+	err = json.Unmarshal(response, &jsonResponse)
 	if err != nil {
 		return err
 	}
@@ -92,10 +95,13 @@ func GetLocationFromRFMS() error {
 
 func BackgroundReportRobotStatus() error {
 
-	response := apiHandler.Get("/robotStatus?robotType=AMR", nil)
+	response, err := apiHandler.Get("/robotStatus?robotType=AMR", nil)
+	if err != nil {
+		return err
+	}
 
 	updateJobStatus := dto.UpdateRobotStatusDTOResponse{}
-	err := json.Unmarshal(response, &updateJobStatus)
+	err = json.Unmarshal(response, &updateJobStatus)
 	if err != nil {
 		return err
 	}
@@ -103,7 +109,9 @@ func BackgroundReportRobotStatus() error {
 		return errors.New("Get Robot Status from RFMS Failed")
 	}
 
-	websocket.SendBoardcastMessage(ws_model.WebsocketUpdateRobotStatusResponse{MessageCode: "ROBOT_STATUS", RobotList: updateJobStatus.Body.RobotList})
+	log.Printf("BackgroundReportRobotStatus: %s", ws_model.GetUpdateRobotResponse(updateJobStatus.Body.RobotList))
+
+	websocket.SendBoardcastMessage(ws_model.GetUpdateRobotResponse(updateJobStatus.Body.RobotList))
 
 	return nil
 }

@@ -6,7 +6,7 @@ type ReportRobotStatusLocationResponse struct {
 		RobotID             string    `json:"robotId"`
 		RobotCoordatination []int     `json:"robotCoordatination"`
 		RobotPostion        []float64 `json:"robotPostion"`
-		RobotOritenation    []float64 `json:"robotOritenation"`
+		RobotOrienation     []float64 `json:"robotOrienation"`
 		RobotState          string    `json:"robotState"`
 		RobotStatus         []string  `json:"robotStatus"`
 		BatteryLevel        float64   `json:"batteryLevel"`

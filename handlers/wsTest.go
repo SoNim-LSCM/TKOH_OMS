@@ -8,6 +8,7 @@ import (
 
 	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/systemStatus"
+	ws_model "github.com/SoNim-LSCM/TKOH_OMS/models/websocket"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/wsTest"
 	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
 
@@ -24,7 +25,8 @@ const AW2_RESPONSE string = `{
 // @Summary		Test AW2 websocket response.
 // @Description	Get the response of AW2 (Server notify the user which location selected).
 // @Tags			Test
-// @Accept			*/*
+// @Accept			json
+// @Param param body wsTest.ReportDutyLocationUpdateResponse true "AW2 Parameters"
 // @Produce		plain
 // @Success		200	"OK"
 // @Router			/testAW2 [post]
@@ -36,9 +38,7 @@ func HandleTestAW2(c *fiber.Ctx) error {
 		err := json.Unmarshal([]byte(AW2_RESPONSE), &response)
 		errorHandler.CheckError(err, "translate string to json in wsTest")
 	}
-	if err := websocket.SendBoardcastMessage(response); err != nil {
-		return c.SendString(err.Error())
-	}
+	websocket.SendBoardcastMessage(response)
 	return c.SendString("OK")
 }
 
@@ -55,7 +55,8 @@ const OW1_RESPONSE string = `{
 // @Summary		Test OW1 websocket response.
 // @Description	Get the response of OW1 (Server notify any of created order status changed).
 // @Tags			Test
-// @Accept			*/*
+// @Accept			json
+// @Param param body wsTest.ReportOrderStatusUpdateResponse true "OW1 Parameters"
 // @Produce		plain
 // @Success		200	"OK"
 // @Router			/testOW1 [post]
@@ -71,9 +72,7 @@ func HandleTestOW1(c *fiber.Ctx) error {
 	// fmt.Println(response)
 	// response.ProcessingStatus = processingStatus
 	// errorHandler.CheckError(err, "translate string to json in wsTest")
-	if err := websocket.SendBoardcastMessage(response); err != nil {
-		return c.SendString(err.Error())
-	}
+	websocket.SendBoardcastMessage(response)
 	return c.SendString("OK")
 }
 
@@ -81,14 +80,22 @@ const MW1_RESPONSE string = `{
     "messageCode": "ROBOT_STATUS",
     "robotList": [
         {
-            "robotId": "AMR1",
-            "robotCoordatination": [112, 122],
-            "robotPostion": [12.2, 12.2, 0.0],
-            "robotOritenation": [0.0, 0.0, 3.14],
-            "robotState": "BUSY",
-            "robotStatus": ["MOVE"],
-            "batteryLevel": 89.5,
-            "lastReportTime": "202310120800"
+            "robotId": "VIRTUAL_AMR1",
+            "robotState": "IDLE",
+            "robotStatus": [
+                "STOP",
+                "OPERATION/LOADED"
+            ],
+            "zone": "LG/F",
+            "robotPosition": [
+                -2.85632,
+                0.574238,
+                0
+            ],
+            "robotOritentation": null,
+            "robotCoordination": null,
+            "batteryLevel": -1,
+            "lastReportTime": "20240102031700"
         }
     ]
 }`
@@ -96,22 +103,22 @@ const MW1_RESPONSE string = `{
 // @Summary		Test MW1 websocket response.
 // @Description	Get the response of MW1 (Server report robot status and location (every 1s) ).
 // @Tags			Test
-// @Accept			*/*
+// @Accept			json
+// @Param param body ws_model.WebsocketUpdateRobotStatusResponse true "MW1 Parameters"
 // @Produce		plain
 // @Success		200	"OK"
 // @Router			/testMW1 [post]
 func HandleTestMW1(c *fiber.Ctx) error {
 	log.Print("HandleTestMW1")
-	var response wsTest.ReportRobotStatusLocationResponse
-	// if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
-	// 	err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
-	// 	errorHandler.CheckError(err, "translate string to json in wsTest")
-	// }
-	err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
-	errorHandler.CheckError(err, "translate string to json in wsTest")
-	if err := websocket.SendBoardcastMessage(response); err != nil {
-		return c.SendString(err.Error())
+	response := ws_model.WebsocketUpdateRobotStatusResponse{}
+	// var response wsTest.ReportRobotStatusLocationResponse
+	if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
+		err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
+		errorHandler.CheckError(err, "translate string to json in wsTest")
 	}
+	// err := json.Unmarshal([]byte(MW1_RESPONSE), &response)
+	// errorHandler.CheckError(err, "translate string to json in wsTest")
+	websocket.SendBoardcastMessage(response)
 	return c.SendString("OK")
 }
 
@@ -124,7 +131,8 @@ const SW1_RESPONSE string = `{
 // @Summary		Test SW1 websocket response.
 // @Description	Get the response of SW1 (Server report robot status and location (every 1s) ).
 // @Tags			Test
-// @Accept			*/*
+// @Accept			json
+// @Param param body systemStatus.SystemStatusResponse true "SW1 Parameters"
 // @Produce		plain
 // @Success		200	"OK"
 // @Router			/testSW1 [post]
@@ -134,8 +142,30 @@ func HandleTestSW1(c *fiber.Ctx) error {
 		err := json.Unmarshal([]byte(SW1_RESPONSE), &response)
 		errorHandler.CheckError(err, "translate string to json in wsTest")
 	}
-	if err := websocket.SendBoardcastMessage(response); err != nil {
-		return c.SendString(err.Error())
-	}
+	websocket.SendBoardcastMessage(response)
 	return c.SendString("OK")
 }
+
+// const WW1_RESPONSE string = `{
+//     "messageCode": "SYSTEM_STATUS",
+//     "systemState": "STOPPED",
+//     "systemStatus": ["LIFT_ALARM"]
+// }`
+
+// // @Summary		Test WW1 websocket response.
+// // @Description	Get the response of WW1 (Server report order status when update occurs).
+// // @Tags			Test
+// // @Accept			json
+// // @Param param body systemStatus.SystemStatusResponse true "WW1 Parameters"
+// // @Produce		plain
+// // @Success		200	"OK"
+// // @Router			/testWW1 [post]
+// func HandleTestWW1(c *fiber.Ctx) error {
+// 	var response systemStatus.SystemStatusResponse
+// 	if err := c.BodyParser(&response); errorHandler.CheckError(err, "Invalid/missing input: ") {
+// 		err := json.Unmarshal([]byte(SW1_RESPONSE), &response)
+// 		errorHandler.CheckError(err, "translate string to json in wsTest")
+// 	}
+// 	websocket.SendBoardcastMessage(response)
+// 	return c.SendString("OK")
+// }

@@ -182,8 +182,13 @@ const docTemplate = `{
                         "collectionFormat": "csv",
                         "description": "Order Status",
                         "name": "orderStatus",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Schedule ID",
+                        "name": "scheduleId",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -535,7 +540,7 @@ const docTemplate = `{
             "post": {
                 "description": "Get the response of AW2 (Server notify the user which location selected).",
                 "consumes": [
-                    "*/*"
+                    "application/json"
                 ],
                 "produces": [
                     "text/plain"
@@ -544,6 +549,17 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test AW2 websocket response.",
+                "parameters": [
+                    {
+                        "description": "AW2 Parameters",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/wsTest.ReportDutyLocationUpdateResponse"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -555,7 +571,7 @@ const docTemplate = `{
             "post": {
                 "description": "Get the response of MW1 (Server report robot status and location (every 1s) ).",
                 "consumes": [
-                    "*/*"
+                    "application/json"
                 ],
                 "produces": [
                     "text/plain"
@@ -564,6 +580,17 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test MW1 websocket response.",
+                "parameters": [
+                    {
+                        "description": "MW1 Parameters",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ws_model.WebsocketUpdateRobotStatusResponse"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -575,7 +602,7 @@ const docTemplate = `{
             "post": {
                 "description": "Get the response of OW1 (Server notify any of created order status changed).",
                 "consumes": [
-                    "*/*"
+                    "application/json"
                 ],
                 "produces": [
                     "text/plain"
@@ -584,6 +611,17 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test OW1 websocket response.",
+                "parameters": [
+                    {
+                        "description": "OW1 Parameters",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/wsTest.ReportOrderStatusUpdateResponse"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -595,7 +633,7 @@ const docTemplate = `{
             "post": {
                 "description": "Get the response of SW1 (Server report robot status and location (every 1s) ).",
                 "consumes": [
-                    "*/*"
+                    "application/json"
                 ],
                 "produces": [
                     "text/plain"
@@ -604,6 +642,17 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "Test SW1 websocket response.",
+                "parameters": [
+                    {
+                        "description": "SW1 Parameters",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/systemStatus.SystemStatusResponse"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -798,6 +847,9 @@ const docTemplate = `{
                 "orderType": {
                     "type": "string"
                 },
+                "routineId": {
+                    "type": "integer"
+                },
                 "startLocationId": {
                     "type": "integer"
                 },
@@ -891,10 +943,16 @@ const docTemplate = `{
         "dto.ReportJobStatusDTO": {
             "type": "object",
             "properties": {
+                "currentCheckpoint": {
+                    "type": "string"
+                },
                 "est": {
                     "type": "string"
                 },
                 "eta": {
+                    "type": "string"
+                },
+                "headingCheckpoint": {
                     "type": "string"
                 },
                 "jobId": {
@@ -1376,6 +1434,124 @@ const docTemplate = `{
                 },
                 "header": {
                     "$ref": "#/definitions/models.ResponseHeader"
+                }
+            }
+        },
+        "systemStatus.SystemStatusResponse": {
+            "type": "object",
+            "properties": {
+                "messageCode": {
+                    "type": "string"
+                },
+                "systemState": {
+                    "type": "string"
+                },
+                "systemStatus": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "wsTest.ReportDutyLocationUpdateResponse": {
+            "type": "object",
+            "properties": {
+                "dutyLocationId": {
+                    "type": "integer"
+                },
+                "dutyLocationName": {
+                    "type": "string"
+                },
+                "messageCode": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "wsTest.ReportOrderStatusUpdateResponse": {
+            "type": "object",
+            "properties": {
+                "messageCode": {
+                    "type": "string"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "orderStatus": {
+                    "type": "string"
+                },
+                "payloadId": {
+                    "type": "string"
+                },
+                "processingStatus": {
+                    "type": "string"
+                },
+                "robotId": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "scheduleId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "ws_model.WebsocketUpdateRobotStatusResponse": {
+            "type": "object",
+            "properties": {
+                "messageCode": {
+                    "type": "string"
+                },
+                "robotList": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "batteryLevel": {
+                                "type": "integer"
+                            },
+                            "lastReportTime": {
+                                "type": "string"
+                            },
+                            "robotCoordination": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer"
+                                }
+                            },
+                            "robotId": {
+                                "type": "string"
+                            },
+                            "robotOrientation": {
+                                "type": "array",
+                                "items": {
+                                    "type": "number"
+                                }
+                            },
+                            "robotPosition": {
+                                "type": "array",
+                                "items": {
+                                    "type": "number"
+                                }
+                            },
+                            "robotState": {
+                                "type": "string"
+                            },
+                            "robotStatus": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "zone": {
+                                "type": "string"
+                            }
+                        }
+                    }
                 }
             }
         }

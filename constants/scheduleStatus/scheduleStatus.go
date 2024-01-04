@@ -3,6 +3,7 @@ package scheduleStatus
 type SCHEDULE_STATUS string
 
 const (
+	Created           SCHEDULE_STATUS = "CREATED"
 	Waiting           SCHEDULE_STATUS = "WAITING"
 	ReadyForLoading   SCHEDULE_STATUS = "READY_FOR_LOADING"
 	ReadyForUnloading SCHEDULE_STATUS = "READY_FOR_UNLOADING"

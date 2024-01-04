@@ -14,6 +14,8 @@ definitions:
         type: integer
       orderType:
         type: string
+      routineId:
+        type: integer
       startLocationId:
         type: integer
       startLocationName:
@@ -74,9 +76,13 @@ definitions:
     type: object
   dto.ReportJobStatusDTO:
     properties:
+      currentCheckpoint:
+        type: string
       est:
         type: string
       eta:
+        type: string
+      headingCheckpoint:
         type: string
       jobId:
         type: integer
@@ -390,6 +396,83 @@ definitions:
       header:
         $ref: '#/definitions/models.ResponseHeader'
     type: object
+  systemStatus.SystemStatusResponse:
+    properties:
+      messageCode:
+        type: string
+      systemState:
+        type: string
+      systemStatus:
+        items:
+          type: string
+        type: array
+    type: object
+  ws_model.WebsocketUpdateRobotStatusResponse:
+    properties:
+      messageCode:
+        type: string
+      robotList:
+        items:
+          properties:
+            batteryLevel:
+              type: integer
+            lastReportTime:
+              type: string
+            robotCoordination:
+              items:
+                type: integer
+              type: array
+            robotId:
+              type: string
+            robotOrientation:
+              items:
+                type: number
+              type: array
+            robotPosition:
+              items:
+                type: number
+              type: array
+            robotState:
+              type: string
+            robotStatus:
+              items:
+                type: string
+              type: array
+            zone:
+              type: string
+          type: object
+        type: array
+    type: object
+  wsTest.ReportDutyLocationUpdateResponse:
+    properties:
+      dutyLocationId:
+        type: integer
+      dutyLocationName:
+        type: string
+      messageCode:
+        type: string
+      userId:
+        type: integer
+    type: object
+  wsTest.ReportOrderStatusUpdateResponse:
+    properties:
+      messageCode:
+        type: string
+      orderId:
+        type: integer
+      orderStatus:
+        type: string
+      payloadId:
+        type: string
+      processingStatus:
+        type: string
+      robotId:
+        items:
+          type: string
+        type: array
+      scheduleId:
+        type: integer
+    type: object
 host: 20.239.95.146
 info:
   contact:
@@ -497,8 +580,11 @@ paths:
         items:
           type: string
         name: orderStatus
-        required: true
         type: array
+      - description: Schedule ID
+        in: query
+        name: scheduleId
+        type: integer
       produces:
       - application/json
       responses:
@@ -729,9 +815,16 @@ paths:
   /testAW2:
     post:
       consumes:
-      - '*/*'
+      - application/json
       description: Get the response of AW2 (Server notify the user which location
         selected).
+      parameters:
+      - description: AW2 Parameters
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/wsTest.ReportDutyLocationUpdateResponse'
       produces:
       - text/plain
       responses:
@@ -743,9 +836,16 @@ paths:
   /testMW1:
     post:
       consumes:
-      - '*/*'
+      - application/json
       description: Get the response of MW1 (Server report robot status and location
         (every 1s) ).
+      parameters:
+      - description: MW1 Parameters
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/ws_model.WebsocketUpdateRobotStatusResponse'
       produces:
       - text/plain
       responses:
@@ -757,9 +857,16 @@ paths:
   /testOW1:
     post:
       consumes:
-      - '*/*'
+      - application/json
       description: Get the response of OW1 (Server notify any of created order status
         changed).
+      parameters:
+      - description: OW1 Parameters
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/wsTest.ReportOrderStatusUpdateResponse'
       produces:
       - text/plain
       responses:
@@ -771,9 +878,16 @@ paths:
   /testSW1:
     post:
       consumes:
-      - '*/*'
+      - application/json
       description: Get the response of SW1 (Server report robot status and location
         (every 1s) ).
+      parameters:
+      - description: SW1 Parameters
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/systemStatus.SystemStatusResponse'
       produces:
       - text/plain
       responses:

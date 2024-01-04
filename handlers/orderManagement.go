@@ -5,6 +5,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/SoNim-LSCM/TKOH_OMS/constants/orderStatus"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
@@ -27,7 +28,8 @@ import (
 // @Description	Get the list of delivery order by order status which start/end at the staff's duty location.
 // @Tags			Order Management
 // @Accept			*/*
-// @Param			orderStatus	query	[]string	true	"Order Status"
+// @Param			orderStatus	query	[]string	false	"Order Status"
+// @Param			scheduleId	query	int	false	"Schedule ID"
 //
 // @Produce		json
 // @Success		200	{object} orderManagement.OrderListBody
@@ -44,14 +46,23 @@ func HandleGetDeliveryOrder(c *fiber.Ctx) error {
 	}
 	log.Printf("Get Delivery Order by User: %s (%s)\n", claim.Username, claim.UserType)
 	// get the orderStatus from the request body
+	orders := []db_models.Orders{}
 	statusString := c.Query("orderStatus")
+	scheduleId := 0
 	statusArray := strings.Split(statusString, ",")
+	timeToIncludeCompletedOrders := time.Now().Add(time.Hour * -5).Format("2006-01-02 15:04:05")
 	if statusString == "" || len(statusArray) == 0 {
-		return c.Status(400).JSON(models.GetFailResponse("Get Delivery Order Failed with Invalid/Missing Input", err.Error()))
+		scheduleId, err = strconv.Atoi(c.Query("scheduleId"))
+		if err != nil {
+			return c.Status(400).JSON(models.GetFailResponse("Get Delivery Order Failed with Invalid/Missing Input", err.Error()))
+		}
+		log.Printf("Get Delivery Order with scheduleId: %s\n", fmt.Sprint(scheduleId))
+		orders, err = service.FindOrdersForFrontPage("schedule_id = ? AND (start_location_id = ? OR end_location_id = ?) AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", claim.DutyLocationId, scheduleId, claim.DutyLocationId, claim.DutyLocationId, timeToIncludeCompletedOrders)
+	} else {
+		log.Printf("Get Delivery Order with statusString: %s\n", statusString)
+		orders, err = service.FindOrdersForFrontPage("order_status IN ? AND (start_location_id = ? OR end_location_id = ?) AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", claim.DutyLocationId, statusArray, claim.DutyLocationId, claim.DutyLocationId, timeToIncludeCompletedOrders)
 	}
-	log.Printf("Get Delivery Order with Paramters: %s\n", statusString)
 
-	orders, err := service.FindOrdersForFrontPage("order_status IN ? AND (start_location_id = ? OR end_location_id = ?)", claim.DutyLocationId, statusArray, claim.DutyLocationId, claim.DutyLocationId)
 	// err := service.FindRecords(&user, "orders", "order_status", statusArray, &orders)
 	if errorHandler.CheckError(err, "Get Delivery Order Failed with Failed to Search Record") {
 		return c.Status(400).JSON(models.GetFailResponse("Failed to Search Record", err.Error()))
@@ -464,7 +475,8 @@ func HandleReportJobStatus(c *fiber.Ctx) error {
 	}
 
 	response := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "Success"}
-	websocket.SendBoardcastMessage(ws_model.GetUpdateOrderResponse(orderList))
+	// websocket.SendBoardcastMessage(ws_model.GetUpdateOrderResponse(orderList))
+	websocket.SendBoardcastMessage(ws_model.GetUpdateOrderStatusResponse(orderList[0].OrderID, orderList[0].OrderStatus, request.PayloadID, orderList[0].ProcessingStatus, append([]string{}, request.RobotID), orderList[0].ScheduleID))
 	log.Printf("Report Job Status Success\n")
 
 	// return the API Response

@@ -19,7 +19,7 @@ func SetupCronJob(f *os.File) {
 		c1.AddFunc("0 0 * * *", func() {
 			logCronJob(f)
 			log.Println("START OF A NEW LOG FILE")
-			routineCronJob()
+			RoutineCronJob()
 		})
 		c1.Start()
 		defer f.Close()
@@ -38,6 +38,7 @@ func logCronJob(f *os.File) {
 	log.SetOutput(f)
 }
 
-func routineCronJob() {
-	BackgroundRoutinesToSchedules()
+func RoutineCronJob() {
+	err := BackgroundRoutinesToSchedules()
+	errorHandler.CheckFatalError(err)
 }

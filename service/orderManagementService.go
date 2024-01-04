@@ -11,13 +11,16 @@ import (
 
 	apiHandler "github.com/SoNim-LSCM/TKOH_OMS/api"
 	"github.com/SoNim-LSCM/TKOH_OMS/constants/orderStatus"
+	"github.com/SoNim-LSCM/TKOH_OMS/constants/scheduleStatus"
 	"github.com/SoNim-LSCM/TKOH_OMS/database"
 	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
 	"github.com/SoNim-LSCM/TKOH_OMS/models"
 	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/orderManagement"
 	"github.com/SoNim-LSCM/TKOH_OMS/models/rfms"
+	ws_model "github.com/SoNim-LSCM/TKOH_OMS/models/websocket"
 	"github.com/SoNim-LSCM/TKOH_OMS/utils"
+	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
 	"gorm.io/gorm"
 )
 
@@ -25,7 +28,7 @@ func FindOrdersForFrontPage(filterFields string, locationId int, filterValues ..
 	var orders []db_models.Orders
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY start_location_id, if (start_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_START%' then 4 when processing_status like 'QUEUING_AT_START%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'GOING_TO_START%' then 7 when processing_status like 'PLANNING_TO_START%' then 8 when processing_status = '' then 98 else 99 end , if (end_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_END%' then 4 when processing_status like 'QUEUING_AT_END%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'PLANNING_TO_END%' then 7 when processing_status like 'GOING_TO_END%' then 8 when processing_status like '%START%' then 9 when processing_status = '' then 98 else 99 end , 999) ) ,end_location_id asc"
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY case when start_location_id = " + fmt.Sprint(locationId) + " then 1 else 99 end , case when end_location_id = " + fmt.Sprint(locationId) + " then 1 else 99 end ,  if (start_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_START%' then 4 when processing_status like 'QUEUING_AT_START%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'GOING_TO_START%' then 7 when processing_status like 'PLANNING_TO_START%' then 8 when processing_status = 'UNKNOWN' then 10 when processing_status = '' then 98 else 99 end , if (end_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_END%' then 4 when processing_status like 'QUEUING_AT_END%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'PLANNING_TO_END%' then 7 when processing_status like 'GOING_TO_END%' then 8 when processing_status like '%START%' then 9 when processing_status = 'UNKNOWN' then 10 when processing_status = '' then 98 else 99 end , 999) ) asc"
 		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
@@ -68,7 +71,7 @@ func AddOrders(orderRequests []dto.AddDeliveryOrderDTO, userId int, orderCreated
 
 		for _, orderRequest := range orderRequests {
 			// create new schedule
-			schedulesList := []db_models.Schedules{{ScheduleID: 0, ScheduleStatus: "CREATED", ScheduleCraeteTime: utils.GetTimeNowString(), OrderType: orderRequest.OrderType, OrderCreatedType: orderCreatedType, NumberOfAmrRequire: orderRequest.NumberOfAmrRequire, RoutineID: orderRequest.RoutineID, LastUpdateTime: utils.GetTimeNowString()}}
+			schedulesList := []db_models.Schedules{{ScheduleID: 0, ScheduleStatus: string(scheduleStatus.Created), ScheduleCraeteTime: utils.GetTimeNowString(), OrderType: orderRequest.OrderType, OrderCreatedType: orderCreatedType, NumberOfAmrRequire: orderRequest.NumberOfAmrRequire, RoutineID: orderRequest.RoutineID, LastUpdateTime: utils.GetTimeNowString()}}
 			if err := AddRecords(tx, schedulesList); err != nil {
 				return err
 			}
@@ -135,7 +138,10 @@ func TriggerOrderOrderIds(orderIds string) (orderManagement.OrderList, error) {
 			jobIdList = append(jobIdList, orders.JobID)
 		}
 		param := rfms.TriggerHandlingJobRequest{JobIdList: jobIdList}
-		response := apiHandler.Post("/triggerHandlingJob", param)
+		response, err := apiHandler.Post("/triggerHandlingJob", param)
+		if err != nil {
+			return err
+		}
 		triggerOrderResponse := models.FailResponseHeader{}
 		err = json.Unmarshal(response, &triggerOrderResponse)
 		if err != nil {
@@ -160,7 +166,10 @@ func TriggerOrderScheduleId(scheduleId int) (orderManagement.OrderList, error) {
 		}
 		jobIdList := append([]int{}, jobList[0].JobID)
 		param := rfms.TriggerHandlingJobRequest{JobIdList: jobIdList}
-		response := apiHandler.Post("/triggerHandlingJob", param)
+		response, err := apiHandler.Post("/triggerHandlingJob", param)
+		if err != nil {
+			return err
+		}
 		triggerOrderResponse := models.FailResponse{}
 		err = json.Unmarshal(response, &triggerOrderResponse)
 		if err != nil {
@@ -180,12 +189,12 @@ func UpdateOrders(userId int, request dto.UpdateDeliveryOrderDTO) (orderManageme
 	schedules := []db_models.Schedules{}
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		if FindRecords(tx, &schedules, "schedules", "schedule_id = ?", request.ScheduleID) != nil {
+		if FindRecords(tx, &schedules, "schedules", "schedule_id = ? AND schedule_status <> ?", request.ScheduleID, "CANCELED") != nil {
 			return errors.New("Failed to find schedule with schedule id")
 		}
 
 		orders := []db_models.Orders{}
-		if FindRecords(tx, &orders, "orders", "schedule_id = ? AND (order_status = ? OR order_status = ?) AND order_status <> ?", request.ScheduleID, orderStatus.Created, orderStatus.ToBeCreated, orderStatus.Canceled) != nil {
+		if FindRecords(tx, &orders, "orders", "schedule_id = ? AND order_status = ?", request.ScheduleID, orderStatus.ToBeCreated) != nil {
 			return errors.New("Failed to find order with schedule id")
 		}
 
@@ -281,7 +290,7 @@ func CancelOrders(scheduleId int) (orderManagement.OrderList, error) {
 			return err
 		}
 
-		if err := FindRecords(tx, &orders, "orders", "schedule_id = ?", scheduleId); err != nil {
+		if err := FindRecords(tx, &orders, "orders", "schedule_id = ? AND order_status = ?", scheduleId, orderStatus.ToBeCreated); err != nil {
 			return err
 		}
 
@@ -289,21 +298,11 @@ func CancelOrders(scheduleId int) (orderManagement.OrderList, error) {
 			return errors.New("Orders not found")
 		}
 
-		var amrs = schedules[0].NumberOfAmrRequire
-
-		for _, order := range orders {
-			if (order.OrderStatus != string(orderStatus.Created)) && (order.OrderStatus != string(orderStatus.ToBeCreated)) && (order.OrderStatus != string(orderStatus.Canceled)) {
-				return errors.New("Cancel failed, order started")
-			} else if order.OrderStatus == string(orderStatus.Created) || order.OrderStatus == string(orderStatus.ToBeCreated) {
-				amrs -= 1
-			}
+		if len(orders) != schedules[0].NumberOfAmrRequire {
+			return errors.New("Cancel fail, some orders already started")
 		}
 
-		if amrs != 0 {
-			return errors.New("Cancel failed, amr number not match")
-		}
-
-		updateMap := utils.CreateMap([]string{"schedule_status", "number_of_amr_require"}, orderStatus.Canceled, 0)
+		updateMap := utils.CreateMap([]string{"schedule_status"}, orderStatus.Canceled)
 		err := UpdateRecords(tx, &[]db_models.Schedules{}, "schedules", updateMap, "schedule_id = ?", scheduleId)
 		if err != nil {
 			return err
@@ -550,10 +549,13 @@ func BackgroundInitOrderToRFMS() error {
 				if job.JobType == "PARK" {
 					param = rfms.CreateJobRequest{JobNature: job.JobType, RobotID: job.RobotID, PayloadID: job.PayloadID}
 				}
-				response := apiHandler.Post("/createJob", param)
+				response, err := apiHandler.Post("/createJob", param)
+				if err != nil {
+					return err
+				}
 
 				updateJobStatus := dto.ReportJobStatusResponseDTO{}
-				err := json.Unmarshal(response, &updateJobStatus)
+				err = json.Unmarshal(response, &updateJobStatus)
 				if err != nil {
 					return err
 				}
@@ -604,7 +606,7 @@ func BackgroundInitOrderToRFMS() error {
 
 		err = database.DB.Transaction(func(tx *gorm.DB) error {
 
-			if err := FindRecords(tx, &orders, "orders", "order_status = ?", "TO_BE_CREATED"); err != nil {
+			if err := FindRecordsWithRaw(tx, &orders, "SELECT * FROM orders WHERE order_status = ? order by expected_start_time asc", "TO_BE_CREATED"); err != nil {
 				return err
 			}
 
@@ -616,6 +618,19 @@ func BackgroundInitOrderToRFMS() error {
 		})
 
 		for _, order := range orders {
+			expectedStartTimeString, err := StringToDatetime(order.ExpectedStartTime)
+			if err != nil {
+
+			}
+			expectedStartTime, err := time.Parse("2006-01-02 15:04:05", expectedStartTimeString)
+			if err != nil {
+
+			}
+			timeNowUTCForCompare := time.Now().Add(8 * time.Hour)
+			log.Printf("expectedStartTime: %s, time now: %s", expectedStartTime, timeNowUTCForCompare)
+			if expectedStartTime.After(timeNowUTCForCompare) {
+				break
+			}
 			err = database.DB.Transaction(func(tx *gorm.DB) error {
 				jobNatures := []string{}
 				locations := []int{}
@@ -668,10 +683,13 @@ func BackgroundInitOrderToRFMS() error {
 				}
 
 				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: locations[0]}
-				response := apiHandler.Post("/createJob", param)
+				response, err := apiHandler.Post("/createJob", param)
+				if err != nil {
+					return err
+				}
 
 				updateJobStatus := dto.ReportJobStatusResponseDTO{}
-				err := json.Unmarshal(response, &updateJobStatus)
+				err = json.Unmarshal(response, &updateJobStatus)
 				if err != nil {
 					return err
 				}
@@ -710,9 +728,14 @@ func BackgroundInitOrderToRFMS() error {
 					return err
 				}
 
+				startTime := utils.GetTimeNowString()
+				if err != nil {
+					return errors.New("Fail translate arrivalTime")
+				}
+
 				updatedList := []db_models.Orders{}
-				updateFields := []string{"order_status", "job_id"}
-				updateMap := utils.CreateMap(updateFields, "CREATED", updateJobStatus.Body.JobID)
+				updateFields := []string{"order_status", "job_id", "order_start_time"}
+				updateMap := utils.CreateMap(updateFields, orderStatus.Created, updateJobStatus.Body.JobID, startTime)
 				err = UpdateRecords(tx, &updatedList, "orders", updateMap, "order_id = ?", order.OrderID)
 				log.Print(updatedList)
 				if err != nil {
@@ -726,6 +749,7 @@ func BackgroundInitOrderToRFMS() error {
 				if err != nil {
 					return err
 				}
+				websocket.SendBoardcastMessage(ws_model.GetUpdateOrderStatusResponse(updatedList[0].OrderID, updatedList[0].OrderStatus, newJob.PayloadID, updatedList[0].ProcessingStatus, append([]string{}, newJob.RobotID), updatedList[0].ScheduleID))
 
 				return nil
 			})
@@ -759,7 +783,9 @@ func RoutinesToAddDeliveryOrderDTO(routines []db_models.Routines) ([]dto.AddDeli
 			return addDeliveryOrderDTO, err
 		}
 		if nextDeliveryDate == today {
-			addDeliveryOrderDTO = append(addDeliveryOrderDTO, dto.AddDeliveryOrderDTO{OrderType: routine.OrderType, NumberOfAmrRequire: routine.NumberOfAmrRequire, StartLocationID: routine.StartLocationID, StartLocationName: routine.StartLocationName, ExpectedStartTime: routine.ExpectedStartTime, EndLocationID: routine.EndLocationID, EndLocationName: routine.EndLocationName, RoutineID: routine.RoutineID, ExpectedDeliveryTime: routine.ExpectedDeliveryTime})
+			expectedStartTime := strings.Replace(routine.ExpectedStartTime, "1970-01-01", strings.Split(utils.GetTimeNowString(), " ")[0], 1)
+			expectedDeliveryTime := strings.Replace(routine.ExpectedDeliveryTime, "1970-01-01", strings.Split(utils.GetTimeNowString(), " ")[0], 1)
+			addDeliveryOrderDTO = append(addDeliveryOrderDTO, dto.AddDeliveryOrderDTO{OrderType: routine.OrderType, NumberOfAmrRequire: routine.NumberOfAmrRequire, StartLocationID: routine.StartLocationID, StartLocationName: routine.StartLocationName, ExpectedStartTime: expectedStartTime, EndLocationID: routine.EndLocationID, EndLocationName: routine.EndLocationName, RoutineID: routine.RoutineID, ExpectedDeliveryTime: expectedDeliveryTime})
 		}
 	}
 	return addDeliveryOrderDTO, nil
@@ -818,16 +844,20 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusDTO) (orderManagement.OrderL
 				orderStatus = "COMPLETED"
 			}
 		}
-		// err = UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ?", order.OrderID)
-		// if err != nil {
-		// 	return err
-		// }
-
+		arrivalTime := ""
+		if orderStatus == "COMPLETED" {
+			arrivalTime = utils.GetTimeNowString()
+		}
+		arrivalTime, err = StringToDatetime(arrivalTime)
+		if err != nil {
+			return errors.New("Fail translate arrivalTime")
+		}
+		log.Printf("currentJobStatus: %s, statusLocation: %s", currentJobStatus, statusLocation)
 		processingStatus := getProcessingStatusFromJob(currentJobStatus, statusLocation)
 
 		updatedOrderList := []db_models.Orders{}
-		updateOrderFields := []string{"order_status", "processing_status", "job_id"}
-		updateOrderMap := utils.CreateMap(updateOrderFields, orderStatus, processingStatus, currentJobId)
+		updateOrderFields := []string{"order_status", "processing_status", "job_id", "actual_arrival_time"}
+		updateOrderMap := utils.CreateMap(updateOrderFields, orderStatus, processingStatus, currentJobId, arrivalTime)
 		UpdateRecords(tx, &updatedOrderList, "orders", updateOrderMap, "order_id = ?", updatedJobList[0].OrderID)
 		ordersLogList, err := OrdersToOrdersLogs(0, updatedOrderList)
 		if err != nil {
@@ -853,14 +883,14 @@ func getProcessingStatusFromJob(jobStatus string, statusLocation string) string 
 	switch jobStatus {
 	case "PLANNING":
 		return "PLANNING_TO_" + statusLocation
-	case "GOING_TO_LOCATION":
+	case "GOING_TO":
 		return "GOING_TO_" + statusLocation
 	case "QUEUING":
 		return "QUEUING_AT_" + strings.Replace(statusLocation, "LOCATION", "BAY", -1)
 	case "ARRIVING":
 		return "ARRIVING_TO_" + statusLocation
 	case "ARRIVED":
-		return "ARRIVED_TO_" + statusLocation
+		return "ARRIVED_" + statusLocation
 	case "MOVING_TO_LAYBY":
 		return "MOVING_TO_" + statusLocation + "_LAYBY"
 	case "PARKING":
@@ -1023,10 +1053,10 @@ func RoutinesToRoutinesLogs(userId int, routines []db_models.Routines) ([]db_mod
 		return routinesLogs, err
 	}
 
-	for i, _ := range routinesLogs {
-		routinesLogs[i].LastUpdateBy = userId
-		if routinesLogs[i].LastUpdateTime == "" {
-			routinesLogs[i].LastUpdateTime = utils.TimeInt64ToString(0)
+	for _, routinesLog := range routinesLogs {
+		routinesLog.LastUpdateBy = userId
+		if routinesLog.LastUpdateTime == "" {
+			routinesLog.LastUpdateTime = utils.TimeInt64ToString(0)
 		}
 	}
 
