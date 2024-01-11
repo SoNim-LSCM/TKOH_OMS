@@ -1,6 +1,7 @@
 package service
 
 import (
+	"log"
 	"os"
 	"time"
 
@@ -27,11 +28,13 @@ func ToggleBackgroundInitOrder() bool {
 }
 
 func backgroundInitOrder() {
+	floorPlan, _ := GetFloorPlan()
 	for {
+		log.Println("Background Process Running ...")
 		if isLooping {
 			err := BackgroundInitOrderToRFMS()
 			errorHandler.CheckError(err, "Background Init Order to RFMS")
-			err = BackgroundReportRobotStatus()
+			err = BackgroundReportRobotStatus(floorPlan)
 			errorHandler.CheckError(err, "Background Report Robot Status")
 		}
 		time.Sleep(5 * time.Second)

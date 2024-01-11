@@ -57,12 +57,19 @@ func HandleGetDeliveryOrder(c *fiber.Ctx) error {
 			return c.Status(400).JSON(models.GetFailResponse("Get Delivery Order Failed with Invalid/Missing Input", err.Error()))
 		}
 		log.Printf("Get Delivery Order with scheduleId: %s\n", fmt.Sprint(scheduleId))
-		orders, err = service.FindOrdersForFrontPage("schedule_id = ? AND (start_location_id = ? OR end_location_id = ?) AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", claim.DutyLocationId, scheduleId, claim.DutyLocationId, claim.DutyLocationId, timeToIncludeCompletedOrders)
+		if claim.UserType == "ADMIN" {
+			orders, err = service.FindOrders("schedule_id = ?", scheduleId)
+		} else {
+			orders, err = service.FindOrdersForFrontPage("schedule_id = ? AND (start_location_id = ? OR end_location_id = ?) AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", claim.DutyLocationId, scheduleId, claim.DutyLocationId, claim.DutyLocationId, timeToIncludeCompletedOrders)
+		}
 	} else {
 		log.Printf("Get Delivery Order with statusString: %s\n", statusString)
-		orders, err = service.FindOrdersForFrontPage("order_status IN ? AND (start_location_id = ? OR end_location_id = ?) AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", claim.DutyLocationId, statusArray, claim.DutyLocationId, claim.DutyLocationId, timeToIncludeCompletedOrders)
+		if claim.UserType == "ADMIN" {
+			orders, err = service.FindOrders("order_status IN ?", statusArray)
+		} else {
+			orders, err = service.FindOrdersForFrontPage("order_status IN ? AND (start_location_id = ? OR end_location_id = ?) AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", claim.DutyLocationId, statusArray, claim.DutyLocationId, claim.DutyLocationId, timeToIncludeCompletedOrders)
+		}
 	}
-
 	// err := service.FindRecords(&user, "orders", "order_status", statusArray, &orders)
 	if errorHandler.CheckError(err, "Get Delivery Order Failed with Failed to Search Record") {
 		return c.Status(400).JSON(models.GetFailResponse("Failed to Search Record", err.Error()))

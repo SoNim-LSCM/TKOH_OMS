@@ -93,7 +93,7 @@ func GetLocationFromRFMS() error {
 	return nil
 }
 
-func BackgroundReportRobotStatus() error {
+func BackgroundReportRobotStatus(floors []db_models.Floors) error {
 
 	response, err := apiHandler.Get("/robotStatus?robotType=AMR", nil)
 	if err != nil {
@@ -109,9 +109,11 @@ func BackgroundReportRobotStatus() error {
 		return errors.New("Get Robot Status from RFMS Failed")
 	}
 
-	log.Printf("BackgroundReportRobotStatus: %s", ws_model.GetUpdateRobotResponse(updateJobStatus.Body.RobotList))
+	wsResponse := ws_model.GetUpdateRobotResponse(updateJobStatus.Body.RobotList.CalculateCoordination(floors))
 
-	websocket.SendBoardcastMessage(ws_model.GetUpdateRobotResponse(updateJobStatus.Body.RobotList))
+	log.Printf("BackgroundReportRobotStatus: %s", wsResponse)
+
+	websocket.SendBoardcastMessage(wsResponse)
 
 	return nil
 }

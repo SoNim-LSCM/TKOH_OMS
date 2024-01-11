@@ -41,7 +41,7 @@ func FindOrders(filterFields string, filterValues ...interface{}) ([]db_models.O
 	var orders []db_models.Orders
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY case when processing_status like 'UNLOADING' then 1 when processing_status like 'ARRIVED%' then 2 when processing_status like 'QUEUING%' then 3 when processing_status like 'MOVING_TO_LAYBY_AREA' then 4 when processing_status like 'GOING%' then 5 when processing_status like 'PLANNING%' then 6 else 7 end asc"
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields
 		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
@@ -627,7 +627,7 @@ func BackgroundInitOrderToRFMS() error {
 
 			}
 			timeNowUTCForCompare := time.Now().Add(8 * time.Hour)
-			log.Printf("expectedStartTime: %s, time now: %s", expectedStartTime, timeNowUTCForCompare)
+			// log.Printf("expectedStartTime: %s, time now: %s", expectedStartTime, timeNowUTCForCompare)
 			if expectedStartTime.After(timeNowUTCForCompare) {
 				break
 			}
@@ -693,7 +693,7 @@ func BackgroundInitOrderToRFMS() error {
 				if err != nil {
 					return err
 				}
-				log.Printf("/createJob response: %f", updateJobStatus)
+				// log.Printf("/createJob response: %f", updateJobStatus)
 				if updateJobStatus.ResponseMessage == "FAILED" {
 					return errors.New("Create Job Failed with Reason: " + updateJobStatus.FailReason)
 				}
@@ -722,7 +722,7 @@ func BackgroundInitOrderToRFMS() error {
 					}
 				}
 
-				log.Print(newJobs)
+				// log.Print(newJobs)
 				err = AddRecords(tx, newJobs)
 				if err != nil {
 					return err
