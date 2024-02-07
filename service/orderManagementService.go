@@ -507,7 +507,7 @@ func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManage
 }
 
 func BackgroundRoutinesToSchedules() error {
-	routines, err := FindRoutines("is_active = ? AND routine_id = 2", true)
+	routines, err := FindRoutines("is_active = ?", true)
 	if err != nil {
 		return err
 	}
