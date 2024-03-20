@@ -7,17 +7,18 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/constants/orderStatus"
-	"github.com/SoNim-LSCM/TKOH_OMS/database"
-	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
-	"github.com/SoNim-LSCM/TKOH_OMS/models"
-	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/orderManagement"
-	ws_model "github.com/SoNim-LSCM/TKOH_OMS/models/websocket"
-	"github.com/SoNim-LSCM/TKOH_OMS/service"
-	"github.com/SoNim-LSCM/TKOH_OMS/utils"
-	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
+	"tkoh_oms/constants/orderStatus"
+	"tkoh_oms/database"
+	db_models "tkoh_oms/database/models"
+	errorHandler "tkoh_oms/errors"
+	"tkoh_oms/models"
+	dto "tkoh_oms/models/DTO"
+	"tkoh_oms/models/orderManagement"
+	ws_model "tkoh_oms/models/websocket"
+	"tkoh_oms/service"
+	"tkoh_oms/utils"
+	"tkoh_oms/websocket"
+
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 
@@ -58,14 +59,15 @@ func HandleGetDeliveryOrder(c *fiber.Ctx) error {
 		}
 		log.Printf("Get Delivery Order with scheduleId: %s\n", fmt.Sprint(scheduleId))
 		if claim.UserType == "ADMIN" {
-			orders, err = service.FindOrders("schedule_id = ?", scheduleId)
+			orders, err = service.FindOrders("schedule_id = ? AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", scheduleId, timeToIncludeCompletedOrders)
 		} else {
 			orders, err = service.FindOrdersForFrontPage("schedule_id = ? AND (start_location_id = ? OR end_location_id = ?) AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", claim.DutyLocationId, scheduleId, claim.DutyLocationId, claim.DutyLocationId, timeToIncludeCompletedOrders)
 		}
 	} else {
 		log.Printf("Get Delivery Order with statusString: %s\n", statusString)
 		if claim.UserType == "ADMIN" {
-			orders, err = service.FindOrders("order_status IN ?", statusArray)
+			// orders, err = service.FindOrders("order_status IN ?", statusArray)
+			orders, err = service.FindOrders("order_status IN ? AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", statusArray, timeToIncludeCompletedOrders)
 		} else {
 			orders, err = service.FindOrdersForFrontPage("order_status IN ? AND (start_location_id = ? OR end_location_id = ?) AND NOT (order_status = 'COMPLETED' AND actual_arrival_time < ?)", claim.DutyLocationId, statusArray, claim.DutyLocationId, claim.DutyLocationId, timeToIncludeCompletedOrders)
 		}
@@ -483,7 +485,9 @@ func HandleReportJobStatus(c *fiber.Ctx) error {
 
 	response := models.ResponseHeader{ResponseCode: 200, ResponseMessage: "Success"}
 	// websocket.SendBoardcastMessage(ws_model.GetUpdateOrderResponse(orderList))
-	websocket.SendBoardcastMessage(ws_model.GetUpdateOrderStatusResponse(orderList[0].OrderID, orderList[0].OrderStatus, request.PayloadID, orderList[0].ProcessingStatus, append([]string{}, request.RobotID), orderList[0].ScheduleID))
+	wsResponse := ws_model.GetUpdateOrderStatusResponse(orderList[0].OrderID, orderList[0].OrderStatus, request.PayloadID, orderList[0].ProcessingStatus, append([]string{}, request.RobotID), orderList[0].ScheduleID)
+	log.Printf("HandleReportJobStatus websocket response: %s", wsResponse)
+	websocket.SendBoardcastMessage(wsResponse)
 	log.Printf("Report Job Status Success\n")
 
 	// return the API Response

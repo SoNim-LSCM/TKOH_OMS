@@ -9,18 +9,19 @@ import (
 	"strings"
 	"time"
 
-	apiHandler "github.com/SoNim-LSCM/TKOH_OMS/api"
-	"github.com/SoNim-LSCM/TKOH_OMS/constants/orderStatus"
-	"github.com/SoNim-LSCM/TKOH_OMS/constants/scheduleStatus"
-	"github.com/SoNim-LSCM/TKOH_OMS/database"
-	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
-	"github.com/SoNim-LSCM/TKOH_OMS/models"
-	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/orderManagement"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/rfms"
-	ws_model "github.com/SoNim-LSCM/TKOH_OMS/models/websocket"
-	"github.com/SoNim-LSCM/TKOH_OMS/utils"
-	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
+	apiHandler "tkoh_oms/api"
+	"tkoh_oms/constants/orderStatus"
+	"tkoh_oms/constants/scheduleStatus"
+	"tkoh_oms/database"
+	db_models "tkoh_oms/database/models"
+	"tkoh_oms/models"
+	dto "tkoh_oms/models/DTO"
+	"tkoh_oms/models/orderManagement"
+	"tkoh_oms/models/rfms"
+	ws_model "tkoh_oms/models/websocket"
+	"tkoh_oms/utils"
+	"tkoh_oms/websocket"
+
 	"gorm.io/gorm"
 )
 
@@ -796,6 +797,13 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusDTO) (orderManagement.OrderL
 	orderList := orderManagement.OrderList{}
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		// check if job status is already sent, skips if yes
+		updatingJob := []db_models.Jobs{}
+		FindRecords(tx, &updatingJob, "jobs", "job_id = ? and job_status = ? ", newJobStatus.JobID, "COMPLETED")
+		if len(updatingJob) > 0 {
+			return errors.New("Job already completed.")
+		}
+
 		est, err := StringToDatetime(newJobStatus.Est)
 		if err != nil {
 			return err
@@ -970,9 +978,21 @@ func JobsToJobsLogs(jobs []db_models.Jobs) ([]db_models.JobsLogs, error) {
 	for _, jobsLog := range jobsLogs {
 		if jobsLog.ExpectedArrivalTime == "" {
 			jobsLog.ExpectedArrivalTime = utils.TimeInt64ToString(0)
+		} else {
+			eta, err := StringToDatetime(jobsLog.ExpectedArrivalTime)
+			if err != nil {
+				return jobsLogs, errors.New("Fail translate arrivalTime")
+			}
+			jobsLog.ExpectedArrivalTime = eta
 		}
 		if jobsLog.LastUpdateTime == "" {
 			jobsLog.LastUpdateTime = utils.TimeInt64ToString(0)
+		} else {
+			lastUpdateTime, err := StringToDatetime(jobsLog.LastUpdateTime)
+			if err != nil {
+				return jobsLogs, errors.New("Fail translate lastUpdateTime")
+			}
+			jobsLog.LastUpdateTime = lastUpdateTime
 		}
 	}
 
@@ -991,25 +1011,61 @@ func OrdersToOrdersLogs(userId int, orders []db_models.Orders) ([]db_models.Orde
 		return ordersLogs, err
 	}
 
-	for i, _ := range ordersLogs {
-		ordersLogs[i].LastUpdateBy = userId
-		if ordersLogs[i].OrderStartTime == "" {
-			ordersLogs[i].OrderStartTime = utils.TimeInt64ToString(0)
+	for _, ordersLog := range ordersLogs {
+		ordersLog.LastUpdateBy = userId
+		if ordersLog.OrderStartTime == "" {
+			ordersLog.OrderStartTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(ordersLog.OrderStartTime)
+			if err != nil {
+				return ordersLogs, errors.New("Fail translate OrderStartTime")
+			}
+			ordersLog.OrderStartTime = time
 		}
-		if ordersLogs[i].ActualArrivalTime == "" {
-			ordersLogs[i].ActualArrivalTime = utils.TimeInt64ToString(0)
+		if ordersLog.ActualArrivalTime == "" {
+			ordersLog.ActualArrivalTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(ordersLog.ActualArrivalTime)
+			if err != nil {
+				return ordersLogs, errors.New("Fail translate ActualArrivalTime")
+			}
+			ordersLog.ActualArrivalTime = time
 		}
-		if ordersLogs[i].ExpectedStartTime == "" {
-			ordersLogs[i].ExpectedStartTime = utils.TimeInt64ToString(0)
+		if ordersLog.ExpectedStartTime == "" {
+			ordersLog.ExpectedStartTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(ordersLog.ExpectedStartTime)
+			if err != nil {
+				return ordersLogs, errors.New("Fail translate ExpectedStartTime")
+			}
+			ordersLog.ExpectedStartTime = time
 		}
-		if ordersLogs[i].ExpectedDeliveryTime == "" {
-			ordersLogs[i].ExpectedDeliveryTime = utils.TimeInt64ToString(0)
+		if ordersLog.ExpectedDeliveryTime == "" {
+			ordersLog.ExpectedDeliveryTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(ordersLog.ExpectedDeliveryTime)
+			if err != nil {
+				return ordersLogs, errors.New("Fail translate ExpectedDeliveryTime")
+			}
+			ordersLog.ExpectedDeliveryTime = time
 		}
-		if ordersLogs[i].ExpectedArrivalTime == "" {
-			ordersLogs[i].ExpectedArrivalTime = utils.TimeInt64ToString(0)
+		if ordersLog.ExpectedArrivalTime == "" {
+			ordersLog.ExpectedArrivalTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(ordersLog.ExpectedArrivalTime)
+			if err != nil {
+				return ordersLogs, errors.New("Fail translate ExpectedArrivalTime")
+			}
+			ordersLog.ExpectedArrivalTime = time
 		}
-		if ordersLogs[i].LastUpdateTime == "" {
-			ordersLogs[i].LastUpdateTime = utils.TimeInt64ToString(0)
+		if ordersLog.LastUpdateTime == "" {
+			ordersLog.LastUpdateTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(ordersLog.LastUpdateTime)
+			if err != nil {
+				return ordersLogs, errors.New("Fail translate LastUpdateTime")
+			}
+			ordersLog.LastUpdateTime = time
 		}
 	}
 
@@ -1028,13 +1084,25 @@ func SchedulesToSchedulesLogs(userId int, schedules []db_models.Schedules) ([]db
 		return schedulesLogs, err
 	}
 
-	for i, _ := range schedulesLogs {
-		schedulesLogs[i].LastUpdateBy = userId
-		if schedulesLogs[i].ScheduleCraeteTime == "" {
-			schedulesLogs[i].ScheduleCraeteTime = utils.TimeInt64ToString(0)
+	for _, schedulesLog := range schedulesLogs {
+		schedulesLog.LastUpdateBy = userId
+		if schedulesLog.ScheduleCraeteTime == "" {
+			schedulesLog.ScheduleCraeteTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(schedulesLog.ScheduleCraeteTime)
+			if err != nil {
+				return schedulesLogs, errors.New("Fail translate ScheduleCraeteTime")
+			}
+			schedulesLog.ScheduleCraeteTime = time
 		}
-		if schedulesLogs[i].LastUpdateTime == "" {
-			schedulesLogs[i].LastUpdateTime = utils.TimeInt64ToString(0)
+		if schedulesLog.LastUpdateTime == "" {
+			schedulesLog.LastUpdateTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(schedulesLog.LastUpdateTime)
+			if err != nil {
+				return schedulesLogs, errors.New("Fail translate LastUpdateTime")
+			}
+			schedulesLog.LastUpdateTime = time
 		}
 	}
 
@@ -1057,6 +1125,12 @@ func RoutinesToRoutinesLogs(userId int, routines []db_models.Routines) ([]db_mod
 		routinesLog.LastUpdateBy = userId
 		if routinesLog.LastUpdateTime == "" {
 			routinesLog.LastUpdateTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(routinesLog.LastUpdateTime)
+			if err != nil {
+				return routinesLogs, errors.New("Fail translate LastUpdateTime")
+			}
+			routinesLog.LastUpdateTime = time
 		}
 	}
 

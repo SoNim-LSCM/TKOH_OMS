@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/config"
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
+	"tkoh_oms/config"
+	errorHandler "tkoh_oms/errors"
 )
 
 var baseUrl string

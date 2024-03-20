@@ -11,7 +11,8 @@ import (
 
 	"io/ioutil"
 
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
+	errorHandler "tkoh_oms/errors"
+
 	"github.com/go-sql-driver/mysql"
 	"golang.org/x/crypto/ssh"
 	sql "gorm.io/driver/mysql"

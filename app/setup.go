@@ -5,16 +5,16 @@ import (
 	"log"
 	"os"
 
-	apiHandler "github.com/SoNim-LSCM/TKOH_OMS/api"
-	"github.com/SoNim-LSCM/TKOH_OMS/config"
-	"github.com/SoNim-LSCM/TKOH_OMS/database"
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
-	"github.com/SoNim-LSCM/TKOH_OMS/service"
+	apiHandler "tkoh_oms/api"
+	"tkoh_oms/config"
+	"tkoh_oms/database"
+	errorHandler "tkoh_oms/errors"
+	"tkoh_oms/service"
 
-	// "github.com/SoNim-LSCM/TKOH_OMS/mqtt"
+	// "tkoh_oms/mqtt"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/router"
-	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
+	"tkoh_oms/router"
+	"tkoh_oms/websocket"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"

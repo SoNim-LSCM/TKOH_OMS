@@ -1,6 +1,6 @@
 package orderManagement
 
-import "github.com/SoNim-LSCM/TKOH_OMS/models"
+import "tkoh_oms/models"
 
 type UpdateRoutineDeliveryOrderResponse struct {
 	Header models.ResponseHeader `json:"header"`

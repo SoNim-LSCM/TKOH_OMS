@@ -6,8 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/database"
-	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
+	"tkoh_oms/database"
+	db_models "tkoh_oms/database/models"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

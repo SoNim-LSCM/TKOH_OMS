@@ -7,9 +7,9 @@ import (
 	"log"
 	"os"
 
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/loginAuth"
-	"github.com/SoNim-LSCM/TKOH_OMS/utils"
+	errorHandler "tkoh_oms/errors"
+	"tkoh_oms/models/loginAuth"
+	"tkoh_oms/utils"
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"

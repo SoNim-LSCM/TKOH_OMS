@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"log"
 
-	// "github.com/SoNim-LSCM/TKOH_OMS/models"
+	// "tkoh_oms/models"
 
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/systemStatus"
-	ws_model "github.com/SoNim-LSCM/TKOH_OMS/models/websocket"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/wsTest"
-	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
+	errorHandler "tkoh_oms/errors"
+	"tkoh_oms/models/systemStatus"
+	ws_model "tkoh_oms/models/websocket"
+	"tkoh_oms/models/wsTest"
+	"tkoh_oms/websocket"
 
 	"github.com/gofiber/fiber/v2"
 )

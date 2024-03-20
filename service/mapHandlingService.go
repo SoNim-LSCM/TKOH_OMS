@@ -5,14 +5,15 @@ import (
 	"errors"
 	"log"
 
-	apiHandler "github.com/SoNim-LSCM/TKOH_OMS/api"
-	"github.com/SoNim-LSCM/TKOH_OMS/database"
-	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
-	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/mapHandling"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/rfms"
-	ws_model "github.com/SoNim-LSCM/TKOH_OMS/models/websocket"
-	"github.com/SoNim-LSCM/TKOH_OMS/websocket"
+	apiHandler "tkoh_oms/api"
+	"tkoh_oms/database"
+	db_models "tkoh_oms/database/models"
+	dto "tkoh_oms/models/DTO"
+	"tkoh_oms/models/mapHandling"
+	"tkoh_oms/models/rfms"
+	ws_model "tkoh_oms/models/websocket"
+	"tkoh_oms/websocket"
+
 	"gorm.io/gorm"
 )
 

@@ -1,7 +1,8 @@
 package handlers
 
 import (
-	"github.com/SoNim-LSCM/TKOH_OMS/service"
+	"tkoh_oms/service"
+
 	"github.com/gofiber/fiber/v2"
 )
 

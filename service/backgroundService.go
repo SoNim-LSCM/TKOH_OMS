@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
+	errorHandler "tkoh_oms/errors"
 )
 
 var isLooping = true

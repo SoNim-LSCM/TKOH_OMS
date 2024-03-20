@@ -5,11 +5,12 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/SoNim-LSCM/TKOH_OMS/database"
-	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
-	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/loginAuth"
-	"github.com/SoNim-LSCM/TKOH_OMS/utils"
+	"tkoh_oms/database"
+	db_models "tkoh_oms/database/models"
+	dto "tkoh_oms/models/DTO"
+	"tkoh_oms/models/loginAuth"
+	"tkoh_oms/utils"
+
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -32,6 +33,7 @@ func UpdateUser(db *gorm.DB, username string, userType string, updateFields []st
 	err := AddUsersLogs(db, "username = ? AND user_type = ?", username, userType)
 	if err != nil {
 		return updatedUser, errors.New("Failed to create log")
+		// return updatedUser, err
 	}
 	err = UpdateRecords(db, &updatedUser, "users", updateMap, "username = ? AND user_type = ?", username, userType)
 	if err != nil {
@@ -255,22 +257,52 @@ func UsersToUsersLogs(users []db_models.Users) ([]db_models.UsersLogs, error) {
 	// 	usersLogsList = append(usersLogsList, usersLogs)
 	// }
 
-	for i, _ := range usersLogsList {
-		// usersLogsList[i].Id = 123
-		if usersLogsList[i].TokenExpiryTime == "" {
-			usersLogsList[i].TokenExpiryTime = utils.TimeInt64ToString(0)
+	for _, usersLog := range usersLogsList {
+		// usersLog.Id = 123
+		if usersLog.TokenExpiryTime == "" {
+			usersLog.TokenExpiryTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(usersLog.TokenExpiryTime)
+			if err != nil {
+				return usersLogsList, errors.New("Fail translate TokenExpiryTime")
+			}
+			usersLog.TokenExpiryTime = time
 		}
-		if usersLogsList[i].LastLoginTime == "" {
-			usersLogsList[i].LastLoginTime = utils.TimeInt64ToString(0)
+		if usersLog.LastLoginTime == "" {
+			usersLog.LastLoginTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(usersLog.LastLoginTime)
+			if err != nil {
+				return usersLogsList, errors.New("Fail translate LastLoginTime")
+			}
+			usersLog.LastLoginTime = time
 		}
-		if usersLogsList[i].LastLogoutTime == "" {
-			usersLogsList[i].LastLogoutTime = utils.TimeInt64ToString(0)
+		if usersLog.LastLogoutTime == "" {
+			usersLog.LastLogoutTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(usersLog.LastLogoutTime)
+			if err != nil {
+				return usersLogsList, errors.New("Fail translate LastLogoutTime")
+			}
+			usersLog.LastLogoutTime = time
 		}
-		if usersLogsList[i].CreateTime == "" {
-			usersLogsList[i].CreateTime = utils.TimeInt64ToString(0)
+		if usersLog.CreateTime == "" {
+			usersLog.CreateTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(usersLog.CreateTime)
+			if err != nil {
+				return usersLogsList, errors.New("Fail translate CreateTime")
+			}
+			usersLog.CreateTime = time
 		}
-		if usersLogsList[i].LastUpdateTime == "" {
-			usersLogsList[i].LastUpdateTime = utils.TimeInt64ToString(0)
+		if usersLog.LastUpdateTime == "" {
+			usersLog.LastUpdateTime = utils.TimeInt64ToString(0)
+		} else {
+			time, err := StringToDatetime(usersLog.LastUpdateTime)
+			if err != nil {
+				return usersLogsList, errors.New("Fail translate LastUpdateTime")
+			}
+			usersLog.LastUpdateTime = time
 		}
 	}
 

@@ -5,7 +5,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
+	errorHandler "tkoh_oms/errors"
+
 	mqtt "github.com/mochi-mqtt/server/v2"
 	"github.com/mochi-mqtt/server/v2/hooks/auth"
 	"github.com/mochi-mqtt/server/v2/listeners"

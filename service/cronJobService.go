@@ -5,7 +5,8 @@ import (
 	"os"
 	"time"
 
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
+	errorHandler "tkoh_oms/errors"
+
 	"github.com/robfig/cron/v3"
 )
 

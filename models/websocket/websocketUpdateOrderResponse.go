@@ -1,6 +1,6 @@
 package ws_model
 
-import "github.com/SoNim-LSCM/TKOH_OMS/models/orderManagement"
+import "tkoh_oms/models/orderManagement"
 
 type WebsocketUpdateOrderResponse struct {
 	MessageCode string                    `json:"messageCode"`

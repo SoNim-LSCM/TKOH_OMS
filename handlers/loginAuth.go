@@ -3,12 +3,12 @@ package handlers
 import (
 	"log"
 
-	errorHandler "github.com/SoNim-LSCM/TKOH_OMS/errors"
-	"github.com/SoNim-LSCM/TKOH_OMS/models"
-	dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
-	"github.com/SoNim-LSCM/TKOH_OMS/models/loginAuth"
-	"github.com/SoNim-LSCM/TKOH_OMS/service"
-	"github.com/SoNim-LSCM/TKOH_OMS/utils"
+	errorHandler "tkoh_oms/errors"
+	"tkoh_oms/models"
+	dto "tkoh_oms/models/DTO"
+	"tkoh_oms/models/loginAuth"
+	"tkoh_oms/service"
+	"tkoh_oms/utils"
 
 	"github.com/gofiber/fiber/v2"
 )

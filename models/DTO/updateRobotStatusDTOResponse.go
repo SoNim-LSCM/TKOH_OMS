@@ -1,6 +1,6 @@
 package dto
 
-import "github.com/SoNim-LSCM/TKOH_OMS/models/mapHandling"
+import "tkoh_oms/models/mapHandling"
 
 type UpdateRobotStatusDTOResponse struct {
 	ResponseCode    int    `json:"responseCode"`

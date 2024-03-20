@@ -1,6 +1,6 @@
 package mapHandling
 
-import "github.com/SoNim-LSCM/TKOH_OMS/models"
+import "tkoh_oms/models"
 
 type GetDutyRoomsResponse struct {
 	Header models.ResponseHeader `json:"header"`

@@ -3,7 +3,7 @@ package mapHandling
 import (
 	"math"
 
-	db_models "github.com/SoNim-LSCM/TKOH_OMS/database/models"
+	db_models "tkoh_oms/database/models"
 )
 
 type RobotList []struct {

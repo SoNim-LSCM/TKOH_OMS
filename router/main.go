@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/SoNim-LSCM/TKOH_OMS/handlers"
+	"tkoh_oms/handlers"
 
 	"github.com/gofiber/fiber/v2"
 )

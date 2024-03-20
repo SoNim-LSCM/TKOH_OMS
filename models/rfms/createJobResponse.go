@@ -1,6 +1,6 @@
 package rfms
 
-import dto "github.com/SoNim-LSCM/TKOH_OMS/models/DTO"
+import dto "tkoh_oms/models/DTO"
 
 type CreateJobResponse struct {
 	ResponseCode    int                    `json:"responseCode"`
