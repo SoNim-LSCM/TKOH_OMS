@@ -11,8 +11,6 @@
         },
         "version": "0.1"
     },
-    "host": "20.239.95.146",
-    "basePath": "/oms/",
     "paths": {
         "/addDeliveryOrder": {
             "post": {
@@ -841,6 +839,9 @@
                 "orderType": {
                     "type": "string"
                 },
+                "robotId": {
+                    "type": "string"
+                },
                 "routineId": {
                     "type": "integer"
                 },
@@ -871,6 +872,12 @@
                     "type": "integer"
                 },
                 "orderType": {
+                    "type": "string"
+                },
+                "periodEndTime": {
+                    "type": "string"
+                },
+                "periodStartTime": {
                     "type": "string"
                 },
                 "routinePattern": {
@@ -1026,6 +1033,12 @@
                     "type": "integer"
                 },
                 "orderType": {
+                    "type": "string"
+                },
+                "periodEndTime": {
+                    "type": "string"
+                },
+                "periodStartTime": {
                     "type": "string"
                 },
                 "routineId": {
@@ -1355,6 +1368,12 @@
                             "orderType": {
                                 "type": "string"
                             },
+                            "periodEndTime": {
+                                "type": "string"
+                            },
+                            "periodStartTime": {
+                                "type": "string"
+                            },
                             "routineCreatedBy": {
                                 "type": "integer"
                             },
@@ -1508,8 +1527,14 @@
                             "batteryLevel": {
                                 "type": "integer"
                             },
+                            "jobId": {
+                                "type": "integer"
+                            },
                             "lastReportTime": {
                                 "type": "string"
+                            },
+                            "orderId": {
+                                "type": "integer"
                             },
                             "robotCoordination": {
                                 "type": "array",

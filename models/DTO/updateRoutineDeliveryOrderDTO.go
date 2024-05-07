@@ -16,4 +16,6 @@ type UpdateRoutineDeliveryOrderDTO struct {
 	EndLocationName      string `json:"endLocationName"`
 	ExpectedDeliveryTime string `json:"expectedDeliveryTime"`
 	IsActive             bool   `json:"isActive"`
+	PeriodStartTime      string `json:"periodStartTime"`
+	PeriodEndTime        string `json:"periodEndTime"`
 }

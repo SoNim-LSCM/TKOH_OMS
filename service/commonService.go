@@ -1,8 +1,8 @@
 package service
 
 import (
-	"errors"
 	"fmt"
+	"os"
 	"strings"
 	"time"
 
@@ -15,7 +15,7 @@ import (
 
 func TruncateTable(db *gorm.DB, tableName string) error {
 	database.CheckDatabaseConnection()
-	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms." + table + " LEFT JOIN tkoh_oms.locations C ON tkoh_oms." + table + ".start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms." + table + ".end_location_id = D.location_id WHERE " + filterFields
+	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM "+os.Getenv("MYSQL_DB_NAME")+"." + table + " LEFT JOIN "+os.Getenv("MYSQL_DB_NAME")+".locations C ON "+os.Getenv("MYSQL_DB_NAME")+"." + table + ".start_location_id = C.location_id  LEFT JOIN "+os.Getenv("MYSQL_DB_NAME")+".locations D ON "+os.Getenv("MYSQL_DB_NAME")+"." + table + ".end_location_id = D.location_id WHERE " + filterFields
 	err := db.Exec("truncate table " + tableName).Error
 	if err != nil {
 		return err
@@ -25,7 +25,7 @@ func TruncateTable(db *gorm.DB, tableName string) error {
 
 func FindRecordsWithRaw(db *gorm.DB, records interface{}, query string, filterValues ...interface{}) error {
 	database.CheckDatabaseConnection()
-	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms." + table + " LEFT JOIN tkoh_oms.locations C ON tkoh_oms." + table + ".start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms." + table + ".end_location_id = D.location_id WHERE " + filterFields
+	// query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM "+os.Getenv("MYSQL_DB_NAME")+"." + table + " LEFT JOIN "+os.Getenv("MYSQL_DB_NAME")+".locations C ON "+os.Getenv("MYSQL_DB_NAME")+"." + table + ".start_location_id = C.location_id  LEFT JOIN "+os.Getenv("MYSQL_DB_NAME")+".locations D ON "+os.Getenv("MYSQL_DB_NAME")+"." + table + ".end_location_id = D.location_id WHERE " + filterFields
 	err := db.Raw(query, filterValues...).Scan(records).Error
 	if err != nil {
 		return err
@@ -139,65 +139,8 @@ func StringToResponseTime(timeString string) (string, error) {
 	return timeObj.Format("200601021504"), nil
 }
 
-func StringToDatetime(timeString string) (string, error) {
-	var outputString string
-	if timeString == "" {
-		timeString = time.Time{}.Format("2006-01-02T15:04:05")
-	}
-	timeString = strings.Split(timeString, "+")[0]
-	timeObj, err := time.Parse("2006-01-02T15:04:05", timeString)
-	if err != nil {
-		timeObj, err = time.Parse("200601021504", timeString)
-		if err != nil {
-			timeObj, err = time.Parse("20060102150405", timeString)
-			if err != nil {
-				timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
-				if err != nil {
-					timeObj, err = time.Parse("200601021504", "19700101"+timeString)
-					if err != nil {
-						return outputString, errors.New("Failed to translate time string (" + timeString + ") to datetime")
-					}
-				}
-			}
-		}
-	}
-	return timeObj.Format("2006-01-02 15:04:05"), nil
-}
-
-func StringToRoutineResponseTime(timeString string) (string, error) {
-	var outputString string
-	if timeString == "" {
-		timeString = time.Time{}.Format("2006-01-02T15:04:05")
-	}
-	timeString = strings.Split(timeString, "+")[0]
-	timeObj, err := time.Parse("2006-01-02T15:04:05", timeString)
-	if err != nil {
-		timeObj, err = time.Parse("200601021504", timeString)
-		if err != nil {
-			timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
-			if err != nil {
-				return outputString, err
-			}
-		}
-	}
-	return timeObj.Format("1504"), nil
-}
-
-func RoutineResponseTimeToString(routineResponseTime string) (string, error) {
-	var outputString string
-	if routineResponseTime == "" {
-		return outputString, errors.New("Empty time input")
-	}
-	outputString = "19700101" + routineResponseTime
-	timeObj, err := time.Parse("200601021504", outputString)
-	if err != nil {
-		return outputString, err
-	}
-	return timeObj.Format("2006-01-02 15:04:05"), nil
-}
-
 func GetRoutines() []db_models.Routines {
 	var ret []db_models.Routines
-	database.DB.Raw("SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.routines LEFT JOIN tkoh_oms.locations C ON tkoh_oms.routines.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.routines.end_location_id = D.location_id ").Scan(&ret)
+	database.DB.Raw("SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM " + os.Getenv("MYSQL_DB_NAME") + ".routines LEFT JOIN " + os.Getenv("MYSQL_DB_NAME") + ".locations C ON " + os.Getenv("MYSQL_DB_NAME") + ".routines.start_location_id = C.location_id  LEFT JOIN " + os.Getenv("MYSQL_DB_NAME") + ".locations D ON " + os.Getenv("MYSQL_DB_NAME") + ".routines.end_location_id = D.location_id ").Scan(&ret)
 	return ret
 }

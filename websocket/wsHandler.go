@@ -18,6 +18,7 @@ import (
 var wsConnPair = make(map[int]*websocket.Conn)
 
 func SetupWebsocket() {
+	url := os.Getenv("URL")
 	app := fiber.New()
 	// defer app.Shutdown()
 
@@ -31,7 +32,7 @@ func SetupWebsocket() {
 		return fiber.ErrUpgradeRequired
 	})
 
-	app.Get("/oms/", websocket.New(func(c *websocket.Conn) {
+	app.Get("/"+url+"/", websocket.New(func(c *websocket.Conn) {
 
 		// websocket.Conn bindings https://pkg.go.dev/github.com/fasthttp/websocket?tab=doc#pkg-index
 		var (

@@ -8,6 +8,7 @@ import (
 	apiHandler "tkoh_oms/api"
 	"tkoh_oms/config"
 	"tkoh_oms/database"
+	"tkoh_oms/docs"
 	errorHandler "tkoh_oms/errors"
 	"tkoh_oms/service"
 
@@ -30,6 +31,9 @@ func SetupAndRunApp() {
 	// set output logs
 	var f *os.File
 	go service.SetupCronJob(f)
+
+	docs.SwaggerInfo.Host = "20.239.95.146"
+	docs.SwaggerInfo.BasePath = "/" + os.Getenv("URL") + "/"
 
 	apiHandler.Init()
 

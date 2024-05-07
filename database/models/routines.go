@@ -15,4 +15,6 @@ type Routines struct {
 	ExpectedDeliveryTime string `json:"expectedDeliveryTime" gorm:"type:date;column:expected_delivery_time"`
 	LastUpdateTime       string `json:"lastUpdateTime" gorm:"type:date;column:last_update_time"`
 	LastUpdateBy         int    `json:"lastUpdateBy"`
+	PeriodStartTime      string `json:"periodStartTime"`
+	PeriodEndTime        string `json:"periodEndTime"`
 }

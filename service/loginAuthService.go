@@ -262,7 +262,7 @@ func UsersToUsersLogs(users []db_models.Users) ([]db_models.UsersLogs, error) {
 		if usersLog.TokenExpiryTime == "" {
 			usersLog.TokenExpiryTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(usersLog.TokenExpiryTime)
+			time, err := utils.StringToDatetime(usersLog.TokenExpiryTime)
 			if err != nil {
 				return usersLogsList, errors.New("Fail translate TokenExpiryTime")
 			}
@@ -271,7 +271,7 @@ func UsersToUsersLogs(users []db_models.Users) ([]db_models.UsersLogs, error) {
 		if usersLog.LastLoginTime == "" {
 			usersLog.LastLoginTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(usersLog.LastLoginTime)
+			time, err := utils.StringToDatetime(usersLog.LastLoginTime)
 			if err != nil {
 				return usersLogsList, errors.New("Fail translate LastLoginTime")
 			}
@@ -280,7 +280,7 @@ func UsersToUsersLogs(users []db_models.Users) ([]db_models.UsersLogs, error) {
 		if usersLog.LastLogoutTime == "" {
 			usersLog.LastLogoutTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(usersLog.LastLogoutTime)
+			time, err := utils.StringToDatetime(usersLog.LastLogoutTime)
 			if err != nil {
 				return usersLogsList, errors.New("Fail translate LastLogoutTime")
 			}
@@ -289,7 +289,7 @@ func UsersToUsersLogs(users []db_models.Users) ([]db_models.UsersLogs, error) {
 		if usersLog.CreateTime == "" {
 			usersLog.CreateTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(usersLog.CreateTime)
+			time, err := utils.StringToDatetime(usersLog.CreateTime)
 			if err != nil {
 				return usersLogsList, errors.New("Fail translate CreateTime")
 			}
@@ -298,7 +298,7 @@ func UsersToUsersLogs(users []db_models.Users) ([]db_models.UsersLogs, error) {
 		if usersLog.LastUpdateTime == "" {
 			usersLog.LastUpdateTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(usersLog.LastUpdateTime)
+			time, err := utils.StringToDatetime(usersLog.LastUpdateTime)
 			if err != nil {
 				return usersLogsList, errors.New("Fail translate LastUpdateTime")
 			}

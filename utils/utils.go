@@ -181,12 +181,99 @@ func JsonToMap(j interface{}) (map[string]interface{}, error) {
 	return result, err
 }
 
+func StringToDatetimeAddTimeZone(timeString string) (string, error) {
+	var outputString string
+	if timeString == "" {
+		timeString = time.Time{}.Format("2006-01-02T15:04:05")
+	}
+	timeString = strings.Split(timeString, "+")[0]
+	timeObj, err := time.Parse("2006-01-02T15:04:05", timeString)
+	if err != nil {
+		timeObj, err = time.Parse("200601021504", timeString)
+		if err != nil {
+			timeObj, err = time.Parse("20060102150405", timeString)
+			if err != nil {
+				timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
+				if err != nil {
+					timeObj, err = time.Parse("200601021504", "19700101"+timeString)
+					if err != nil {
+						return outputString, errors.New("Failed to translate time string (" + timeString + ") to datetime")
+					}
+				}
+			}
+		}
+	}
+	return timeObj.Add(8 * time.Hour).Format("2006-01-02 15:04:05"), nil
+}
+
+func GetTimeNow() time.Time {
+	// all times are added +8 for the HKT time zone
+	return time.Now().Add(8 * time.Hour)
+}
+
 func GetTimeNowString() string {
-	return time.Now().Format("2006-01-02 15:04:05")
+	return TimeInt64ToString(time.Now().Unix())
 }
 
 func TimeInt64ToString(timeInt int64) string {
 	return time.Unix(timeInt, 0).Format("2006-01-02 15:04:05")
+}
+
+func StringToDatetime(timeString string) (string, error) {
+	var outputString string
+	if timeString == "" {
+		timeString = time.Time{}.Format("2006-01-02T15:04:05")
+	}
+	timeString = strings.Split(timeString, "+")[0]
+	timeObj, err := time.Parse("2006-01-02T15:04:05", timeString)
+	if err != nil {
+		timeObj, err = time.Parse("200601021504", timeString)
+		if err != nil {
+			timeObj, err = time.Parse("20060102150405", timeString)
+			if err != nil {
+				timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
+				if err != nil {
+					timeObj, err = time.Parse("200601021504", "19700101"+timeString)
+					if err != nil {
+						return outputString, errors.New("Failed to translate time string (" + timeString + ") to datetime")
+					}
+				}
+			}
+		}
+	}
+	return timeObj.Format("2006-01-02 15:04:05"), nil
+}
+
+func StringToRoutineResponseTime(timeString string) (string, error) {
+	var outputString string
+	if timeString == "" {
+		timeString = time.Time{}.Format("2006-01-02T15:04:05")
+	}
+	timeString = strings.Split(timeString, "+")[0]
+	timeObj, err := time.Parse("2006-01-02T15:04:05", timeString)
+	if err != nil {
+		timeObj, err = time.Parse("200601021504", timeString)
+		if err != nil {
+			timeObj, err = time.Parse("2006-01-02 15:04:05", timeString)
+			if err != nil {
+				return outputString, err
+			}
+		}
+	}
+	return timeObj.Format("1504"), nil
+}
+
+func RoutineResponseTimeToString(routineResponseTime string) (string, error) {
+	var outputString string
+	if routineResponseTime == "" {
+		return outputString, errors.New("Empty time input")
+	}
+	outputString = "19700101" + routineResponseTime
+	timeObj, err := time.Parse("200601021504", outputString)
+	if err != nil {
+		return outputString, err
+	}
+	return timeObj.Format("2006-01-02 15:04:05"), nil
 }
 
 func Max(a, b int) int {

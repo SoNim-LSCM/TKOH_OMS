@@ -10,4 +10,5 @@ type AddDeliveryOrderDTO struct {
 	EndLocationID        int    `json:"endLocationId"`
 	EndLocationName      string `json:"endLocationName"`
 	ExpectedDeliveryTime string `json:"expectedDeliveryTime"`
+	RobotId              string `json:"robotId"`
 }

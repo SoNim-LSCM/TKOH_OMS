@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -29,7 +30,7 @@ func FindOrdersForFrontPage(filterFields string, locationId int, filterValues ..
 	var orders []db_models.Orders
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY case when start_location_id = " + fmt.Sprint(locationId) + " then 1 else 99 end , case when end_location_id = " + fmt.Sprint(locationId) + " then 1 else 99 end ,  if (start_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_START%' then 4 when processing_status like 'QUEUING_AT_START%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'GOING_TO_START%' then 7 when processing_status like 'PLANNING_TO_START%' then 8 when processing_status = 'UNKNOWN' then 10 when processing_status = '' then 98 else 99 end , if (end_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_END%' then 4 when processing_status like 'QUEUING_AT_END%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'PLANNING_TO_END%' then 7 when processing_status like 'GOING_TO_END%' then 8 when processing_status like '%START%' then 9 when processing_status = 'UNKNOWN' then 10 when processing_status = '' then 98 else 99 end , 999) ) asc"
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM " + os.Getenv("MYSQL_DB_NAME") + ".orders LEFT JOIN " + os.Getenv("MYSQL_DB_NAME") + ".locations C ON " + os.Getenv("MYSQL_DB_NAME") + ".orders.start_location_id = C.location_id  LEFT JOIN " + os.Getenv("MYSQL_DB_NAME") + ".locations D ON " + os.Getenv("MYSQL_DB_NAME") + ".orders.end_location_id = D.location_id WHERE " + filterFields + " ORDER BY case when start_location_id = " + fmt.Sprint(locationId) + " then 1 else 99 end , case when end_location_id = " + fmt.Sprint(locationId) + " then 1 else 99 end ,  if (start_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_START%' then 4 when processing_status like 'QUEUING_AT_START%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'GOING_TO_START%' then 7 when processing_status like 'PLANNING_TO_START%' then 8 when processing_status = 'UNKNOWN' then 10 when processing_status = '' then 98 else 99 end , if (end_location_id = " + fmt.Sprint(locationId) + ", case when processing_status like 'UNLOADING' then 3 when processing_status like 'ARRIVED_END%' then 4 when processing_status like 'QUEUING_AT_END%' then 5 when processing_status like 'MOVING_TO_LAYBY_AREA' then 6 when processing_status like 'PLANNING_TO_END%' then 7 when processing_status like 'GOING_TO_END%' then 8 when processing_status like '%START%' then 9 when processing_status = 'UNKNOWN' then 10 when processing_status = '' then 98 else 99 end , 999) ) asc"
 		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
@@ -42,7 +43,7 @@ func FindOrders(filterFields string, filterValues ...interface{}) ([]db_models.O
 	var orders []db_models.Orders
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.orders LEFT JOIN tkoh_oms.locations C ON tkoh_oms.orders.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.orders.end_location_id = D.location_id WHERE " + filterFields
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM " + os.Getenv("MYSQL_DB_NAME") + ".orders LEFT JOIN " + os.Getenv("MYSQL_DB_NAME") + ".locations C ON " + os.Getenv("MYSQL_DB_NAME") + ".orders.start_location_id = C.location_id  LEFT JOIN " + os.Getenv("MYSQL_DB_NAME") + ".locations D ON " + os.Getenv("MYSQL_DB_NAME") + ".orders.end_location_id = D.location_id WHERE " + filterFields
 		if err := FindRecordsWithRaw(tx, &orders, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
@@ -55,7 +56,7 @@ func FindRoutines(filterFields string, filterValues ...interface{}) ([]db_models
 	var routines []db_models.Routines
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM tkoh_oms.routines LEFT JOIN tkoh_oms.locations C ON tkoh_oms.routines.start_location_id = C.location_id  LEFT JOIN tkoh_oms.locations D ON tkoh_oms.routines.end_location_id = D.location_id WHERE " + filterFields
+		query := "SELECT *, C.location_name as start_location_name, D.location_name as end_location_name FROM " + os.Getenv("MYSQL_DB_NAME") + ".routines LEFT JOIN " + os.Getenv("MYSQL_DB_NAME") + ".locations C ON " + os.Getenv("MYSQL_DB_NAME") + ".routines.start_location_id = C.location_id  LEFT JOIN " + os.Getenv("MYSQL_DB_NAME") + ".locations D ON " + os.Getenv("MYSQL_DB_NAME") + ".routines.end_location_id = D.location_id WHERE " + filterFields
 		if err := FindRecordsWithRaw(tx, &routines, query, filterValues...); err != nil {
 			return errors.New("Failed to search: " + err.Error())
 		}
@@ -202,11 +203,11 @@ func UpdateOrders(userId int, request dto.UpdateDeliveryOrderDTO) (orderManageme
 		if len(orders) != schedules[0].NumberOfAmrRequire {
 			return errors.New("Update fail, some orders already started")
 		}
-		expectedStartTime, err := StringToDatetime(request.ExpectedStartTime)
+		expectedStartTime, err := utils.StringToDatetime(request.ExpectedStartTime)
 		if err != nil {
 			return errors.New("Fail translate expectedStartTime")
 		}
-		expectedDeliveryTime, err := StringToDatetime(request.ExpectedDeliveryTime)
+		expectedDeliveryTime, err := utils.StringToDatetime(request.ExpectedDeliveryTime)
 		if err != nil {
 			return errors.New("Fail translate expectedDeliveryTime")
 		}
@@ -326,11 +327,23 @@ func CancelOrders(scheduleId int) (orderManagement.OrderList, error) {
 func UpdateRoutineOrders(userId int, request dto.UpdateRoutineDeliveryOrderDTO) (orderManagement.RoutineOrderList, error) {
 	var updatedList orderManagement.RoutineOrderList
 	var routinesList = []db_models.Routines{}
-	expectedStartTime, err := RoutineResponseTimeToString(request.ExpectedStartTime)
+	expectedStartTime, err := utils.RoutineResponseTimeToString(request.ExpectedStartTime)
 	if err != nil {
 		return updatedList, err
 	}
-	expectedDeliveryTime, err := RoutineResponseTimeToString(request.ExpectedDeliveryTime)
+	expectedDeliveryTime, err := utils.RoutineResponseTimeToString(request.ExpectedDeliveryTime)
+	if err != nil {
+		return updatedList, err
+	}
+	periodStartTime, err := utils.StringToDatetime(request.PeriodStartTime)
+	if err != nil {
+		return updatedList, err
+	}
+	// set period end time to maximum value if end time is unset
+	if request.PeriodEndTime == "" {
+		request.PeriodEndTime = "9999-01-02T15:04:05"
+	}
+	periodEndTime, err := utils.StringToDatetime(request.PeriodEndTime)
 	if err != nil {
 		return updatedList, err
 	}
@@ -338,7 +351,7 @@ func UpdateRoutineOrders(userId int, request dto.UpdateRoutineDeliveryOrderDTO) 
 	if err != nil {
 		return updatedList, err
 	}
-	updateMap := utils.CreateMap([]string{"routine_pattern", "number_of_amr_require", "start_location_id", "end_location_id", "expected_start_time", "expected_delivery_time", "is_active"}, routinePattern, request.NumberOfAmrRequire, request.StartLocationID, request.EndLocationID, expectedStartTime, expectedDeliveryTime, request.IsActive)
+	updateMap := utils.CreateMap([]string{"routine_pattern", "number_of_amr_require", "start_location_id", "end_location_id", "expected_start_time", "expected_delivery_time", "is_active", "period_start_time", "period_end_time"}, routinePattern, request.NumberOfAmrRequire, request.StartLocationID, request.EndLocationID, expectedStartTime, expectedDeliveryTime, request.IsActive, periodStartTime, periodEndTime)
 	err = database.DB.Transaction(func(tx *gorm.DB) error {
 		err := UpdateRecords(tx, &routinesList, "routines", updateMap, "routine_id = ?", request.RoutineID)
 		if err != nil {
@@ -373,11 +386,11 @@ func OrderRequestToOrders(orderRequests dto.AddDeliveryOrderDTO, scheduleNo int,
 		order.OrderCreatedType = orderCreatedType
 		order.OrderCreatedBy = userId
 		order.OrderStatus = "TO_BE_CREATED"
-		order.OrderStartTime, err = StringToDatetime("")
+		order.OrderStartTime, err = utils.StringToDatetime("")
 		if err != nil {
 			return orders, err
 		}
-		order.ActualArrivalTime, err = StringToDatetime("")
+		order.ActualArrivalTime, err = utils.StringToDatetime("")
 		if err != nil {
 			return orders, err
 		}
@@ -385,21 +398,22 @@ func OrderRequestToOrders(orderRequests dto.AddDeliveryOrderDTO, scheduleNo int,
 		order.StartLocationName = orderRequests.StartLocationName
 		order.EndLocationID = orderRequests.EndLocationID
 		order.EndLocationName = orderRequests.EndLocationName
-		order.ExpectedStartTime, err = StringToDatetime(orderRequests.ExpectedStartTime)
+		order.ExpectedStartTime, err = utils.StringToDatetime(orderRequests.ExpectedStartTime)
 		if err != nil {
 			return orders, err
 		}
-		order.ExpectedDeliveryTime, err = StringToDatetime(orderRequests.ExpectedDeliveryTime)
+		order.ExpectedDeliveryTime, err = utils.StringToDatetime(orderRequests.ExpectedDeliveryTime)
 		if err != nil {
 			return orders, err
 		}
-		order.ExpectedArrivalTime, err = StringToDatetime("")
+		order.ExpectedArrivalTime, err = utils.StringToDatetime("")
 		if err != nil {
 			return orders, err
 		}
 		order.ProcessingStatus = ""
 		order.LastUpdateTime = utils.GetTimeNowString()
 		order.LastUpdateBy = userId
+		order.SpecifiedRobotId = orderRequests.RobotId
 		orders = append(orders, order)
 	}
 	return orders, nil
@@ -462,11 +476,23 @@ func RoutineRequestToRoutines(routinesRequest dto.AddRoutineDTO, userId int) ([]
 	if err != nil {
 		return routinesList, nil
 	}
-	routines.ExpectedDeliveryTime, err = StringToDatetime(routinesRequest.ExpectedDeliveryTime)
+	routines.ExpectedDeliveryTime, err = utils.StringToDatetime(routinesRequest.ExpectedDeliveryTime)
 	if err != nil {
 		return routinesList, err
 	}
-	routines.ExpectedStartTime, err = StringToDatetime(routinesRequest.ExpectedStartTime)
+	routines.ExpectedStartTime, err = utils.StringToDatetime(routinesRequest.ExpectedStartTime)
+	if err != nil {
+		return routinesList, err
+	}
+	routines.PeriodStartTime, err = utils.StringToDatetime(routinesRequest.PeriodStartTime)
+	if err != nil {
+		return routinesList, err
+	}
+	// set period end time to maximum value if end time is unset
+	if routinesRequest.PeriodEndTime == "" {
+		routinesRequest.PeriodEndTime = "9999-01-02T15:04:05"
+	}
+	routines.PeriodEndTime, err = utils.StringToDatetime(routinesRequest.PeriodEndTime)
 	if err != nil {
 		return routinesList, err
 	}
@@ -491,15 +517,51 @@ func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManage
 			return routineOrderListResponse, err
 		}
 		routineOrderListResponse[i].RoutinePattern = routinePattern
-		routineOrderListResponse[i].NextDeliveryDate, err = GetNextDeliveryDate(routinePattern)
+		startTimeString, err := utils.StringToDatetime(routineOrderListResponse[i].PeriodStartTime)
 		if err != nil {
 			return routineOrderListResponse, err
 		}
-		routineOrderListResponse[i].ExpectedDeliveryTime, err = StringToRoutineResponseTime(routine.ExpectedDeliveryTime)
+		startTime, err := time.Parse("2006-01-02 15:04:05", startTimeString)
 		if err != nil {
 			return routineOrderListResponse, err
 		}
-		routineOrderListResponse[i].ExpectedStartTime, err = StringToRoutineResponseTime(routine.ExpectedStartTime)
+		if startTime.Before(utils.GetTimeNow()) {
+			startTimeString = utils.GetTimeNowString()
+		}
+		endTimeString, err := StringToResponseTime(routineOrderListResponse[i].PeriodEndTime)
+		if err != nil {
+			return routineOrderListResponse, err
+		}
+		endTime, err := time.Parse("200601021504", endTimeString)
+		if err != nil {
+			return routineOrderListResponse, err
+		}
+		nextDeliveryDateString, err := GetNextDeliveryDate(routinePattern, startTimeString)
+		if err != nil {
+			return routineOrderListResponse, err
+		}
+		nextDeliveryDate, err := time.Parse("20060102", nextDeliveryDateString)
+		if err != nil {
+			return routineOrderListResponse, err
+		}
+		if nextDeliveryDate.After(endTime) {
+			routineOrderListResponse[i].NextDeliveryDate = time.Time{}.Format("20060102")
+		} else {
+			routineOrderListResponse[i].NextDeliveryDate = nextDeliveryDateString
+		}
+		routineOrderListResponse[i].ExpectedDeliveryTime, err = utils.StringToRoutineResponseTime(routine.ExpectedDeliveryTime)
+		if err != nil {
+			return routineOrderListResponse, err
+		}
+		routineOrderListResponse[i].ExpectedStartTime, err = utils.StringToRoutineResponseTime(routine.ExpectedStartTime)
+		if err != nil {
+			return routineOrderListResponse, err
+		}
+		routineOrderListResponse[i].PeriodStartTime, err = StringToResponseTime(routine.PeriodStartTime)
+		if err != nil {
+			return routineOrderListResponse, err
+		}
+		routineOrderListResponse[i].PeriodEndTime, err = StringToResponseTime(routine.PeriodEndTime)
 		if err != nil {
 			return routineOrderListResponse, err
 		}
@@ -508,7 +570,9 @@ func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManage
 }
 
 func BackgroundRoutinesToSchedules() error {
-	routines, err := FindRoutines("is_active = ?", true)
+	timeNow := utils.GetTimeNowString()
+	timeNow = strings.Split(timeNow, " ")[0] + " 12:00:00"
+	routines, err := FindRoutines("is_active = ? AND period_start_time <= ? AND period_end_time >= ?", true, timeNow, timeNow)
 	if err != nil {
 		return err
 	}
@@ -546,9 +610,9 @@ func BackgroundInitOrderToRFMS() error {
 
 		for _, job := range jobs {
 			err := database.DB.Transaction(func(tx *gorm.DB) error {
-				param := rfms.CreateJobRequest{JobNature: job.JobType, LocationID: job.EndLocationID, RobotID: job.RobotID, PayloadID: job.PayloadID}
+				param := rfms.CreateJobRequest{JobNature: job.JobType, LocationID: job.EndLocationID, RobotID: job.RobotID, PayloadID: job.PayloadID, UpstreamOrderId: job.OrderID}
 				if job.JobType == "PARK" {
-					param = rfms.CreateJobRequest{JobNature: job.JobType, RobotID: job.RobotID, PayloadID: job.PayloadID}
+					param = rfms.CreateJobRequest{JobNature: job.JobType, RobotID: job.RobotID, PayloadID: job.PayloadID, UpstreamOrderId: job.OrderID}
 				}
 				response, err := apiHandler.Post("/createJob", param)
 				if err != nil {
@@ -563,15 +627,15 @@ func BackgroundInitOrderToRFMS() error {
 				if updateJobStatus.ResponseMessage == "FAILED" {
 					return errors.New("Create Job Failed")
 				}
-				est, err := StringToDatetime(updateJobStatus.Body.Est)
+				est, err := utils.StringToDatetime(updateJobStatus.Body.Est)
 				if err != nil {
 					return err
 				}
-				eta, err := StringToDatetime(updateJobStatus.Body.Eta)
+				eta, err := utils.StringToDatetime(updateJobStatus.Body.Eta)
 				if err != nil {
 					return err
 				}
-				lastUpdateTime, err := StringToDatetime(updateJobStatus.Body.MessageTime)
+				lastUpdateTime, err := utils.StringToDatetime(updateJobStatus.Body.MessageTime)
 				if err != nil {
 					return err
 				}
@@ -619,15 +683,15 @@ func BackgroundInitOrderToRFMS() error {
 		})
 
 		for _, order := range orders {
-			expectedStartTimeString, err := StringToDatetime(order.ExpectedStartTime)
+			expectedStartTimeString, err := utils.StringToDatetime(order.ExpectedStartTime)
 			if err != nil {
-
+				return err
 			}
 			expectedStartTime, err := time.Parse("2006-01-02 15:04:05", expectedStartTimeString)
 			if err != nil {
-
+				return err
 			}
-			timeNowUTCForCompare := time.Now().Add(8 * time.Hour)
+			timeNowUTCForCompare := utils.GetTimeNow()
 			// log.Printf("expectedStartTime: %s, time now: %s", expectedStartTime, timeNowUTCForCompare)
 			if expectedStartTime.After(timeNowUTCForCompare) {
 				break
@@ -683,7 +747,7 @@ func BackgroundInitOrderToRFMS() error {
 					return errors.New("Unknown Order Type")
 				}
 
-				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: locations[0]}
+				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: locations[0], RobotID: order.SpecifiedRobotId, UpstreamOrderId: order.OrderID}
 				response, err := apiHandler.Post("/createJob", param)
 				if err != nil {
 					return err
@@ -698,15 +762,15 @@ func BackgroundInitOrderToRFMS() error {
 				if updateJobStatus.ResponseMessage == "FAILED" {
 					return errors.New("Create Job Failed with Reason: " + updateJobStatus.FailReason)
 				}
-				est, err := StringToDatetime(updateJobStatus.Body.Est)
+				est, err := utils.StringToDatetimeAddTimeZone(updateJobStatus.Body.Est)
 				if err != nil {
 					return err
 				}
-				eta, err := StringToDatetime(updateJobStatus.Body.Eta)
+				eta, err := utils.StringToDatetimeAddTimeZone(updateJobStatus.Body.Eta)
 				if err != nil {
 					return err
 				}
-				lastUpdateTime, err := StringToDatetime(updateJobStatus.Body.MessageTime)
+				lastUpdateTime, err := utils.StringToDatetimeAddTimeZone(updateJobStatus.Body.MessageTime)
 				if err != nil {
 					return err
 				}
@@ -714,7 +778,7 @@ func BackgroundInitOrderToRFMS() error {
 				newJobs := append([]db_models.Jobs{}, newJob)
 				for i, jobNature := range jobNatures {
 					if i > 0 {
-						defaultTime, err := StringToDatetime("")
+						defaultTime, err := utils.StringToDatetime("")
 						if err != nil {
 							return err
 						}
@@ -723,7 +787,8 @@ func BackgroundInitOrderToRFMS() error {
 					}
 				}
 
-				// log.Print(newJobs)
+				log.Print("System create new job: ")
+				log.Print(newJobs)
 				err = AddRecords(tx, newJobs)
 				if err != nil {
 					return err
@@ -768,7 +833,7 @@ func BackgroundInitOrderToRFMS() error {
 
 func RoutinesToAddDeliveryOrderDTO(routines []db_models.Routines) ([]dto.AddDeliveryOrderDTO, error) {
 	addDeliveryOrderDTO := []dto.AddDeliveryOrderDTO{}
-	today := time.Now().Format("20060102")
+	today := utils.GetTimeNow().Format("20060102")
 	for _, routine := range routines {
 		pattern := orderManagement.RoutinePattern{}
 		// bJson, err := json.Marshal(routine.RoutinePattern)
@@ -779,7 +844,7 @@ func RoutinesToAddDeliveryOrderDTO(routines []db_models.Routines) ([]dto.AddDeli
 		if err != nil {
 			return addDeliveryOrderDTO, err
 		}
-		nextDeliveryDate, err := GetNextDeliveryDate(pattern)
+		nextDeliveryDate, err := GetNextDeliveryDate(pattern, utils.GetTimeNowString())
 		if err != nil {
 			return addDeliveryOrderDTO, err
 		}
@@ -804,15 +869,15 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusDTO) (orderManagement.OrderL
 			return errors.New("Job already completed.")
 		}
 
-		est, err := StringToDatetime(newJobStatus.Est)
+		est, err := utils.StringToDatetimeAddTimeZone(newJobStatus.Est)
 		if err != nil {
 			return err
 		}
-		eta, err := StringToDatetime(newJobStatus.Eta)
+		eta, err := utils.StringToDatetimeAddTimeZone(newJobStatus.Eta)
 		if err != nil {
 			return err
 		}
-		lastUpdateTime, err := StringToDatetime(newJobStatus.MessageTime)
+		lastUpdateTime, err := utils.StringToDatetimeAddTimeZone(newJobStatus.MessageTime)
 		if err != nil {
 			return err
 		}
@@ -856,7 +921,7 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusDTO) (orderManagement.OrderL
 		if orderStatus == "COMPLETED" {
 			arrivalTime = utils.GetTimeNowString()
 		}
-		arrivalTime, err = StringToDatetime(arrivalTime)
+		arrivalTime, err = utils.StringToDatetime(arrivalTime)
 		if err != nil {
 			return errors.New("Fail translate arrivalTime")
 		}
@@ -979,7 +1044,7 @@ func JobsToJobsLogs(jobs []db_models.Jobs) ([]db_models.JobsLogs, error) {
 		if jobsLog.ExpectedArrivalTime == "" {
 			jobsLog.ExpectedArrivalTime = utils.TimeInt64ToString(0)
 		} else {
-			eta, err := StringToDatetime(jobsLog.ExpectedArrivalTime)
+			eta, err := utils.StringToDatetime(jobsLog.ExpectedArrivalTime)
 			if err != nil {
 				return jobsLogs, errors.New("Fail translate arrivalTime")
 			}
@@ -988,7 +1053,7 @@ func JobsToJobsLogs(jobs []db_models.Jobs) ([]db_models.JobsLogs, error) {
 		if jobsLog.LastUpdateTime == "" {
 			jobsLog.LastUpdateTime = utils.TimeInt64ToString(0)
 		} else {
-			lastUpdateTime, err := StringToDatetime(jobsLog.LastUpdateTime)
+			lastUpdateTime, err := utils.StringToDatetime(jobsLog.LastUpdateTime)
 			if err != nil {
 				return jobsLogs, errors.New("Fail translate lastUpdateTime")
 			}
@@ -1016,7 +1081,7 @@ func OrdersToOrdersLogs(userId int, orders []db_models.Orders) ([]db_models.Orde
 		if ordersLog.OrderStartTime == "" {
 			ordersLog.OrderStartTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(ordersLog.OrderStartTime)
+			time, err := utils.StringToDatetime(ordersLog.OrderStartTime)
 			if err != nil {
 				return ordersLogs, errors.New("Fail translate OrderStartTime")
 			}
@@ -1025,7 +1090,7 @@ func OrdersToOrdersLogs(userId int, orders []db_models.Orders) ([]db_models.Orde
 		if ordersLog.ActualArrivalTime == "" {
 			ordersLog.ActualArrivalTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(ordersLog.ActualArrivalTime)
+			time, err := utils.StringToDatetime(ordersLog.ActualArrivalTime)
 			if err != nil {
 				return ordersLogs, errors.New("Fail translate ActualArrivalTime")
 			}
@@ -1034,7 +1099,7 @@ func OrdersToOrdersLogs(userId int, orders []db_models.Orders) ([]db_models.Orde
 		if ordersLog.ExpectedStartTime == "" {
 			ordersLog.ExpectedStartTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(ordersLog.ExpectedStartTime)
+			time, err := utils.StringToDatetime(ordersLog.ExpectedStartTime)
 			if err != nil {
 				return ordersLogs, errors.New("Fail translate ExpectedStartTime")
 			}
@@ -1043,7 +1108,7 @@ func OrdersToOrdersLogs(userId int, orders []db_models.Orders) ([]db_models.Orde
 		if ordersLog.ExpectedDeliveryTime == "" {
 			ordersLog.ExpectedDeliveryTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(ordersLog.ExpectedDeliveryTime)
+			time, err := utils.StringToDatetime(ordersLog.ExpectedDeliveryTime)
 			if err != nil {
 				return ordersLogs, errors.New("Fail translate ExpectedDeliveryTime")
 			}
@@ -1052,7 +1117,7 @@ func OrdersToOrdersLogs(userId int, orders []db_models.Orders) ([]db_models.Orde
 		if ordersLog.ExpectedArrivalTime == "" {
 			ordersLog.ExpectedArrivalTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(ordersLog.ExpectedArrivalTime)
+			time, err := utils.StringToDatetime(ordersLog.ExpectedArrivalTime)
 			if err != nil {
 				return ordersLogs, errors.New("Fail translate ExpectedArrivalTime")
 			}
@@ -1061,7 +1126,7 @@ func OrdersToOrdersLogs(userId int, orders []db_models.Orders) ([]db_models.Orde
 		if ordersLog.LastUpdateTime == "" {
 			ordersLog.LastUpdateTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(ordersLog.LastUpdateTime)
+			time, err := utils.StringToDatetime(ordersLog.LastUpdateTime)
 			if err != nil {
 				return ordersLogs, errors.New("Fail translate LastUpdateTime")
 			}
@@ -1089,7 +1154,7 @@ func SchedulesToSchedulesLogs(userId int, schedules []db_models.Schedules) ([]db
 		if schedulesLog.ScheduleCraeteTime == "" {
 			schedulesLog.ScheduleCraeteTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(schedulesLog.ScheduleCraeteTime)
+			time, err := utils.StringToDatetime(schedulesLog.ScheduleCraeteTime)
 			if err != nil {
 				return schedulesLogs, errors.New("Fail translate ScheduleCraeteTime")
 			}
@@ -1098,7 +1163,7 @@ func SchedulesToSchedulesLogs(userId int, schedules []db_models.Schedules) ([]db
 		if schedulesLog.LastUpdateTime == "" {
 			schedulesLog.LastUpdateTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(schedulesLog.LastUpdateTime)
+			time, err := utils.StringToDatetime(schedulesLog.LastUpdateTime)
 			if err != nil {
 				return schedulesLogs, errors.New("Fail translate LastUpdateTime")
 			}
@@ -1126,7 +1191,7 @@ func RoutinesToRoutinesLogs(userId int, routines []db_models.Routines) ([]db_mod
 		if routinesLog.LastUpdateTime == "" {
 			routinesLog.LastUpdateTime = utils.TimeInt64ToString(0)
 		} else {
-			time, err := StringToDatetime(routinesLog.LastUpdateTime)
+			time, err := utils.StringToDatetime(routinesLog.LastUpdateTime)
 			if err != nil {
 				return routinesLogs, errors.New("Fail translate LastUpdateTime")
 			}
@@ -1157,17 +1222,20 @@ func StringToRoutinePattern(patternString string) (orderManagement.RoutinePatter
 	return routinePattern, nil
 }
 
-func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string, error) {
+func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern, startTimeString string) (string, error) {
 
 	// var patternString string
 	// patternString = utils.GetTimeNowString()
-	timeNow := time.Now()
-	var nextRoutineDate = timeNow
+	startTime, err := time.Parse("2006-01-02 15:04:05", strings.Split(startTimeString, " ")[0]+" 12:00:00")
+	if err != nil {
+		return "", err
+	}
+	var nextRoutineDate = startTime
 	if routinePattern.Week != nil && len(routinePattern.Week) > 0 {
-		targetDate := timeNow
+		targetDate := startTime
 		if routinePattern.Month != nil && len(routinePattern.Month) > 0 {
 			// currentMonth := timeNow.Format("01")
-			currentMonth := timeNow.Month()
+			currentMonth := startTime.Month()
 			var monthsDiffMin = 12
 			for _, month := range routinePattern.Month {
 				monthsDiff := (month - int(currentMonth))
@@ -1179,7 +1247,7 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 				}
 			}
 			if monthsDiffMin > 0 {
-				targetDate = timeNow.AddDate(0, monthsDiffMin, 1-timeNow.Day())
+				targetDate = startTime.AddDate(0, monthsDiffMin, 1-startTime.Day())
 			}
 		}
 		log.Printf("targetDate: %s\n", targetDate)
@@ -1197,7 +1265,7 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 		nextRoutineDate = targetDate.AddDate(0, 0, daysDiffMin)
 	} else if routinePattern.Day != nil && len(routinePattern.Day) > 0 {
 		// timeNow.Date(timeNow.Year(), timeNow.Month(), routinePattern.Day)
-		currentMonth := timeNow.Month()
+		currentMonth := startTime.Month()
 		var monthsDiffMin = 12
 		// var nextRoutineDay = 0
 
@@ -1218,23 +1286,23 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 		if monthsDiffMin == 0 {
 			added := false
 			for _, day := range routinePattern.Day {
-				if day > timeNow.Day() {
-					nextRoutineDate = time.Date(timeNow.Year(), timeNow.Month(), day, 0, 0, 0, 0, time.Now().Location())
+				if day > startTime.Day() {
+					nextRoutineDate = time.Date(startTime.Year(), startTime.Month(), day, 0, 0, 0, 0, time.Now().Location())
 					added = true
 					break
 				}
 			}
 			if !added {
-				tempDate := timeNow.AddDate(0, monthsDiffMin, 0)
+				tempDate := startTime.AddDate(0, monthsDiffMin, 0)
 				nextRoutineDate = time.Date(tempDate.Year(), tempDate.Month()+1, routinePattern.Day[0], 0, 0, 0, 0, time.Now().Location())
 			}
 		} else {
-			tempDate := timeNow.AddDate(0, monthsDiffMin, 0)
+			tempDate := startTime.AddDate(0, monthsDiffMin, 0)
 			nextRoutineDate = time.Date(tempDate.Year(), tempDate.Month(), routinePattern.Day[0], 0, 0, 0, 0, time.Now().Location())
 		}
 
 	} else if routinePattern.Month != nil && len(routinePattern.Month) > 0 {
-		currentMonth := timeNow.Month()
+		currentMonth := startTime.Month()
 		var monthsDiffMin = 12
 		for _, month := range routinePattern.Month {
 			monthsDiff := (month - int(currentMonth))
@@ -1246,10 +1314,10 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern) (string,
 			}
 		}
 		if monthsDiffMin != 0 {
-			tempDate := timeNow.AddDate(0, monthsDiffMin, 0)
+			tempDate := startTime.AddDate(0, monthsDiffMin, 0)
 			nextRoutineDate = time.Date(tempDate.Year(), tempDate.Month(), 1, 0, 0, 0, 0, time.Now().Location())
 		} else {
-			nextRoutineDate = timeNow
+			nextRoutineDate = startTime
 		}
 		// nextRoutineDate = timeNow.AddDate(0, monthsDiffMin, 1-timeNow.Day())
 	}

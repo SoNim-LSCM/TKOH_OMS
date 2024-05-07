@@ -1,6 +1,8 @@
 package config
 
 import (
+	"os"
+
 	"github.com/gofiber/fiber/v2"
 	fiberSwagger "github.com/swaggo/fiber-swagger"
 
@@ -9,5 +11,6 @@ import (
 
 func AddSwaggerRoutes(app *fiber.App) {
 	// setup swagger
-	app.Get("/oms/swagger/*", fiberSwagger.WrapHandler)
+	url := os.Getenv("URL")
+	app.Get("/"+url+"/swagger/*", fiberSwagger.WrapHandler)
 }

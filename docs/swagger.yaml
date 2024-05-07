@@ -1,4 +1,3 @@
-basePath: /oms/
 definitions:
   dto.AddDeliveryOrderDTO:
     properties:
@@ -13,6 +12,8 @@ definitions:
       numberOfAmrRequire:
         type: integer
       orderType:
+        type: string
+      robotId:
         type: string
       routineId:
         type: integer
@@ -34,6 +35,10 @@ definitions:
       numberOfAmrRequire:
         type: integer
       orderType:
+        type: string
+      periodEndTime:
+        type: string
+      periodStartTime:
         type: string
       routinePattern:
         properties:
@@ -135,6 +140,10 @@ definitions:
       numberOfAmrRequire:
         type: integer
       orderType:
+        type: string
+      periodEndTime:
+        type: string
+      periodStartTime:
         type: string
       routineId:
         type: integer
@@ -347,6 +356,10 @@ definitions:
               type: integer
             orderType:
               type: string
+            periodEndTime:
+              type: string
+            periodStartTime:
+              type: string
             routineCreatedBy:
               type: integer
             routineId:
@@ -416,8 +429,12 @@ definitions:
           properties:
             batteryLevel:
               type: integer
+            jobId:
+              type: integer
             lastReportTime:
               type: string
+            orderId:
+              type: integer
             robotCoordination:
               items:
                 type: integer
@@ -473,7 +490,6 @@ definitions:
       scheduleId:
         type: integer
     type: object
-host: 20.239.95.146
 info:
   contact:
     name: So Nim Wai

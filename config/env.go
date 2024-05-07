@@ -7,8 +7,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-const projectDirName = "tkoh_oms" // change to relevant project name
-
 // this function will load the .env file if the GO_ENV environment variable is not set
 func LoadENV() error {
 	ex, err := os.Executable()

@@ -21,4 +21,5 @@ type Orders struct {
 	LastUpdateTime       string `json:"lastUpdateTime" gorm:"type:date;column:last_update_time"`
 	LastUpdateBy         int    `json:"lastUpdateBy"`
 	JobID                int    `json:"jobId"`
+	SpecifiedRobotId     string `json:"specifiedRobotId"`
 }

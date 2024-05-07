@@ -847,6 +847,9 @@ const docTemplate = `{
                 "orderType": {
                     "type": "string"
                 },
+                "robotId": {
+                    "type": "string"
+                },
                 "routineId": {
                     "type": "integer"
                 },
@@ -877,6 +880,12 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "orderType": {
+                    "type": "string"
+                },
+                "periodEndTime": {
+                    "type": "string"
+                },
+                "periodStartTime": {
                     "type": "string"
                 },
                 "routinePattern": {
@@ -1032,6 +1041,12 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "orderType": {
+                    "type": "string"
+                },
+                "periodEndTime": {
+                    "type": "string"
+                },
+                "periodStartTime": {
                     "type": "string"
                 },
                 "routineId": {
@@ -1361,6 +1376,12 @@ const docTemplate = `{
                             "orderType": {
                                 "type": "string"
                             },
+                            "periodEndTime": {
+                                "type": "string"
+                            },
+                            "periodStartTime": {
+                                "type": "string"
+                            },
                             "routineCreatedBy": {
                                 "type": "integer"
                             },
@@ -1514,8 +1535,14 @@ const docTemplate = `{
                             "batteryLevel": {
                                 "type": "integer"
                             },
+                            "jobId": {
+                                "type": "integer"
+                            },
                             "lastReportTime": {
                                 "type": "string"
+                            },
+                            "orderId": {
+                                "type": "integer"
                             },
                             "robotCoordination": {
                                 "type": "array",
@@ -1569,8 +1596,8 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "0.1",
-	Host:             "20.239.95.146",
-	BasePath:         "/oms/",
+	Host:             "",
+	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "TKOH OMS",
 	Description:      "TKOH OMS Backend Server",

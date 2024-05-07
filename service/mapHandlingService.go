@@ -110,6 +110,25 @@ func BackgroundReportRobotStatus(floors []db_models.Floors) error {
 		return errors.New("Get Robot Status from RFMS Failed")
 	}
 
+	database.CheckDatabaseConnection()
+	err = database.DB.Transaction(func(tx *gorm.DB) error {
+		for i, robot := range updateJobStatus.Body.RobotList {
+			if robot.JobID != 0 {
+				job := db_models.Jobs{}
+				err = FindRecords(tx, &job, "jobs", "job_id = ?", robot.JobID)
+				if err != nil {
+					return err
+				}
+				// log.Printf("Order ID for Job %d is: %d", robot.JobID, job.OrderID)
+				updateJobStatus.Body.RobotList[i].OrderID = job.OrderID
+			}
+		}
+		return nil
+	})
+	if err != nil {
+		return err
+	}
+
 	wsResponse := ws_model.GetUpdateRobotResponse(updateJobStatus.Body.RobotList.CalculateCoordination(floors))
 
 	log.Printf("BackgroundReportRobotStatus: %s", wsResponse)

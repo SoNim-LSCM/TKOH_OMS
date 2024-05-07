@@ -16,6 +16,8 @@ type RobotList []struct {
 	RobotCoordination []int     `json:"robotCoordination"`
 	BatteryLevel      int       `json:"batteryLevel"`
 	LastReportTime    string    `json:"lastReportTime"`
+	JobID             int       `json:"jobId"`
+	OrderID           int       `json:"orderId"`
 }
 
 func (robotList RobotList) CalculateCoordination(floors []db_models.Floors) (newList RobotList) {

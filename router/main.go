@@ -1,6 +1,7 @@
 package router
 
 import (
+	"os"
 	"tkoh_oms/handlers"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,7 +10,8 @@ import (
 func SetupRoutes(app *fiber.App) {
 
 	// setup the oms group
-	oms := app.Group("/oms")
+	url := os.Getenv("URL")
+	oms := app.Group("/" + url)
 
 	// Health Check
 	oms.Get("/health", handlers.HandleHealthCheck)

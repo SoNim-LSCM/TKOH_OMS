@@ -14,4 +14,6 @@ type RoutineOrderList []struct {
 	EndLocationID        int            `json:"endLocationId"`
 	EndLocationName      string         `json:"endLocationName"`
 	ExpectedDeliveryTime string         `json:"expectedDeliveryTime"`
+	PeriodStartTime      string         `json:"periodStartTime"`
+	PeriodEndTime        string         `json:"periodEndTime"`
 }
