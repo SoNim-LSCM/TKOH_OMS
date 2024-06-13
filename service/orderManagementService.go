@@ -610,10 +610,11 @@ func BackgroundInitOrderToRFMS() error {
 
 		for _, job := range jobs {
 			err := database.DB.Transaction(func(tx *gorm.DB) error {
-				param := rfms.CreateJobRequest{JobNature: job.JobType, LocationID: job.EndLocationID, RobotID: job.RobotID, PayloadID: job.PayloadID, UpstreamOrderId: job.OrderID}
+				param := rfms.CreateJobRequest{JobNature: job.JobType, LocationID: job.EndLocationID, RobotID: job.RobotID, PayloadID: job.PayloadID, UpstreamOrderId: job.OrderID, UpstreamOrderType: job.OrderCreatedType}
 				if job.JobType == "PARK" {
-					param = rfms.CreateJobRequest{JobNature: job.JobType, RobotID: job.RobotID, PayloadID: job.PayloadID, UpstreamOrderId: job.OrderID}
+					param = rfms.CreateJobRequest{JobNature: job.JobType, RobotID: job.RobotID, PayloadID: job.PayloadID, UpstreamOrderId: job.OrderID, UpstreamOrderType: job.OrderCreatedType}
 				}
+				log.Printf("Create Job with job: %s", param)
 				response, err := apiHandler.Post("/createJob", param)
 				if err != nil {
 					return err
@@ -625,7 +626,18 @@ func BackgroundInitOrderToRFMS() error {
 					return err
 				}
 				if updateJobStatus.ResponseMessage == "FAILED" {
-					return errors.New("Create Job Failed")
+					log.Printf("Create Job failed with response: %s", updateJobStatus)
+					if job.JobType == "PARK" && job.JobID == 0 {
+						updateJobStatus.Body.Status = "COMPLETED"
+						request := updateJobStatus.Body
+						_, err := apiHandler.SelfPost("/reportJobStatus", request)
+						if err != nil {
+							return err
+						}
+						return nil
+					} else {
+						return errors.New("Create Job Failed")
+					}
 				}
 				est, err := utils.StringToDatetime(updateJobStatus.Body.Est)
 				if err != nil {
@@ -747,7 +759,8 @@ func BackgroundInitOrderToRFMS() error {
 					return errors.New("Unknown Order Type")
 				}
 
-				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: locations[0], RobotID: order.SpecifiedRobotId, UpstreamOrderId: order.OrderID}
+				param := rfms.CreateJobRequest{JobNature: jobNatures[0], LocationID: locations[0], RobotID: order.SpecifiedRobotId, UpstreamOrderId: order.OrderID, UpstreamOrderType: order.OrderCreatedType}
+				log.Printf("Create Job with job: %s", param)
 				response, err := apiHandler.Post("/createJob", param)
 				if err != nil {
 					return err
@@ -774,7 +787,7 @@ func BackgroundInitOrderToRFMS() error {
 				if err != nil {
 					return err
 				}
-				newJob := db_models.Jobs{OrderID: order.OrderID, JobID: updateJobStatus.Body.JobID, JobType: jobNatures[0], JobStatus: updateJobStatus.Body.Status, ProcessingStatus: updateJobStatus.Body.ProcessingStatus, JobStartTime: est, ExpectedArrivalTime: eta, EndLocationID: updateJobStatus.Body.LocationId, FailedReason: updateJobStatus.FailReason, LastUpdateTime: lastUpdateTime, StatusLocation: statusLocation[0]}
+				newJob := db_models.Jobs{OrderID: order.OrderID, JobID: updateJobStatus.Body.JobID, JobType: jobNatures[0], JobStatus: updateJobStatus.Body.Status, ProcessingStatus: updateJobStatus.Body.ProcessingStatus, JobStartTime: est, ExpectedArrivalTime: eta, EndLocationID: updateJobStatus.Body.LocationId, FailedReason: updateJobStatus.FailReason, LastUpdateTime: lastUpdateTime, StatusLocation: statusLocation[0], OrderCreatedType: order.OrderCreatedType}
 				newJobs := append([]db_models.Jobs{}, newJob)
 				for i, jobNature := range jobNatures {
 					if i > 0 {
@@ -782,7 +795,7 @@ func BackgroundInitOrderToRFMS() error {
 						if err != nil {
 							return err
 						}
-						newJob := db_models.Jobs{OrderID: order.OrderID, JobID: 0, JobType: jobNature, JobStatus: "WAIT_FOR_PREVIOUS_JOB_END", ProcessingStatus: "UNKNOWN", JobStartTime: defaultTime, ExpectedArrivalTime: defaultTime, EndLocationID: locations[i], FailedReason: updateJobStatus.FailReason, LastUpdateTime: defaultTime, StatusLocation: statusLocation[i]}
+						newJob := db_models.Jobs{OrderID: order.OrderID, JobID: 0, JobType: jobNature, JobStatus: "WAIT_FOR_PREVIOUS_JOB_END", ProcessingStatus: "UNKNOWN", JobStartTime: defaultTime, ExpectedArrivalTime: defaultTime, EndLocationID: locations[i], FailedReason: updateJobStatus.FailReason, LastUpdateTime: defaultTime, StatusLocation: statusLocation[i], OrderCreatedType: order.OrderCreatedType}
 						newJobs = append(newJobs, newJob)
 					}
 				}

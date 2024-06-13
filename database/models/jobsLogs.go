@@ -16,4 +16,5 @@ type JobsLogs struct {
 	StatusLocation      string `json:"status_location"`
 	RobotID             string `json:"robotId"`
 	PayloadID           string `json:"payloadId"`
+	OrderCreatedType    string `json:"orderCreatedType"`
 }
