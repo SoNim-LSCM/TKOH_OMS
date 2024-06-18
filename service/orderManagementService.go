@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -105,23 +106,40 @@ func AddOrders(orderRequests []dto.AddDeliveryOrderDTO, userId int, orderCreated
 func AddRoutines(routineRequest dto.AddRoutineDTO, userId int) (orderManagement.RoutineOrderList, error) {
 	database.CheckDatabaseConnection()
 	var routineOrderList orderManagement.RoutineOrderList
-	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		// translate order request to routines
-		routines, err := RoutineRequestToRoutines(routineRequest, userId)
-		if err != nil {
-			return err
-		}
+	// translate order request to routineList
+	routineList, err := RoutineRequestToRoutines(routineRequest, userId)
+	if err != nil {
+		return routineOrderList, err
+	}
+	err = database.DB.Transaction(func(tx *gorm.DB) error {
 		// create new orders
-		if err := AddRecords(tx, routines); err != nil {
+		if err := AddRecords(tx, routineList); err != nil {
 			return err
 		}
 		// translate new routine to routine response
-		routineOrderList, err = RoutineListToRoutineResponse(routines)
+		routineOrderList, err = RoutineListToRoutineResponse(routineList)
 		if err != nil {
 			return err
 		}
 		return nil
 	})
+	if err != nil {
+		return routineOrderList, err
+	}
+
+	addDeliveryOrderDTO, err := singleRoutineToAddDeliveryOrderDTO(routineList[0], true)
+	if err != nil {
+		return routineOrderList, nil
+	}
+
+	addDeliveryOrderDTOList := []dto.AddDeliveryOrderDTO{}
+	addDeliveryOrderDTOList = append(addDeliveryOrderDTOList, addDeliveryOrderDTO)
+	if len(addDeliveryOrderDTOList) > 0 {
+		_, err = AddOrders(addDeliveryOrderDTOList, 0, "ROUTINE")
+		if err != nil {
+			return routineOrderList, err
+		}
+	}
 
 	return routineOrderList, err
 }
@@ -459,34 +477,34 @@ func OrderListToOrderResponse(orderList []db_models.Orders) (orderManagement.Ord
 }
 
 func RoutineRequestToRoutines(routinesRequest dto.AddRoutineDTO, userId int) ([]db_models.Routines, error) {
-	var routinesList []db_models.Routines
 	var routines db_models.Routines
+	var routineList []db_models.Routines
 	bJson, err := json.Marshal(routinesRequest)
 	if err != nil {
-		return routinesList, err
+		return routineList, err
 	}
 	json.Unmarshal(bJson, &routines)
 	if err != nil {
-		return routinesList, err
+		return routineList, err
 	}
 	routines.LastUpdateBy = userId
 	routines.RoutineCreatedBy = userId
 	routines.LastUpdateTime = utils.GetTimeNowString()
 	routines.RoutinePattern, err = RoutinePatternToString(routinesRequest.RoutinePattern)
 	if err != nil {
-		return routinesList, nil
+		return routineList, nil
 	}
 	routines.ExpectedDeliveryTime, err = utils.StringToDatetime(routinesRequest.ExpectedDeliveryTime)
 	if err != nil {
-		return routinesList, err
+		return routineList, err
 	}
 	routines.ExpectedStartTime, err = utils.StringToDatetime(routinesRequest.ExpectedStartTime)
 	if err != nil {
-		return routinesList, err
+		return routineList, err
 	}
 	routines.PeriodStartTime, err = utils.StringToDatetime(routinesRequest.PeriodStartTime)
 	if err != nil {
-		return routinesList, err
+		return routineList, err
 	}
 	// set period end time to maximum value if end time is unset
 	if routinesRequest.PeriodEndTime == "" {
@@ -494,10 +512,14 @@ func RoutineRequestToRoutines(routinesRequest dto.AddRoutineDTO, userId int) ([]
 	}
 	routines.PeriodEndTime, err = utils.StringToDatetime(routinesRequest.PeriodEndTime)
 	if err != nil {
-		return routinesList, err
+		return routineList, err
 	}
-	routinesList = append(routinesList, routines)
-	return routinesList, nil
+
+	// 18-June updates: set routines to be active by default
+	routines.IsActive = true
+	routineList = append(routineList, routines)
+
+	return routineList, nil
 }
 
 func RoutineListToRoutineResponse(routineList []db_models.Routines) (orderManagement.RoutineOrderList, error) {
@@ -846,28 +868,49 @@ func BackgroundInitOrderToRFMS() error {
 
 func RoutinesToAddDeliveryOrderDTO(routines []db_models.Routines) ([]dto.AddDeliveryOrderDTO, error) {
 	addDeliveryOrderDTO := []dto.AddDeliveryOrderDTO{}
-	today := utils.GetTimeNow().Format("20060102")
 	for _, routine := range routines {
-		pattern := orderManagement.RoutinePattern{}
-		// bJson, err := json.Marshal(routine.RoutinePattern)
-		// if err != nil {
-		// 	return addDeliveryOrderDTO, err
-		// }
-		err := json.Unmarshal([]byte(routine.RoutinePattern), &pattern)
+		singleDeliveryOrderDTO, err := singleRoutineToAddDeliveryOrderDTO(routine, false)
 		if err != nil {
 			return addDeliveryOrderDTO, err
 		}
-		nextDeliveryDate, err := GetNextDeliveryDate(pattern, utils.GetTimeNowString())
-		if err != nil {
-			return addDeliveryOrderDTO, err
-		}
-		if nextDeliveryDate == today {
-			expectedStartTime := strings.Replace(routine.ExpectedStartTime, "1970-01-01", strings.Split(utils.GetTimeNowString(), " ")[0], 1)
-			expectedDeliveryTime := strings.Replace(routine.ExpectedDeliveryTime, "1970-01-01", strings.Split(utils.GetTimeNowString(), " ")[0], 1)
-			addDeliveryOrderDTO = append(addDeliveryOrderDTO, dto.AddDeliveryOrderDTO{OrderType: routine.OrderType, NumberOfAmrRequire: routine.NumberOfAmrRequire, StartLocationID: routine.StartLocationID, StartLocationName: routine.StartLocationName, ExpectedStartTime: expectedStartTime, EndLocationID: routine.EndLocationID, EndLocationName: routine.EndLocationName, RoutineID: routine.RoutineID, ExpectedDeliveryTime: expectedDeliveryTime})
-		}
+		addDeliveryOrderDTO = append(addDeliveryOrderDTO, singleDeliveryOrderDTO)
 	}
 	return addDeliveryOrderDTO, nil
+}
+
+func singleRoutineToAddDeliveryOrderDTO(routine db_models.Routines, isAddRoutine bool) (dto.AddDeliveryOrderDTO, error) {
+	singleDeliveryOrderDTO := dto.AddDeliveryOrderDTO{}
+	today := utils.GetTimeNow().Format("20060102")
+	pattern := orderManagement.RoutinePattern{}
+	// bJson, err := json.Marshal(routine.RoutinePattern)
+	// if err != nil {
+	// 	return addDeliveryOrderDTO, err
+	// }
+	err := json.Unmarshal([]byte(routine.RoutinePattern), &pattern)
+	if err != nil {
+		return singleDeliveryOrderDTO, err
+	}
+	nextDeliveryDate, err := GetNextDeliveryDate(pattern, utils.GetTimeNowString())
+	if err != nil {
+		return singleDeliveryOrderDTO, err
+	}
+	if nextDeliveryDate == today {
+		expectedStartTime := strings.Replace(routine.ExpectedStartTime, "1970-01-01", strings.Split(utils.GetTimeNowString(), " ")[0], 1)
+		expectedDeliveryTime := strings.Replace(routine.ExpectedDeliveryTime, "1970-01-01", strings.Split(utils.GetTimeNowString(), " ")[0], 1)
+		if isAddRoutine {
+			timeObj, err := time.Parse("2006-01-02 15:04:05", expectedStartTime)
+			if err != nil {
+				return singleDeliveryOrderDTO, err
+			}
+			if timeObj.Before(utils.GetTimeNow()) {
+				return singleDeliveryOrderDTO, errors.New("Attempting to create routine order starts before current time.")
+			}
+		}
+		singleDeliveryOrderDTO = dto.AddDeliveryOrderDTO{OrderType: routine.OrderType, NumberOfAmrRequire: routine.NumberOfAmrRequire, StartLocationID: routine.StartLocationID, StartLocationName: routine.StartLocationName, ExpectedStartTime: expectedStartTime, EndLocationID: routine.EndLocationID, EndLocationName: routine.EndLocationName, RoutineID: routine.RoutineID, ExpectedDeliveryTime: expectedDeliveryTime}
+	} else {
+		return singleDeliveryOrderDTO, errors.New("Attempting to create routine order starts after today.")
+	}
+	return singleDeliveryOrderDTO, nil
 }
 
 func UpdateOrderFromRFMS(request dto.ReportJobStatusDTO) (orderManagement.OrderList, error) {
@@ -875,6 +918,9 @@ func UpdateOrderFromRFMS(request dto.ReportJobStatusDTO) (orderManagement.OrderL
 	orderList := orderManagement.OrderList{}
 	database.CheckDatabaseConnection()
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		if newJobStatus.JobID == 0 {
+			return errors.New("Invalid Job ID: Job ID = 0")
+		}
 		// check if job status is already sent, skips if yes
 		updatingJob := []db_models.Jobs{}
 		FindRecords(tx, &updatingJob, "jobs", "job_id = ? and job_status = ? ", newJobStatus.JobID, "COMPLETED")
@@ -1279,7 +1325,7 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern, startTim
 	} else if routinePattern.Day != nil && len(routinePattern.Day) > 0 {
 		// timeNow.Date(timeNow.Year(), timeNow.Month(), routinePattern.Day)
 		currentMonth := startTime.Month()
-		var monthsDiffMin = 12
+		monthsDiffList := []int{}
 		// var nextRoutineDay = 0
 
 		if routinePattern.Month != nil && len(routinePattern.Month) > 0 {
@@ -1288,30 +1334,25 @@ func GetNextDeliveryDate(routinePattern orderManagement.RoutinePattern, startTim
 				if monthsDiff < 0 {
 					monthsDiff += 12
 				}
-				if monthsDiff < monthsDiffMin {
-					monthsDiffMin = monthsDiff
-				}
+				monthsDiffList = append(monthsDiffList, monthsDiff)
 			}
 		} else {
-			monthsDiffMin = 0
+			monthsDiffList = []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
 		}
 
-		if monthsDiffMin == 0 {
-			added := false
+		sort.Slice(monthsDiffList, func(i, j int) bool {
+			return monthsDiffList[i] < monthsDiffList[j]
+		})
+
+		monthsDiffList = append(monthsDiffList, monthsDiffList[0]+12)
+
+		for _, monthsDiff := range monthsDiffList {
 			for _, day := range routinePattern.Day {
-				if day > startTime.Day() {
-					nextRoutineDate = time.Date(startTime.Year(), startTime.Month(), day, 0, 0, 0, 0, time.Now().Location())
-					added = true
-					break
+				nextRoutineDate = time.Date(startTime.Year(), startTime.Month()+time.Month(monthsDiff), day, 0, 0, 0, 0, time.Now().Location())
+				if nextRoutineDate.After(utils.GetTimeNow()) {
+					return nextRoutineDate.Format("20060102"), nil
 				}
 			}
-			if !added {
-				tempDate := startTime.AddDate(0, monthsDiffMin, 0)
-				nextRoutineDate = time.Date(tempDate.Year(), tempDate.Month()+1, routinePattern.Day[0], 0, 0, 0, 0, time.Now().Location())
-			}
-		} else {
-			tempDate := startTime.AddDate(0, monthsDiffMin, 0)
-			nextRoutineDate = time.Date(tempDate.Year(), tempDate.Month(), routinePattern.Day[0], 0, 0, 0, 0, time.Now().Location())
 		}
 
 	} else if routinePattern.Month != nil && len(routinePattern.Month) > 0 {
